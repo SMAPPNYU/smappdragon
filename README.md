@@ -7,7 +7,7 @@
                     |_|   |_|                    |___/             
 ```
 
-smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolkit` that will import smapp dragon and buid the high level interface.
+smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolkit` that will import smapp dragon and buid the high level interface. Plotting figures, aggregating, and other non standard data operations will be in the new `smapptoolkit`.
 
 ##testing 
 
@@ -24,5 +24,17 @@ Tests the BSONCollection class. Tests the count, containing, since, until, and a
 ##testmongocollection.py
 
 Tests the MongoCollection class. Tests the count, containing, since, until, and a daterange query.
+
+##tweetcollections
+
+A folder that contains the different tweet collection objects.
+
+##basecollection
+
+##bsoncollection
+
+##mongocollection
+
+##jsoncollection
 
 
