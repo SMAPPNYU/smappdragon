@@ -33,6 +33,7 @@ class BaseCollection(object):
 	'''
 	def top_entities(self, requested_entities):
 		returndict = {}
+		returnstructure = {}
 		for tweet in self.get_iterator():
 			for entity_type in requested_entities:
 				for entity in TweetParser.get_entity(entity_type, tweet):
@@ -42,8 +43,6 @@ class BaseCollection(object):
 						returndict[entity_type][TweetParser.get_entity_field('text', entity)] += 1
 					else:
 						returndict[entity_type][TweetParser.get_entity_field('url', entity)] += 1
-
-		returnstructure = {}
 		for entity_type in returndict:
 			if len(returndict[entity_type]) < 1:
 				returnstructure[entity_type] = {}
