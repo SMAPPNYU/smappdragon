@@ -1,8 +1,8 @@
 import abc
-from smappPy.text_clean import get_cleaned_tokens
+import tweet_parser import TweetParser
 
 ## Declare a class that inherits from object
-class BaseCollection (object) :
+class BaseCollection(object):
 
 	## declare this class to be an 
 	## abstract base class (ABC)
@@ -33,47 +33,21 @@ class BaseCollection (object) :
 	'''
 	def top_entities(self, requested_entities):
 		returndict = {}
-		for tweet in self.:
+		for tweet in self.get_iterator():
 
-			if requested_entities['urls']:
-				for url in get_urls(tweet):
-					returndict['urls'][url] += 1
-
-			if requested_entities['imageurls']:
-				for imageurl in get_image_urls(tweet):
-					returndict['imageurls'][imageurl] += 1
-
-			if requested_entities['hashtags']:
-				for hashtag in get_hashtags(tweet):
-					returndict['hashtags'][hashtag] += 1
-
-			if requested_entities['mentions']:
-				for mention in get_users_mentioned:
-					returndict['mentions'][mention] += 1
-
-			if requested_entities['geolocations']:
-				if 'place' in tweet and tweet['place'] is not None:
-					returndict['geolocations'][tweet['place']['full_name']] += 1
-				else:
-					returndict['geolocations'][None] += 1
-
-			if requested_entities['userlocations']:
-				if 'location' in tweet['user']:
-					returndict['userlocations'][tweet['user']['location']] += 1
-				else:
-					returndict['userlocations'][None] += 1
+			for entity_type in requested_entities:
+				for entity in TweetParser.get_entity(entity_type, tweet):
+					if entity_type == 'user_mentions':
+						returndict[entity_type][TweetParser.get_entity_field('id_str', entity)] += 1
+					elif entity_type == 'hashtags' or entity_type == 'symbols':
+						returndict[entity_type][TweetParser.get_entity_field('text', entity)] += 1
+					else:
+						returndict[entity_type][TweetParser.get_entity_field('url', entity)] += 1
 
 			if requested_entities['ngrams']:
 				#each of these being fed to get_cleaned_tokens
 				#is a boolean value stored in the dictionary
-				tokens = get_cleaned_tokens(tweet['text']
-							,keep_hashtags = requested_entities['ngrams']['hashtags']
-							,keep_mentions = requested_entities['ngrams']['mentions']
-							,rts = requested_entities['ngrams']['retweets']
-							,mts = requested_entities['ngrams']['mentions']
-							,https = requested_entities['ngrams']['urls']
-							,stopwords = requested_entities['ngrams']['stopwords']
-					)
+				tokens = TweetParser.tokenize_tweet(tweet)
 				for ngram in requested_entities['ngrams']['ngrams']:
 					#get the ngrams for this particular ngram level 
 					#unigram, bigram, tri gram; so this will get all the
