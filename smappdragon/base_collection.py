@@ -34,7 +34,6 @@ class BaseCollection(object):
 	def top_entities(self, requested_entities):
 		returndict = {}
 		for tweet in self.get_iterator():
-
 			for entity_type in requested_entities:
 				for entity in TweetParser.get_entity(entity_type, tweet):
 					if entity_type == 'user_mentions':
@@ -46,23 +45,15 @@ class BaseCollection(object):
 
 		returnstructure = {}
 		for entity_type in returndict:
-			#if the counter is empty
-			#return empty series
 			if len(returndict[entity_type]) < 1:
 				returnstructure[entity_type] = {}
-			##if it's not empty
 			else:
-				#if the number given
-				#is not empty
-				if requested_entities[entity_type]['number']:
-					#set names and counts to 
-					names, counts = zip(*returndict[entity_type].most_common(requested_entities[entity_type]['number']))
-				#if the number requested is empty
-				#returns everything
+				if requested_entities[entity_type]['top_number']:
+					names, counts = zip(*returndict[entity_type].most_common(requested_entities[entity_type]['top_number']))
 				else:
 					names, counts = zip(*returndict[entity_type].items())
 				# for each entity type produce a dictionary with the name
-				# of a particular entity object and its count
+				# of a particular entity object and its frequency
 				returnstructure[entity_type] = {name: count for name, count in zip(names, counts)}
 		return returnstructure
 
