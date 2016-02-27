@@ -9,6 +9,14 @@
 
 smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolbox` that will import smapp dragon and buid the high level interface. Plotting figures, aggregating, and other non standard data operations will be in the new `smapptoolbox`.
 
+- [collection](https://github.com/SMAPPNYU/smappdragon#collection)
+	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongocollection)
+	- [base_collection](https://github.com/SMAPPNYU/smappdragon#basecollection)
+		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
+
+
+	
+
 ##testing 
 
 You absolutely need to write unit tests for any methods you add to smappdragon, this software needs to stay as stable as porssible as it will be the basis for other software.
@@ -19,13 +27,9 @@ The `bson` folder contains two bson files on which to run tests. One if a valid.
 
 ##collection
 
-classes for interfacing with a mongodb database of tweets
+classes for interfacing with a tweets from different data sources
 
-##basecollection
-
-this is the base class for all collection objects. methods taht all collection objects use are found here. this is actually the most important class.
-
-##mongocollection
+##mongo_collection
 
 this allows you to plug into a running live mongodb database and run smappdragon methods on the resulting collection object. 
 
@@ -68,6 +72,10 @@ config = {
 ```
 
 this config is used for testing it is gitignored.
+
+##base_collection
+
+this is the base class for all collection objects. methods taht all collection objects use are found here. this is actually the most important class.
 
 ##top_entities
 
