@@ -238,7 +238,7 @@ print tweet_parser.get_entity_field('url', {
       "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
       "indices": [80, 103] \
 	})
-# would output
+# the second would output
 'https://t.co/XdXRudPXH5'
 ```
 
