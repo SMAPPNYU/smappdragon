@@ -229,11 +229,10 @@ tweet_parser.get_entity_field(field, entity)
 
 practical:
 ```python
-for entity in tweet_parser.get_entity(entity_type, tweet):
-	if entity_type == 'user_mentions':
-		entity_value = tweet_parser.get_entity_field('id_str', entity)
+for entity in tweet_parser.get_entity('user_mentions', tweet):
+	entity_value = tweet_parser.get_entity_field('id_str', entity)
 # or
-tweet_parser.get_entity_field('id_str', {
+tweet_parser.get_entity_field('url', {
       "url": "https:\/\/t.co\/XdXRudPXH5", \
       "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
       "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
@@ -242,3 +241,5 @@ tweet_parser.get_entity_field('id_str', {
 ```
 
 *returns* the value stored in this entity object in the field you specified
+
+note: those urls look weird, they are just escaped, it's where you put a `\` in front of every `/`
