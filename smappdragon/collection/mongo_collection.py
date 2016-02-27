@@ -39,6 +39,7 @@ class MongoCollection(BaseCollection):
 	'''
 	def limit(self, tweet_limit):
 		self.limit = tweet_limit
+		return self
 
 	def filters(self):
 		return {}
