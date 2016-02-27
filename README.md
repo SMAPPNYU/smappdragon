@@ -31,9 +31,9 @@ this allows you to plug into a running live mongodb database and run smappdragon
 
 abstract:
 ```python
-	from smappdragon import MongoCollection
+from smappdragon import MongoCollection
 
-	collection = MongoCollection('HOST', PORT, 'USER_NAME', 'PASSWORD', 'DB_NAME', 'COLLECTION_NAME')
+collection = MongoCollection('HOST', PORT, 'USER_NAME', 'PASSWORD', 'DB_NAME', 'COLLECTION_NAME')
 ```
 
 practical:
@@ -85,7 +85,9 @@ practical:
 
 input:
 ```python
-print MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'Jade_Helm_1', 'tweet_collection_name').top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
+collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'Jade_Helm_1', 'tweet_collection_name')
+
+print collection.top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
 ```
 
 output:
@@ -128,9 +130,3 @@ note: if not enough entity objects are returned they get filled into the diction
 	}
 }
 ```
- 
-
-
-
-
-
