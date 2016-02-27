@@ -66,3 +66,6 @@ target/
 
 #cofig.py in tests/
 tests/config.py
+
+.DS_STORE
+.DS_Store
