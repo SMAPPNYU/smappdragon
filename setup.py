@@ -9,8 +9,8 @@ if not sys.version_info.major < 3:
     sys.exit(1)
 
 setup(name='smappdragon',
-	packages=['smappdragon'],
-	version='0.0.2',
+	packages=['smappdragon', 'smappdragon.collection', 'smappdragon.tools'],
+	version='0.0.3',
 	description='smappdragon is a set of tools for working with twitter data',
 	author='yvan',
 	author_email='yns207@nyu.edu',
