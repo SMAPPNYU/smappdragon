@@ -71,7 +71,7 @@ this config is used for testing.
 
 ##top_entities
 
-returns the top twitter entites from a tweet object
+returns the top twitter entites from a tweet object, you can [read about twitter entities here](https://dev.twitter.com/overview/api/entities-in-twitter-objects)
 
 abstract:
 ```python
@@ -83,6 +83,12 @@ practical:
 
 *returns* a dictionary containing tho requested entities and the counts for each entity
 
+input:
+```python
+print MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'Jade_Helm_1', 'tweet_collection_name').top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
+```
+
+output:
 ```
 {
     "hashtags": {
@@ -91,9 +97,38 @@ practical:
         "jadehelm": 111, 
         "falseflag": 32, 
         "2a": 26
+    },
+    "user_mentions": {
+        "1619936671": 41, 
+        "27234909": 56, 
+        "733417892": 121, 
+        "10228272": 75, 
+        "233498836": 58
+    }, 
+    "media": {
+        "https://t.co/ORaTXOM2oX": 55, 
+        "https://t.co/pAfigDPcNc": 27, 
+        "https://t.co/TH8TmGuYww": 24
     }
 }
 ```
+
+*returns* a dictionary filled with the top terms you requested
+
+note: no support for extended entities, retweet entities, user entites, or direct message entities.
+
+note: if not enough entity objects are returned they get filled into the dictionary with null like so:
+
+```
+{
+	"symbols": {
+	    "0": null, 
+	    "1": null, 
+	    "hould": 1
+	}
+}
+```
+ 
 
 
 
