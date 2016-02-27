@@ -1,4 +1,3 @@
-import json
 import unittest
 from config import *
 from smappdragon import MongoCollection
