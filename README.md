@@ -39,10 +39,27 @@ returns the top twitter entites from a tweet object
 
 this allows you to plug into a running live mongodb database and run smappdragon methods on the resulting collection object. 
 
+abstract:
+```python
+	from smappdragon import MongoCollection
+
+	collection = MongoCollection('HOST', PORT, 'USER_NAME', 'PASSWORD', 'DB_NAME', 'COLLECTION_NAME')
+```
+
+practical:
+```python
+	from smappdragon import MongoCollection
+	
+	collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'GERMANY_ELECTION_2015_Nagler', 'tweet_collection_name')
+```
+
+*returns* a collection object that can have methods called on it
+
 test:
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
+```python
 config = {
 	'mongo':{
 		'host': 'HOSTNAME',
@@ -58,6 +75,7 @@ config = {
 		.
 	}
 }
+```
 
 only put a thing you want to test in there.
 
