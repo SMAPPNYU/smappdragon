@@ -10,8 +10,8 @@
 smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolbox` that will import smapp dragon and buid the high level interface. Plotting figures, aggregating, and other non standard data operations will be in the new `smapptoolbox`.
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
-	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongocollection)
-	- [base_collection](https://github.com/SMAPPNYU/smappdragon#basecollection)
+	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
+	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
