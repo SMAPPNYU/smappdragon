@@ -17,7 +17,11 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
-		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
+		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field
+
+##distribution
+
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
 
 ##testing 
 

@@ -9,13 +9,14 @@ if not sys.version_info.major < 3:
     sys.exit(1)
 
 setup(name='smappdragon',
+	packages=['smappdragon'],
 	version='0.0.1',
 	description='smappdragon is a set of tools for working with twitter data',
 	author='yvan',
-	license='MIT',
 	author_email='yns207@nyu.edu',
 	url='https://github.com/SMAPPNYU/smappdragon',
-	packages=['smappdragon'],
+	keywords='twitter parse smappdragon',
+	license='MIT',
 	install_requires=[
 	  'pymongo>=3.2.1'
 	]
