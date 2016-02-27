@@ -161,6 +161,8 @@ tweet_parser = TweetParser()
 
 *returns* an instance of the TweetParser class that can textract data from tweets or entities
 
+test: `python -m unittest tests.test_tweet_parser`
+
 ##contains_entity
 
 tells you wether or not a tweet object has a certain [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols)
