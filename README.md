@@ -38,9 +38,9 @@ collection = MongoCollection('HOST', PORT, 'USER_NAME', 'PASSWORD', 'DB_NAME', '
 
 practical:
 ```python
-	from smappdragon import MongoCollection
-	
-	collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'GERMANY_ELECTION_2015_Nagler', 'tweet_collection_name')
+from smappdragon import MongoCollection
+
+collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'GERMANY_ELECTION_2015_Nagler', 'tweet_collection_name')
 ```
 
 *returns* a collection object that can have methods called on it
@@ -75,18 +75,20 @@ returns the top twitter entites from a tweet object, you can [read about twitter
 
 abstract:
 ```python
+collection.top_entities({'ENTITY_FIELD':NUMBER_OF_TOP_TERMS, 'ENTITY_FIELD':NUMBER_OF_TOP_TERMS, 'ENTITY_FIELD':NUMBER_OF_TOP_TERMS})
 ```
 
 practical:
 ```python
+collection.top_entities({'user_mentions':5, 'media':3, 'hashtags':5, 'urls':0, 'user_mentions':2, 'symbols':2})
+# or
+collection.top_entities({'hashtags':5})
 ```
 
 *returns* a dictionary containing tho requested entities and the counts for each entity
 
 input:
 ```python
-collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'Jade_Helm_1', 'tweet_collection_name')
-
 print collection.top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
 ```
 
@@ -116,6 +118,8 @@ output:
 ```
 
 *returns* a dictionary filled with the top terms you requested
+
+note: passing 0 to a field like `'hashtags':0` returns all the hashtags
 
 note: no support for extended entities, retweet entities, user entites, or direct message entities.
 
