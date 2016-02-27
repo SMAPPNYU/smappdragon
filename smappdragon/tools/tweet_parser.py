@@ -41,9 +41,3 @@ class TweetParser(object):
 	'''
 	def tokenize_tweet(self, tweet):
 		return tweet.text.split()
-
-	'''
-		removes punctuation from a tweet
-	'''
-	def remove_punctuation(self, tweet):
-	    return re.sub(r'[^\w\s]', '', tweet.text, flags=re.U)

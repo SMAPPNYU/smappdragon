@@ -13,9 +13,8 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongocollection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#basecollection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
-
-
-	
+- [tools]()
+	- [tweet_parser]()
 
 ##testing 
 
@@ -142,3 +141,34 @@ note: if not enough entity objects are returned they get filled into the diction
 	}
 }
 ```
+
+##tools
+
+these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source
+
+##tweet_parser
+
+a parser for tweets that can perform all sorts of tsansformations on tweets or extrct data from them easily.
+
+abstract / practical:
+```python
+from smappdragon import TweetParser
+tweet_parser = TweetParser()
+```
+
+##contains_entity
+
+tells you wether or not a tweet object has a certain [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols)
+
+##get_entity
+
+gets a particular list of [twitter entities](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) for you
+
+##get_entity_field
+
+gets the field of a particular [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) object for you
+
+##tokenize_tweet
+
+splits a tweet up into a list of tokens 
+
