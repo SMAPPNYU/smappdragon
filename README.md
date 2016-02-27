@@ -21,6 +21,12 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 
 ##distribution
 
+0 delete old dist directory
+1 bump version in setup.py
+2 `python setup.py sdist`
+3 `python setup.py bdist_wheel`
+4 `twine upload dist/*`
+
 [good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
 
 ##testing 

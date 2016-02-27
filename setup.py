@@ -10,7 +10,7 @@ if not sys.version_info.major < 3:
 
 setup(name='smappdragon',
 	packages=['smappdragon'],
-	version='0.0.1',
+	version='0.0.2',
 	description='smappdragon is a set of tools for working with twitter data',
 	author='yvan',
 	author_email='yns207@nyu.edu',
