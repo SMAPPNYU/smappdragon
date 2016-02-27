@@ -67,7 +67,7 @@ config = {
 }
 ```
 
-this config is used for testing.
+this config is used for testing it is gitignored.
 
 ##top_entities
 
