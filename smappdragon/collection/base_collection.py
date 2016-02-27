@@ -1,60 +1,61 @@
 import abc
-import tweet_parser import TweetParser
+import operator
+from ..tools.tweet_parser import TweetParser
 
-## Declare a class that inherits from object
 class BaseCollection(object):
-
-	## declare this class to be an 
-	## abstract base class (ABC)
 	__metaclass__ = abc.ABCMeta
 
-	## declare an init method that
-	## will be defined in a child class
 	@abc.abstractmethod
-	def __init__ (self) :
+	def __init__(self):
 		pass
 
 	'''
-	returns a list of test values for all 
-	tweets, should return a dictionary
+		returns a list of test values for all 
+		tweets, should return a dictionary
 	'''
 	def get_texts(self):
 		return [tweet[text] for tweet in self]
 
 	'''
-	Top things is a method for getting top things
-	replaces many of the top_ methods we previously
-	had.
-	things requested is a dictionary containing
-	entries with the thing to request (hashtags)
-	and the number we want to reqesut (5) hashtags
-	like so: {"hashtags":5, "links":10} SO much better
-	than having like 15-20 boolean inputs lol.
+		returns a dictionary with
+		counts for the number of 
+		top entities requested
 	'''
 	def top_entities(self, requested_entities):
 		returndict = {}
 		returnstructure = {}
+		tweet_parser = TweetParser()
+		for entity_type in requested_entities:
+			returndict[entity_type] = {}
+
 		for tweet in self.get_iterator():
 			for entity_type in requested_entities:
-				for entity in TweetParser.get_entity(entity_type, tweet):
+				for entity in tweet_parser.get_entity(entity_type, tweet):
 					if entity_type == 'user_mentions':
-						returndict[entity_type][TweetParser.get_entity_field('id_str', entity)] += 1
+						entity_value = tweet_parser.get_entity_field('id_str', entity)
 					elif entity_type == 'hashtags' or entity_type == 'symbols':
-						returndict[entity_type][TweetParser.get_entity_field('text', entity)] += 1
+						entity_value = tweet_parser.get_entity_field('text', entity)
 					else:
-						returndict[entity_type][TweetParser.get_entity_field('url', entity)] += 1
+						entity_value = tweet_parser.get_entity_field('url', entity)
+					if entity_value in returndict[entity_type]:
+						returndict[entity_type][entity_value] += 1
+					else:
+						returndict[entity_type][entity_value] = 1
+
 		for entity_type in returndict:
 			if len(returndict[entity_type]) < 1:
 				returnstructure[entity_type] = {}
 			else:
-				if requested_entities[entity_type]['top_number']:
-					names, counts = zip(*returndict[entity_type].most_common(requested_entities[entity_type]['top_number']))
+				sorted_list = sorted(returndict[entity_type].items(), key=operator.itemgetter(1), reverse=True)
+				# if the user put in 0 return all entites
+				# otherwise slice the array and return the
+				# number of top things they asked for
+				if requested_entities[entity_type] == 0:
+					returnstructure[entity_type] = {name: count for name, count in sorted_list}
 				else:
-					names, counts = zip(*returndict[entity_type].items())
-				# for each entity type produce a dictionary with the name
-				# of a particular entity object and its frequency
-				returnstructure[entity_type] = {name: count for name, count in zip(names, counts)}
+					returnstructure[entity_type] = {name: count for name, count in sorted_list[0:requested_entities[entity_type]]}
 		return returnstructure
+
 
 	def get_ngrams(self, tweet, requested_ngrams):
 		returndict = {}

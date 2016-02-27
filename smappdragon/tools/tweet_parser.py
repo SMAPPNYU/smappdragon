@@ -4,10 +4,12 @@ https://dev.twitter.com/overview/api/entities-in-twitter-objects
 '''
 
 class TweetParser(object):
+	def __init__(self):
+		pass
 	'''
     	returns True if tweet contains one or more entities (hashtag, url, or media)
 	'''
-	def contains_entity(entity_type, tweet):
+	def contains_entity(self, entity_type, tweet):
 
 	    if "entities" not in tweet:
 	        return False
@@ -18,15 +20,15 @@ class TweetParser(object):
 	'''
 	    get an entity from a tweet if it exists
 	'''
-	def get_entity(entity_type, tweet):
-	    if contains_entity(entity_type, tweet):
+	def get_entity(self, entity_type, tweet):
+	    if self.contains_entity(entity_type, tweet):
 	        return [entity for entity in tweet["entities"][entity_type]]
 	    return []
 
 	'''
 		gets a particular field for an entity if it exists
 	'''
-	def get_entity_field(field, entity):
+	def get_entity_field(self, field, entity):
 		# beacuse all entities are actually lists
 		# of entity objects
 		for entity_object in entity:
@@ -37,11 +39,11 @@ class TweetParser(object):
 	'''
 		tokenizes a tweet
 	'''
-	def tokenize_tweet(tweet):
+	def tokenize_tweet(self, tweet):
 		return tweet.text.split()
 
 	'''
 		removes punctuation from a tweet
 	'''
-	def remove_punctuation(tweet):
+	def remove_punctuation(self, tweet):
 	    return re.sub(r'[^\w\s]', '', tweet.text, flags=re.U)

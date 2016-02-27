@@ -1,3 +1,5 @@
 '''
-module marker for tweetcollections
+module marker for smappdragon
 '''
+
+from collection.mongo_collection import MongoCollection

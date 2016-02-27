@@ -17,14 +17,14 @@ class MongoCollection(BaseCollection):
 		self.mongo_database = self.mongo[database_name]
 		self.mongo_collection = self.mongo_database[collection_name]
 		if username and password:
-			sef.mongo_database.authenticate(username, password)
+			self.mongo_database.authenticate(username, password)
 
 	'''
 		method that creates a cursor
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
-		mongo_cursor = Cursor(self.mongo_collection, self.filters(), no_cursor_timeout=True, limit=self.limit)
+		mongo_cursor = pymongo.cursor.Cursor(self.mongo_collection, self.filters(), no_cursor_timeout=True, limit=self.limit)
 		try:
 			for tweet in mongo_cursor:
 				yield tweet
@@ -37,5 +37,8 @@ class MongoCollection(BaseCollection):
 	    ########
 	    collection.limit(5).texts()
     '''
-    def limit(self, tweet_limit):
-    	self.limit = tweet_limit
+	def limit(self, tweet_limit):
+		self.limit = tweet_limit
+
+	def filters(self):
+		return {}
