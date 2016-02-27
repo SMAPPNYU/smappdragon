@@ -25,12 +25,6 @@ classes for interfacing with a mongodb database of tweets
 
 this is the base class for all collection objects. methods taht all collection objects use are found here. this is actually the most important class.
 
-##top_entities
-
-returns the top twitter entites from a tweet object
-
-##get_ngrams
-
 ##mongocollection
 
 this allows you to plug into a running live mongodb database and run smappdragon methods on the resulting collection object. 
@@ -73,7 +67,33 @@ config = {
 }
 ```
 
-only put a thing you want to test in there.
+this config is used for testing.
+
+##top_entities
+
+returns the top twitter entites from a tweet object
+
+abstract:
+```python
+```
+
+practical:
+```python
+```
+
+*returns* a dictionary containing tho requested entities and the counts for each entity
+
+```
+{
+    "hashtags": {
+        "JadeHelm": 118, 
+        "pjnet": 26, 
+        "jadehelm": 111, 
+        "falseflag": 32, 
+        "2a": 26
+    }
+}
+```
 
 
 
