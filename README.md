@@ -17,10 +17,6 @@ This folder contains tests for smappdragon.
 
 The `bson` folder contains two bson files on which to run tests. One if a valid.bson file with tweets that have properly formatted fields. Another is an sketchy.bson file that has tweets with strange fields, missing fields, etc.
 
-##test_mongo_collection.py
-
-Tests the MongoCollection class. Tests the count, containing, since, until, and a daterange query.
-
 ##collection
 
 classes for interfacing with a mongodb database of tweets
@@ -55,7 +51,7 @@ practical:
 
 *returns* a collection object that can have methods called on it
 
-test:
+test: `python -m unittest tests.test_mongo_collection`
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
