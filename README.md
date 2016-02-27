@@ -13,8 +13,12 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongocollection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#basecollection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
-- [tools]()
-	- [tweet_parser]()
+- [tools](https://github.com/SMAPPNYU/smappdragon#tools)
+	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
+		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
+		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
+		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
+		- [tokenize_tweet](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 
 ##testing 
 
@@ -156,17 +160,60 @@ from smappdragon import TweetParser
 tweet_parser = TweetParser()
 ```
 
+*returns* an instance of the TweetParser class that can textract data from tweets or entities
+
 ##contains_entity
 
 tells you wether or not a tweet object has a certain [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols)
+
+abstract:
+```python
+tweet_parser.contains_entity(entity_type, tweet)
+```
+
+practical:
+```python
+tweet_parser.contains_entity('media', { ... tweet object here ... })
+#or
+tweet_parser.contains_entity('user_mentions', { ... tweet object here ... })
+#etc
+```
+
+note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
+
+*returns* true or false depending on whether a tweet contains the given entity
 
 ##get_entity
 
 gets a particular list of [twitter entities](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) for you
 
+abstract:
+```python
+tweet_parser.get_entity()
+```
+
+practical:
+```python
+tweet_parser.get_entity()
+```
+
+*returns*
+
 ##get_entity_field
 
 gets the field of a particular [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) object for you
+
+abstract:
+```python
+tweet_parser.get_entity_field()
+```
+
+practical:
+```python
+tweet_parser.get_entity_field()
+```
+
+*returns*
 
 ##tokenize_tweet
 

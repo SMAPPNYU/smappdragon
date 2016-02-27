@@ -36,7 +36,7 @@ class MongoCollection(BaseCollection):
 	    Example:
 	    ########
 	    collection.limit(5).texts()
-    '''
+	'''
 	def limit(self, tweet_limit):
 		self.limit = tweet_limit
 
