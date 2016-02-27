@@ -232,12 +232,14 @@ practical:
 for entity in tweet_parser.get_entity('user_mentions', tweet):
 	entity_value = tweet_parser.get_entity_field('id_str', entity)
 # or
-tweet_parser.get_entity_field('url', {
+print tweet_parser.get_entity_field('url', {
       "url": "https:\/\/t.co\/XdXRudPXH5", \
       "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
       "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
       "indices": [80, 103] \
-    })
+	})
+# would output
+'https://t.co/XdXRudPXH5'
 ```
 
 *returns* the value stored in this entity object in the field you specified
