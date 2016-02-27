@@ -35,9 +35,3 @@ class TweetParser(object):
 			if field in entity_object:
 				return entity[field]
 		return None
-
-	'''
-		tokenizes a tweet
-	'''
-	def tokenize_tweet(self, tweet):
-		return tweet.text.split()

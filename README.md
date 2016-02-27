@@ -18,7 +18,6 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
-		- [tokenize_tweet](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 
 ##testing 
 
@@ -179,9 +178,9 @@ tweet_parser.contains_entity('user_mentions', { ... tweet object here ... })
 #etc
 ```
 
-note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
-
 *returns* true or false depending on whether a tweet contains the given entity
+
+note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
 
 ##get_entity
 
@@ -189,15 +188,35 @@ gets a particular list of [twitter entities](https://dev.twitter.com/overview/ap
 
 abstract:
 ```python
-tweet_parser.get_entity()
+tweet_parser.get_entity(entity_type, tweet)
 ```
 
 practical:
 ```python
-tweet_parser.get_entity()
+print tweet_parser.get_entity('urls', { ... tweet object here ... })
 ```
 
-*returns*
+output:
+```python
+[
+	{
+      "url": "https:\/\/t.co\/XdXRudPXH5",
+      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026",
+      "indices": [80, 103]
+    },
+	{
+      "url": "https:\/\/t.co\/XdXRudPXH4",
+      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+      "display_url": "blog.twitter.com\/2013\/rich-deio\u2026",
+      "indices": [80, 103]
+    },
+]
+```
+
+*returns* a list of entity objects stored inside the tweet object's entity field.
+
+note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
 
 ##get_entity_field
 
@@ -205,17 +224,21 @@ gets the field of a particular [twitter entity](https://dev.twitter.com/overview
 
 abstract:
 ```python
-tweet_parser.get_entity_field()
+tweet_parser.get_entity_field(field, entity)
 ```
 
 practical:
 ```python
-tweet_parser.get_entity_field()
+for entity in tweet_parser.get_entity(entity_type, tweet):
+	if entity_type == 'user_mentions':
+		entity_value = tweet_parser.get_entity_field('id_str', entity)
+# or
+tweet_parser.get_entity_field('id_str', {
+      "url": "https:\/\/t.co\/XdXRudPXH5", \
+      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
+      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
+      "indices": [80, 103] \
+    })
 ```
 
-*returns*
-
-##tokenize_tweet
-
-splits a tweet up into a list of tokens 
-
+*returns* the value stored in this entity object in the field you specified
