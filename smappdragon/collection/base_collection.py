@@ -7,11 +7,34 @@ class BaseCollection(object):
 
 	@abc.abstractmethod
 	def __init__(self):
-		pass
+		self.limit = 0
+		self.filters = {}
 
+	'''
+		returns an iterator that
+		can iterate through the tweets
+		in a collection
+	'''
 	@abc.abstractmethod
 	def get_iterator(self):
 		pass
+
+	'''
+		returns the modified collection
+		object with a limit on how many tweets
+		it will ever output or query
+	'''
+	def set_limit(self, limit):
+		self.limit = limit
+		return self
+
+	'''
+		returns the filters that are 
+		being applied to query or 
+		determine which tweets to return
+	'''
+	def get_filters(self):
+		return self.filters
 
 	'''
 		returns a list of test values for all 

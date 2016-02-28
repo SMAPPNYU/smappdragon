@@ -8,8 +8,6 @@ class MongoCollection(BaseCollection):
 	'''
 	def __init__(self, address, port, username, password, database_name, collection_name):
 		BaseCollection.__init__(self)
-		self.limit = 0
-		self.filters = {}
 		self.mongo = pymongo.MongoClient(address, int(port))
 		self.mongo_database = self.mongo[database_name]
 		self.mongo_collection = self.mongo_database[collection_name]
@@ -31,13 +29,3 @@ class MongoCollection(BaseCollection):
 				yield tweet
 		finally:
 			mongo_cursor.close()
-	'''
-	    this limits the number of tweets you can grab, 
-	    takes tweets from the beginning of the collection(s)
-	'''
-	def set_limit(self, tweet_limit):
-		self.limit = tweet_limit
-		return self
-
-	def get_filters(self):
-		return self.filters
