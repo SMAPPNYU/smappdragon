@@ -9,7 +9,7 @@
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
-disable=pointless-string-statement, too-many-branches, missing-docstring, too-many-arguments
+disable=pointless-string-statement, too-many-branches, missing-docstring, too-many-arguments, invalid-name, line-too-long
 
 [FORMAT]
 indent-string=\t
