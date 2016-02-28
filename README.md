@@ -7,7 +7,7 @@
                     |_|   |_|                    |___/             
 ```
 
-:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon).
+:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress).
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
@@ -19,16 +19,13 @@
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 
+##contributing
+
 TODO:
 
 combining multiple collections.(give a list of the collections in a mongo database)
 
 add bson collection.
-
-[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
-
-
-##contributing
 
 install pylint: `pip install pylint`
 
@@ -44,11 +41,15 @@ some pointers:
 
 do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
 
-use as little dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
+use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
 
-only create an extra file with methods if thise methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used.
+only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
+
+an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
 
 be nice.
+
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)    
 
 ##testing 
 
