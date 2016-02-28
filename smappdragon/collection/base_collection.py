@@ -1,6 +1,6 @@
 import abc
 import operator
-from ..tools.tweet_parser import TweetParser
+from smappdragon.tools.tweet_parser import TweetParser
 
 class BaseCollection(object):
 	__metaclass__ = abc.ABCMeta
@@ -9,12 +9,16 @@ class BaseCollection(object):
 	def __init__(self):
 		pass
 
+	@abc.abstractmethod
+	def get_iterator(self):
+		pass
+
 	'''
 		returns a list of test values for all 
 		tweets, should return a dictionary
 	'''
 	def get_texts(self):
-		return [tweet[text] for tweet in self]
+		return [tweet['text'] for tweet in self]
 
 	'''
 		returns a dictionary with
@@ -45,9 +49,8 @@ class BaseCollection(object):
 						returndict[entity_type][entity_value] = 1
 
 		for entity_type in returndict:
-			if len(returndict[entity_type]) < 1:
-				returnstructure[entity_type] = {}
-			else:
+			returnstructure[entity_type] = {}
+			if len(returndict[entity_type]) > 0:
 				sorted_list = sorted(returndict[entity_type].items(), key=operator.itemgetter(1), reverse=True)
 				# if the user put in 0 return all entites
 				# otherwise slice the array and return the
@@ -57,8 +60,10 @@ class BaseCollection(object):
 					returnstructure[entity_type] = {name: count for name, count in sorted_list}
 				elif len(sorted_list) < requested_entities[entity_type]:
 					returnstructure[entity_type] = {name: count for name, count in sorted_list}
-					for i in range(0,requested_entities[entity_type]-len(sorted_list)):
+					for i in range(0, requested_entities[entity_type]-len(sorted_list)):
 						returnstructure[entity_type][i] = None
 				else:
-					returnstructure[entity_type] = {name: count for name, count in sorted_list[0:requested_entities[entity_type]]}
+					returnstructure[entity_type] = { \
+						name: count for name, count in sorted_list[0:requested_entities[entity_type]] \
+					}
 		return returnstructure

@@ -27,6 +27,29 @@ add bson collection.
 
 [good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
 
+
+##contributing
+
+install pylint: `pip install pylint`
+
+write your code
+
+run `pylint smappdragon`
+
+fix style issues
+
+submit your pull request to the `dev` branch
+
+some pointers:
+
+do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
+
+use as little dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
+
+only create an extra file with methods if thise methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used.
+
+be nice.
+
 ##testing 
 
 You absolutely need to write unit tests for any methods you add to smappdragon, this software needs to stay as stable as porssible as it will be the basis for other software.
@@ -85,7 +108,7 @@ this config is used for testing it is gitignored.
 
 ##base_collection
 
-this is the base class for all collection objects. methods taht all collection objects use are found here. this is actually the most important class.
+this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
 
 ##top_entities
 
