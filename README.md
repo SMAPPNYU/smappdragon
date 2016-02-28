@@ -27,6 +27,8 @@ combining multiple collections.(give a list of the collections in a mongo databa
 
 add bson collection.
 
+process:
+
 install pylint: `pip install pylint`
 
 write your code
