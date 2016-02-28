@@ -3,7 +3,6 @@ from config import *
 from smappdragon import MongoCollection
 
 class TestMongoCollection(unittest.TestCase):
-
 	def test_mongo_top_entities_returns_dict(self):
 		collection = MongoCollection(config['mongo']['host'], config['mongo']['port'], config['mongo']['user'], config['mongo']['password'], config['mongo']['database'], config['mongo']['collection'])
 		returndict = collection.top_entities({'hashtags':5})
