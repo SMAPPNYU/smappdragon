@@ -7,7 +7,7 @@
                     |_|   |_|                    |___/             
 ```
 
-smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolbox` that will import smapp dragon and buid the high level interface. Plotting figures, aggregating, and other non standard data operations will be in the new `smapptoolbox`. check us out on [pypi](https://pypi.python.org/pypi/smappdragon/0.0.3)? i guess? 
+:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon).
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
@@ -19,13 +19,11 @@ smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 
-##distribution
+TODO:
 
-0 delete old dist directory
-1 bump version in setup.py
-2 `python setup.py sdist`
-3 `python setup.py bdist_wheel`
-4 `twine upload dist/*`
+combining multiple collections.(give a list of the collections in a mongo database)
+
+add bson collection.
 
 [good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
 
