@@ -198,7 +198,6 @@ collection.set_limit(10).top_entities({'hashtags':10})
 
 *returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
 
-
 ##tools
 
 these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source
