@@ -46,9 +46,8 @@ class TweetParser(object):
 	def tweet_passes_filter(self, filter_obj, tweet):
 		if filter_obj == {}:
 			return True
-		# lists of tuples that 
+		# lists of tuples that
 		# come from our dicts
-		flat_filter_list = []
 		flat_tweet_list = []
 		for tweet_tuple in self.flatten_dict(tweet):
 			flat_tweet_list.append(tweet_tuple)
@@ -62,12 +61,14 @@ class TweetParser(object):
 		keys that are in our filter.
 		http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
 	'''
-	def flatten_dict(self, dict_obj, path=[]):
-	    if isinstance(dict_obj, dict):
-	        for key in dict_obj.keys():
-	            local_path = path[:]
-	            local_path.append(key)
-	            for val in self.flatten_dict(dict_obj[key], local_path):
-	                 yield val
-	    else: 
-	        yield path, dict_obj
+	def flatten_dict(self, dict_obj, path=None):
+		if path is None:
+			path = []
+		if isinstance(dict_obj, dict):
+			for key in dict_obj.keys():
+				local_path = path[:]
+				local_path.append(key)
+				for val in self.flatten_dict(dict_obj[key], local_path):
+					yield val
+		else:
+			yield path, dict_obj
