@@ -1,10 +1,10 @@
 ```
-																		 _                             
+									 _                             
  ___ _ __ ___   __ _ _ __  _ __   __| |_ __ __ _  __ _  ___  _ __  
 / __| '_ ` _ \ / _` | '_ \| '_ \ / _` | '__/ _` |/ _` |/ _ \| '_ \ 
 \__ \ | | | | | (_| | |_) | |_) | (_| | | | (_| | (_| | (_) | | | |
 |___/_| |_| |_|\__,_| .__/| .__/ \__,_|_|  \__,_|\__, |\___/|_| |_|
-										|_|   |_|                    |___/             
+					|_|   |_|                    |___/             
 ```
 
 :dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress).
