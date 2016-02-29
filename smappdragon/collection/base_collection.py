@@ -29,11 +29,20 @@ class BaseCollection(object):
 		return self
 
 	'''
+		sets the filters you'd
+		like to apply to the query
+		follows mongdb query syntax
+	'''
+	def set_filter(self, filters):
+		self.filters = filters
+		return self
+
+	'''
 		returns the filters that are 
 		being applied to query or 
 		determine which tweets to return
 	'''
-	def get_filters(self):
+	def get_filter(self):
 		return self.filters
 
 	'''

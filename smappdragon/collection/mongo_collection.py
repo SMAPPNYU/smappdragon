@@ -19,12 +19,12 @@ class MongoCollection(BaseCollection):
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
-		mongo_cursor = pymongo.cursor.Cursor( \
-											self.mongo_collection, \
-										 	self.get_filters(), \
-											no_cursor_timeout=True, \
-											limit=self.limit \
-											)
+		mongo_cursor = self.mongo_collection.find( \
+			filter=self.get_filter(), \
+			no_cursor_timeout=True, \
+			limit=self.limit \
+		)
+
 		try:
 			for tweet in mongo_cursor:
 				yield tweet
