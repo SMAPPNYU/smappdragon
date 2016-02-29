@@ -20,7 +20,7 @@ class MongoCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		mongo_cursor = self.mongo_collection.find( \
-			filter=self.get_filter(), \
+			filter=self.filter, \
 			no_cursor_timeout=True, \
 			limit=self.limit \
 		)

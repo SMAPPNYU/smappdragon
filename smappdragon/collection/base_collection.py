@@ -8,7 +8,7 @@ class BaseCollection(object):
 	@abc.abstractmethod
 	def __init__(self):
 		self.limit = 0
-		self.filters = {}
+		self.filter = {}
 
 	'''
 		returns an iterator that
@@ -33,17 +33,9 @@ class BaseCollection(object):
 		like to apply to the query
 		follows mongdb query syntax
 	'''
-	def set_filter(self, filters):
-		self.filters = filters
+	def set_filter(self, query_filter):
+		self.filter = query_filter
 		return self
-
-	'''
-		returns the filters that are 
-		being applied to query or 
-		determine which tweets to return
-	'''
-	def get_filter(self):
-		return self.filters
 
 	'''
 		returns a list of test values for all 
