@@ -18,11 +18,11 @@ class TestMongoCollection(unittest.TestCase):
 
 	def test_mongo_top_entities_returns_hashtags(self):
 		returndict = self.collection.top_entities({'hashtags':5})
-		self.assertTrue(returndict['hashtags'])
+		self.assertTrue('hashtags' in returndict)
 
 	def test_mongo_top_entities_returns_hashtags_and_media(self):
 		returndict = self.collection.top_entities({'user_mentions':5, 'media':3})
-		self.assertTrue(returndict['user_mentions'] and returndict['media'])
+		self.assertTrue('user_mentions' in returndict and 'media' in returndict)
 
 	def test_mongo_top_entities_returns_counts(self):
 		returndict = self.collection.top_entities({'urls':5, 'symbols':3})
@@ -30,6 +30,14 @@ class TestMongoCollection(unittest.TestCase):
 			self.assertTrue(len(returndict['urls']) == 5)
 		if len(returndict['symbols']) > 0:
 			self.assertTrue(len(returndict['symbols']) == 3)
+
+	def test_limit_is_set(self):
+		self.collection.set_limit(5)
+		self.assertEqual(5, self.collection.limit)
+
+	def test_limit_actually_limits(self):
+		count = len(list(self.collection.set_limit(5).get_iterator()))
+		self.assertEqual(5, count)
 
 if __name__ == '__main__':
 	unittest.main()
