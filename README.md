@@ -1,10 +1,10 @@
 ```
-                                     _                             
+																		 _                             
  ___ _ __ ___   __ _ _ __  _ __   __| |_ __ __ _  __ _  ___  _ __  
 / __| '_ ` _ \ / _` | '_ \| '_ \ / _` | '__/ _` |/ _` |/ _ \| '_ \ 
 \__ \ | | | | | (_| | |_) | |_) | (_| | | | (_| | (_| | (_) | | | |
 |___/_| |_| |_|\__,_| .__/| .__/ \__,_|_|  \__,_|\__, |\___/|_| |_|
-                    |_|   |_|                    |___/             
+										|_|   |_|                    |___/             
 ```
 
 :dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress).
@@ -13,7 +13,7 @@
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
-    - [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
+		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
@@ -140,25 +140,25 @@ print collection.top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
 output:
 ```
 {
-    "hashtags": {
-        "JadeHelm": 118, 
-        "pjnet": 26, 
-        "jadehelm": 111, 
-        "falseflag": 32, 
-        "2a": 26
-    },
-    "user_mentions": {
-        "1619936671": 41, 
-        "27234909": 56, 
-        "733417892": 121, 
-        "10228272": 75, 
-        "233498836": 58
-    }, 
-    "media": {
-        "https://t.co/ORaTXOM2oX": 55, 
-        "https://t.co/pAfigDPcNc": 27, 
-        "https://t.co/TH8TmGuYww": 24
-    }
+		"hashtags": {
+				"JadeHelm": 118, 
+				"pjnet": 26, 
+				"jadehelm": 111, 
+				"falseflag": 32, 
+				"2a": 26
+		},
+		"user_mentions": {
+				"1619936671": 41, 
+				"27234909": 56, 
+				"733417892": 121, 
+				"10228272": 75, 
+				"233498836": 58
+		}, 
+		"media": {
+				"https://t.co/ORaTXOM2oX": 55, 
+				"https://t.co/pAfigDPcNc": 27, 
+				"https://t.co/TH8TmGuYww": 24
+		}
 }
 ```
 
@@ -173,9 +173,9 @@ note: if not enough entity objects are returned they get filled into the diction
 ```
 {
 	"symbols": {
-	    "0": null, 
-	    "1": null, 
-	    "hould": 1
+			"0": null, 
+			"1": null, 
+			"hould": 1
 	}
 }
 ```
@@ -255,17 +255,17 @@ output:
 ```python
 [
 	{
-      "url": "https:\/\/t.co\/XdXRudPXH5",
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
-      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026",
-      "indices": [80, 103]
-    },
+			"url": "https:\/\/t.co\/XdXRudPXH5",
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+			"display_url": "blog.twitter.com\/2013\/rich-phot\u2026",
+			"indices": [80, 103]
+		},
 	{
-      "url": "https:\/\/t.co\/XdXRudPXH4",
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
-      "display_url": "blog.twitter.com\/2013\/rich-deio\u2026",
-      "indices": [80, 103]
-    },
+			"url": "https:\/\/t.co\/XdXRudPXH4",
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+			"display_url": "blog.twitter.com\/2013\/rich-deio\u2026",
+			"indices": [80, 103]
+		},
 ]
 ```
 
@@ -288,10 +288,10 @@ for entity in tweet_parser.get_entity('user_mentions', tweet):
 	entity_value = tweet_parser.get_entity_field('id_str', entity)
 # or
 print tweet_parser.get_entity_field('url', {
-      "url": "https:\/\/t.co\/XdXRudPXH5", \
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
-      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
-      "indices": [80, 103] \
+			"url": "https:\/\/t.co\/XdXRudPXH5", \
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
+			"display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
+			"indices": [80, 103] \
 	})
 # the second would output
 'https://t.co/XdXRudPXH5'
