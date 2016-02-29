@@ -63,7 +63,30 @@ class TestTweetParser(unittest.TestCase):
 		      "indices": [80, 103] \
 		    }
 		self.assertEqual('blog.twitter.com/2013/rich-phot', self.tweet_parser.get_entity_field('display_url', url_entity_object))
+	
+	def test_flatten_dict_flattens(self):
+		dict_to_flatten = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		actual_flat_dict = [(['a'], 'b'), (['c', 'd'], 'e'), (['c', 'f', 'i'], 'j'), (['c', 'f', 'g'], 'h')]
+		dict_was_flattened = True
+		for entry in self.tweet_parser.flatten_dict(dict_to_flatten):
+			if entry not in actual_flat_dict:
+				dict_was_flattened = False
+		self.assertTrue(dict_was_flattened)
 
+	def test_tweet_passes_filter_of_itself(self):
+		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		filter_obj = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		self.assertTrue(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))
+
+	def test_tweet_passes_filter(self):
+		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		filter_obj = {'a':'b'}
+		self.assertTrue(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))
+
+	def tests_tweet_fails_fbad_filter(self):
+		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		filter_obj = {'t':'m'}
+		self.assertFalse(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))
 
 if __name__ == '__main__':
 	unittest.main()

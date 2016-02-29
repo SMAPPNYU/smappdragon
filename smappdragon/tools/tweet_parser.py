@@ -40,23 +40,34 @@ class TweetParser(object):
 	'''
 		return true or false depends if
 		tweet passes through the filter
+		filters are just dictionaries.
+		filter = mongo style query dict
 	'''
-	def tweet_passes_filter(filter, tweet):
-		# iterate through all our filters
-		# and build out index paths
-		list_of_nested_indexes = []
-		self.get_key_list(filter, list_of_nested_indexes)
-		if self.filter == {}:
+	def tweet_passes_filter(self, filter_obj, tweet):
+		if filter_obj == {}:
 			return true
+		# lists of tuples that 
+		# come from our dicts
+		flat_filter_list = []
+		flat_tweet_list = []
+		for tweet_tuple in self.flatten_dict(tweet):
+			flat_tweet_list.append(tweet_tuple)
+		for filter_tuple in self.flatten_dict(filter_obj):
+			if filter_tuple not in flat_tweet_list:
+				return False
+		return True
 
 	'''
 		get a list of lists that contains the 
 		keys that are in our filter.
+		http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
 	'''
-	def get_key_list(filter_obj, global_list, sublist=[]):
-	    if isinstance(filter_obj, dict):
-	        for k, v2 in filter_obj.items():
-	            sublist.append(k)
-	            get_key_list(v2, sublist)
-	    else:
-	    	global_list.append(sublist)
+	def flatten_dict(self, dict_obj, path=[]):
+	    if isinstance(dict_obj, dict):
+	        for key in dict_obj.keys():
+	            local_path = path[:]
+	            local_path.append(key)
+	            for val in self.flatten_dict(dict_obj[key], local_path):
+	                 yield val
+	    else: 
+	        yield path, dict_obj
