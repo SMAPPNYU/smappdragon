@@ -1,33 +1,60 @@
 ```
-                                     _
+									 _
  ___ _ __ ___   __ _ _ __  _ __   __| |_ __ __ _  __ _  ___  _ __ 
 / __| '_ ` _ \ / _` | '_ \| '_ \ / _` | '__/ _` |/ _` |/ _ \| '_ \ 
 \__ \ | | | | | (_| | |_) | |_) | (_| | | | (_| | (_| | (_) | | | |
 |___/_| |_| |_|\__,_| .__/| .__/ \__,_|_|  \__,_|\__, |\___/|_| |_|
-                    |_|   |_|                    |___/
+					|_|   |_|                    |___/
 ```
 
-smappdragon is a rebuild of the old [smapp-toolkit](https://github.com/SMAPPNYU/smapp-toolkit). It is a low level set of tools for programmers to use, it’s the low level part of the toolkit. There will be a separate piece of software called `smapptoolbox` that will import smapp dragon and buid the high level interface. Plotting figures, aggregating, and other non standard data operations will be in the new `smapptoolbox`. check us out on [pypi](https://pypi.python.org/pypi/smappdragon/0.0.3)? i guess? 
+:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress).
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
+		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 
-##distribution
+##contributing
 
-0 delete old dist directory
-1 bump version in setup.py
-2 `python setup.py sdist`
-3 `python setup.py bdist_wheel`
-4 `twine upload dist/*`
+TODO:
 
-[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)		
+combining multiple collections.(give a list of the collections in a mongo database)
+
+add bson collection.
+
+ability to set a custom function to a filter
+
+process:
+
+install pylint: `pip install pylint`
+
+write your code
+
+run `pylint smappdragon`
+
+fix style issues
+
+submit your pull request to the `dev` branch
+
+some pointers:
+
+do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
+
+use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
+
+only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
+
+an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
+
+be nice.
+
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)    
 
 ##testing 
 
@@ -87,7 +114,7 @@ this config is used for testing it is gitignored.
 
 ##base_collection
 
-this is the base class for all collection objects. methods taht all collection objects use are found here. this is actually the most important class.
+this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
 
 ##top_entities
 
@@ -115,25 +142,25 @@ print collection.top_entities({'user_mentions':5, 'media':3, 'hashtags':5})
 output:
 ```
 {
-    "hashtags": {
-        "JadeHelm": 118, 
-        "pjnet": 26, 
-        "jadehelm": 111, 
-        "falseflag": 32, 
-        "2a": 26
-    },
-    "user_mentions": {
-        "1619936671": 41, 
-        "27234909": 56, 
-        "733417892": 121, 
-        "10228272": 75, 
-        "233498836": 58
-    }, 
-    "media": {
-        "https://t.co/ORaTXOM2oX": 55, 
-        "https://t.co/pAfigDPcNc": 27, 
-        "https://t.co/TH8TmGuYww": 24
-    }
+		"hashtags": {
+				"JadeHelm": 118, 
+				"pjnet": 26, 
+				"jadehelm": 111, 
+				"falseflag": 32, 
+				"2a": 26
+		},
+		"user_mentions": {
+				"1619936671": 41, 
+				"27234909": 56, 
+				"733417892": 121, 
+				"10228272": 75, 
+				"233498836": 58
+		}, 
+		"media": {
+				"https://t.co/ORaTXOM2oX": 55, 
+				"https://t.co/pAfigDPcNc": 27, 
+				"https://t.co/TH8TmGuYww": 24
+		}
 }
 ```
 
@@ -148,12 +175,30 @@ note: if not enough entity objects are returned they get filled into the diction
 ```
 {
 	"symbols": {
-	    "0": null, 
-	    "1": null, 
-	    "hould": 1
+			"0": null, 
+			"1": null, 
+			"hould": 1
 	}
 }
 ```
+
+##set_limit
+
+sets a limit on the number of documents a collection can return 
+
+abstract:
+```python
+collection.set_limit(TWEET_LIMIT_NUMBER)
+```
+
+practical:
+```python
+collection.set_limit(10)
+# or 
+collection.set_limit(10).top_entities({'hashtags':10})
+```
+
+*returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
 
 ##tools
 
@@ -212,17 +257,17 @@ output:
 ```python
 [
 	{
-      "url": "https:\/\/t.co\/XdXRudPXH5",
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
-      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026",
-      "indices": [80, 103]
-    },
+			"url": "https:\/\/t.co\/XdXRudPXH5",
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+			"display_url": "blog.twitter.com\/2013\/rich-phot\u2026",
+			"indices": [80, 103]
+		},
 	{
-      "url": "https:\/\/t.co\/XdXRudPXH4",
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
-      "display_url": "blog.twitter.com\/2013\/rich-deio\u2026",
-      "indices": [80, 103]
-    },
+			"url": "https:\/\/t.co\/XdXRudPXH4",
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3",
+			"display_url": "blog.twitter.com\/2013\/rich-deio\u2026",
+			"indices": [80, 103]
+		},
 ]
 ```
 
@@ -245,10 +290,10 @@ for entity in tweet_parser.get_entity('user_mentions', tweet):
 	entity_value = tweet_parser.get_entity_field('id_str', entity)
 # or
 print tweet_parser.get_entity_field('url', {
-      "url": "https:\/\/t.co\/XdXRudPXH5", \
-      "expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
-      "display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
-      "indices": [80, 103] \
+			"url": "https:\/\/t.co\/XdXRudPXH5", \
+			"expanded_url": "https:\/\/blog.twitter.com\/2013\/rich-photo-experience-now-in-embedded-tweets-3", \
+			"display_url": "blog.twitter.com\/2013\/rich-phot\u2026", \
+			"indices": [80, 103] \
 	})
 # the second would output
 'https://t.co/XdXRudPXH5'

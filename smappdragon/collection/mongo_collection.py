@@ -1,18 +1,13 @@
 import pymongo
-from base_collection import BaseCollection
-
-'''
-replacement for: 
-https://github.com/SMAPPNYU/smapp-toolkit/blob/master/smapp_toolkit/twitter/mongo_tweet_collection.py
-'''
+from smappdragon.collection.base_collection import BaseCollection
 
 class MongoCollection(BaseCollection):
 	'''
-		method that tells us how to 
+		method that tells us how to
 		create the MongoCollection object
 	'''
 	def __init__(self, address, port, username, password, database_name, collection_name):
-		self.limit = 0
+		BaseCollection.__init__(self)
 		self.mongo = pymongo.MongoClient(address, int(port))
 		self.mongo_database = self.mongo[database_name]
 		self.mongo_collection = self.mongo_database[collection_name]
@@ -24,21 +19,11 @@ class MongoCollection(BaseCollection):
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
-		mongo_cursor = pymongo.cursor.Cursor(self.mongo_collection, self.filters(), no_cursor_timeout=True, limit=self.limit)
-		try:
-			for tweet in mongo_cursor:
-				yield tweet
-		finally:
-			mongo_cursor.close()
-	'''
-	    Only return `count` tweets from the collection. Note: this takes tweets from the
-	    beginning of the collection(s)
-	    Example:
-	    ########
-	    collection.limit(5).texts()
-	'''
-	def limit(self, tweet_limit):
-		self.limit = tweet_limit
-
-	def filters(self):
-		return {}
+		mongo_cursor = self.mongo_collection.find( \
+			filter=self.filter, \
+			no_cursor_timeout=True, \
+			limit=self.limit \
+		)
+		for tweet in mongo_cursor:
+			yield tweet
+			
