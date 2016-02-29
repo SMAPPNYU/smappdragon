@@ -7,11 +7,12 @@ class TestBsonCollection(unittest.TestCase):
 
 	def test_iterator_returns_tweets(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		for tweet in collection.get_iterator():
-			print tweet
+		self.assertTrue(len(list(collection.set_limit(10).get_iterator())) > 0)
 
-	# def test_mongo_top_entities_returns_dict(self):
-	# 	collection = BsonCollection(config['bson']['valid'])
-	# 	returndict = collection.top_entities({'hashtags':5})
-	# 	self.assertTrue(isinstance(returndict, dict))
-	
+if __name__ == '__main__':
+    unittest.main()
+
+'''
+read about twitter entities here:
+https://dev.twitter.com/overview/api/entities-in-twitter-objects
+'''

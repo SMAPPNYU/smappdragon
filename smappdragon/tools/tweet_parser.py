@@ -45,7 +45,7 @@ class TweetParser(object):
 	'''
 	def tweet_passes_filter(self, filter_obj, tweet):
 		if filter_obj == {}:
-			return true
+			return True
 		# lists of tuples that 
 		# come from our dicts
 		flat_filter_list = []

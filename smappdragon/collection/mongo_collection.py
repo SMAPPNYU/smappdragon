@@ -26,4 +26,4 @@ class MongoCollection(BaseCollection):
 		)
 		for tweet in mongo_cursor:
 			yield tweet
-			
+		mongo_cursor.close()

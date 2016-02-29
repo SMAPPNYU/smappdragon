@@ -73,6 +73,10 @@ class TestTweetParser(unittest.TestCase):
 				dict_was_flattened = False
 		self.assertTrue(dict_was_flattened)
 
+	def tests_tweet_passes_empty_filter(self):
+		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
+		self.assertTrue(self.tweet_parser.tweet_passes_filter({}, tweet_to_test))
+
 	def test_tweet_passes_filter_of_itself(self):
 		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
 		filter_obj = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
@@ -83,7 +87,7 @@ class TestTweetParser(unittest.TestCase):
 		filter_obj = {'a':'b'}
 		self.assertTrue(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))
 
-	def tests_tweet_fails_fbad_filter(self):
+	def tests_tweet_fails_on_bad_filter(self):
 		tweet_to_test = {'a':'b', 'c':{'d':'e','f':{'g':'h','i':'j'}}}
 		filter_obj = {'t':'m'}
 		self.assertFalse(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))

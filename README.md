@@ -30,6 +30,9 @@ add bson collection.
 
 ability to set a custom function to a filter
 
+add language detection:
+https://github.com/mikemccand/chromium-compact-language-detector
+
 process:
 
 install pylint: `pip install pylint`
