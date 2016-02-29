@@ -14,6 +14,7 @@
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
+		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
@@ -71,6 +72,12 @@ The `bson` folder contains two bson files on which to run tests. One if a valid.
 
 classes for interfacing with a tweets from different data sources
 
+##base_collection
+
+this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
+
+test: `python -m unittest tests.test_base_collection`
+
 ##mongo_collection
 
 this allows you to plug into a running live mongodb database and run smappdragon methods on the resulting collection object. 
@@ -114,10 +121,6 @@ config = {
 ```
 
 this config is used for testing it is gitignored.
-
-##base_collection
-
-this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
 
 ##top_entities
 
