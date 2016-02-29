@@ -203,6 +203,26 @@ collection.set_limit(10).top_entities({'hashtags':10})
 
 *returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
 
+##set_filter
+
+sets a filter to apply toa all tweets, the filter is a mongo style query dictionary
+
+abstract:
+```python
+collection.set_filter(TWEET_FILTER)
+```
+
+practical:
+```python
+collection.set_filter({'id_str':'4576334'})
+# or 
+collection.set_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).top_entities({'hashtags':10})
+```
+
+*returns* a collection object that will only return tweets that match the specified filter. so if you ask for {`id_str`:`4576334`} you will only get tweets where the `id_str` field is `4576334`.
+
+note: passing an empty filter will return all tweets in a collection, empty filters `{}` are like no filter.
+
 ##tools
 
 these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source
@@ -305,3 +325,7 @@ print tweet_parser.get_entity_field('url', {
 *returns* the value stored in this entity object in the field you specified
 
 note: those urls look weird, they are just escaped, it's where you put a `\` in front of every `/`
+
+##author
+
+[yvan](https://github.com/yvan)
