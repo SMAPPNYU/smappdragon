@@ -13,7 +13,7 @@
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
-    - [set_limit]()
+    - [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
@@ -180,7 +180,7 @@ note: if not enough entity objects are returned they get filled into the diction
 }
 ```
 
-#set_limit
+##set_limit
 
 sets a limit on the number of documents a collection can return 
 
