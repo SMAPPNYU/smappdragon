@@ -36,3 +36,27 @@ class TweetParser(object):
 			if field in entity_object:
 				return entity[field]
 		return None
+
+	'''
+		return true or false depends if
+		tweet passes through the filter
+	'''
+	def tweet_passes_filter(filter, tweet):
+		# iterate through all our filters
+		# and build out index paths
+		list_of_nested_indexes = []
+		self.get_key_list(filter, list_of_nested_indexes)
+		if self.filter == {}:
+			return true
+
+	'''
+		get a list of lists that contains the 
+		keys that are in our filter.
+	'''
+	def get_key_list(filter_obj, global_list, sublist=[]):
+	    if isinstance(filter_obj, dict):
+	        for k, v2 in filter_obj.items():
+	            sublist.append(k)
+	            get_key_list(v2, sublist)
+	    else:
+	    	global_list.append(sublist)
