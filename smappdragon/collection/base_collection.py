@@ -38,13 +38,6 @@ class BaseCollection(object):
 		return self
 
 	'''
-		returns a list of test values for all 
-		tweets, should return a dictionary
-	'''
-	def get_texts(self):
-		return [tweet['text'] for tweet in self]
-
-	'''
 		returns a dictionary with
 		counts for the number of 
 		top entities requested
