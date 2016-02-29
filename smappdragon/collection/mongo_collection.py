@@ -24,9 +24,6 @@ class MongoCollection(BaseCollection):
 			no_cursor_timeout=True, \
 			limit=self.limit \
 		)
-
-		try:
-			for tweet in mongo_cursor:
-				yield tweet
-		finally:
-			mongo_cursor.close()
+		for tweet in mongo_cursor:
+			yield tweet
+			
