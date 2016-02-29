@@ -11,7 +11,7 @@ class BsonCollection(BaseCollection):
 	def __init__(self, filepath):
 		self.filepath = filepath
 		if not os.path.isfile(filepath):
-			raise IOError('BsonCollection could not find that file, it\'s mispelled or doesn\'t exist.')
+			raise IOError(filepath, 'BsonCollection could not find your file, it\'s mispelled or doesn\'t exist.')
 
 	'''
 		method that creates a cursor
@@ -20,11 +20,11 @@ class BsonCollection(BaseCollection):
 	def get_iterator(self):
 		count = 0
 		tweet_parser = TweetParser()
-		bson_handle = open(self._filename, 'rb')
+		bson_handle = open(self.filepath, 'rb')
 		for tweet in bson.decode_file_iter(bson_handle):
 			if self.limit > count:
 				raise StopIteration
-			elif self.tweet_parser.tweet_passes_filter(tweet):
+			elif self.tweet_parser.tweet_passes_filter(self.filter, tweet):
 				count += 1
 				yield tweet
 		bson_handle.close()
