@@ -5,7 +5,7 @@ from smappdragon import MongoCollection
 class TestMongoCollection(unittest.TestCase):
 
 	def test_iterator_returns_tweets(self):
-        collection = MongoCollection(     \
+		collection = MongoCollection(     \
             config['mongo']['host'],      \
             config['mongo']['port'],      \
             config['mongo']['user'],      \
