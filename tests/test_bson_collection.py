@@ -10,7 +10,7 @@ class TestBsonCollection(unittest.TestCase):
 		self.assertTrue(len(list(collection.set_limit(10).get_iterator())) > 0)
 
 if __name__ == '__main__':
-    unittest.main()
+	unittest.main()
 
 '''
 read about twitter entities here:

@@ -1,4 +1,5 @@
 import pymongo
+
 from smappdragon.collection.base_collection import BaseCollection
 
 class MongoCollection(BaseCollection):

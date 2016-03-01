@@ -1,5 +1,8 @@
 import abc
+import json
 import operator
+
+from bson import BSON, json_util
 from smappdragon.tools.tweet_parser import TweetParser
 
 class BaseCollection(object):
@@ -38,8 +41,36 @@ class BaseCollection(object):
 		return self
 
 	'''
+		dumps the contents of a collection 
+		to a bson file, this is a binary format
+	'''
+	def dump_to_bson(self, output_bson):
+		filehandle = open(output_bson, 'ab+')
+		for tweet in self.get_iterator():
+			filehandle.write(BSON.encode(tweet))
+		filehandle.close()
+
+	'''
+		dumps the contents of a collection
+		to a json file, a json object on
+		each line, this not a binary format
+	'''
+	def dump_to_json(self, output_json):
+		filehandle = open(output_json, 'ab+')
+		for tweet in self.get_iterator():
+			filehandle.write(json.dumps(tweet, default=json_util.default))
+		filehandle.close()
+
+	'''
+		dumps the contents of a collection 
+		csv format, depending on provided fields
+	'''
+	# def dump_to_csv(self, csv_field_object, output_csv):
+	# 	print 'nada'
+
+	'''
 		returns a dictionary with
-		counts for the number of 
+		counts for the number of
 		top entities requested
 	'''
 	def top_entities(self, requested_entities):

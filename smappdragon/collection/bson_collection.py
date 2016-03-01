@@ -1,5 +1,6 @@
 import os
 import bson
+
 from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
 

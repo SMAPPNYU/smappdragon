@@ -11,7 +11,9 @@
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
+	- [bson_collection]()
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
+		- [get_iterator]()
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
@@ -33,6 +35,9 @@ ability to set a custom function to a filter
 
 add language detection:
 https://github.com/mikemccand/chromium-compact-language-detector
+
+add mongo operators:
+https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
 
 process:
 
@@ -71,12 +76,6 @@ The `bson` folder contains two bson files on which to run tests. One if a valid.
 ##collection
 
 classes for interfacing with a tweets from different data sources
-
-##base_collection
-
-this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
-
-test: `python -m unittest tests.test_base_collection`
 
 ##mongo_collection
 
@@ -119,8 +118,64 @@ config = {
 	}
 }
 ```
-
 this config is used for testing it is gitignored.
+
+##bson_collection
+
+this allows you to use any bson file as a data source for smappdragon
+
+abstract:
+```python
+from smappdragon import BsonCollection
+
+collection = BsonCollection('/path/to/bson/file.bson')
+```
+
+practical:
+```python
+from smappdragon import BsonCollection
+
+collection = BsonCollection('~/Documents/file.bson')
+```
+
+*returns* a collection object can have methods called on it
+
+test: `python -m unittest tests.test_bson_collection`
+
+you should create a `config.py` file in the `tests` directory structured like so:
+
+```python
+config = {
+	'blah':{
+		.
+		.
+		.
+	},
+	'bson':{ \
+        'valid': 'bson/valid.bson', \
+        'invalid': 'bson/invalid.bson' \
+    } \
+}
+```
+this config is used for testing it is gitignored.
+
+
+##base_collection
+
+this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
+
+test: `python -m unittest tests.test_base_collection`
+
+##get_iterator
+
+makes an iterator that can iterate through all tweets in a particular collection
+
+abstract / practical:
+```python
+collection.get_iterator()
+```
+
+*returns* an iterable object that will yield all the tweets in a particular collection
 
 ##top_entities
 
