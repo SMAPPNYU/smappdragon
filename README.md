@@ -11,9 +11,9 @@
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
-	- [bson_collection]()
+	- [bson_collection](https://github.com/SMAPPNYU/smappdragon#bson_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
-		- [get_iterator]()
+		- [get_iterator](https://github.com/SMAPPNYU/smappdragon#get_iterator)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
