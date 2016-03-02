@@ -67,7 +67,6 @@ class BaseCollection(object):
 	'''
 	def dump_to_csv(self, csv_field_object, output_csv):
 		tweet_parser = TweetParser()
-		
 
 	'''
 		returns a dictionary with

@@ -39,7 +39,12 @@ https://github.com/mikemccand/chromium-compact-language-detector
 add mongo operators:
 https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
 
+custom_filter
 add ability to add custom filter function
+
+map_tweet
+add a map function that lets you apply a transformation to each tweet, like easily adding a label
+or ideology, similar to custom filter function.
 
 process:
 
