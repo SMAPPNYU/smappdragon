@@ -65,8 +65,9 @@ class BaseCollection(object):
 		dumps the contents of a collection 
 		csv format, depending on provided fields
 	'''
-	# def dump_to_csv(self, csv_field_object, output_csv):
-	# 	print 'nada'
+	def dump_to_csv(self, csv_field_object, output_csv):
+		tweet_parser = TweetParser()
+		
 
 	'''
 		returns a dictionary with

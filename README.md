@@ -39,6 +39,8 @@ https://github.com/mikemccand/chromium-compact-language-detector
 add mongo operators:
 https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
 
+add ability to add custom filter function
+
 process:
 
 install pylint: `pip install pylint`
