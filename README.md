@@ -17,16 +17,16 @@
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
-		- [dump_to_bson]()
-		- [dump_to_json]()
-		- [dump_to_csv]()
+		- [dump_to_bson](https://github.com/SMAPPNYU/smappdragon#dump_to_bson)
+		- [dump_to_json](https://github.com/SMAPPNYU/smappdragon#dump_to_json)
+		- [dump_to_csv](https://github.com/SMAPPNYU/smappdragon#dump_to_csv)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
-		- [tweet_passes_filter]()
-		- [flatten_dict]()
+		- [tweet_passes_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_filter)
+		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
 
 ##contributing
 
