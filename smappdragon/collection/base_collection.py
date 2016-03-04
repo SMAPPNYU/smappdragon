@@ -62,7 +62,7 @@ class BaseCollection(object):
 		filehandle = open(output_json, 'ab+')
 
 		for tweet in self.get_iterator():
-			filehandle.write(json.dumps(tweet, default=json_util.default))
+			filehandle.write(json.dumps(tweet, default=json_util.default)+'\n')
 		filehandle.close()
 
 	'''
