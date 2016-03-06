@@ -484,12 +484,12 @@ flattens a tweet into a list of key paths and values. this is a one dimensional 
 
 abstract:
 ```python
-self.flatten_dict(TWEET_OBJ)
+tweet_parser.flatten_dict(TWEET_OBJ)
 ```
 
 practical:
 ```python
-self.flatten_dict({'key':{'key2':{'key3':'blah blah'}}, 'cat':'tab'})
+tweet_parser.flatten_dict({'key':{'key2':{'key3':'blah blah'}}, 'cat':'tab'})
 ```
 
 output:
