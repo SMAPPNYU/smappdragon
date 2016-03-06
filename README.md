@@ -44,7 +44,8 @@ add ability to add custom filter function
 
 map_tweet
 add a map function that lets you apply a transformation to each tweet, like easily adding a label
-or ideology, similar to custom filter function.
+or ideology, similar to custom filter function. data added via map_tweet should be callable as a new row
+for csv export.
 
 process:
 
