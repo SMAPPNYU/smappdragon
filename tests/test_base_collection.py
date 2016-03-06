@@ -119,3 +119,16 @@ class TestBaseCollection(unittest.TestCase):
 
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json')
+
+	def tests_dump_to_csv_dumps(self):
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+
+		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		collection.dump_to_csv(output_path)
+		self.assertTrue(os.path.getsize(output_path) > 0)
+
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+

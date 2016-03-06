@@ -17,35 +17,40 @@
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
+		- [dump_to_bson](https://github.com/SMAPPNYU/smappdragon#dump_to_bson)
+		- [dump_to_json](https://github.com/SMAPPNYU/smappdragon#dump_to_json)
+		- [dump_to_csv](https://github.com/SMAPPNYU/smappdragon#dump_to_csv)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
 		- [get_entity](https://github.com/SMAPPNYU/smappdragon#get_entity)
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
+		- [tweet_passes_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_filter)
+		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
 
 ##contributing
 
 TODO:
 
-combining multiple collections.(give a list of the collections in a mongo database)
-
-add bson collection.
-
-ability to set a custom function to a filter
-
-add language detection:
-https://github.com/mikemccand/chromium-compact-language-detector
-
-add mongo operators:
-https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
+write json_collection
 
 custom_filter
 add ability to add custom filter function
 
 map_tweet
 add a map function that lets you apply a transformation to each tweet, like easily adding a label
-or ideology, similar to custom filter function. data added via map_tweet should be callable as a new row
-for csv export.
+or ideology, similar to custom filter function. this would allow you to transform a tweet object
+removing fields via a mongo like query syntax
+
+multiple collection names, multiple bson files, multiple json files.
+user should be able to give a list of collection names as an input, again this 
+combining multiple collections.(give a list of the collections in a mongo database)
+
+add language detection:
+https://github.com/mikemccand/chromium-compact-language-detector
+
+add mongo operators:
+https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
 
 process:
 
@@ -71,7 +76,7 @@ an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU
 
 be nice.
 
-[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)    
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
 
 ##testing 
 
@@ -289,6 +294,12 @@ collection.set_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).
 
 note: passing an empty filter will return all tweets in a collection, empty filters `{}` are like no filter.
 
+##dump_to_bson
+
+##dump_to_json
+
+##dump_to_csv
+
 ##tools
 
 these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source
@@ -391,6 +402,28 @@ print tweet_parser.get_entity_field('url', {
 *returns* the value stored in this entity object in the field you specified
 
 note: those urls look weird, they are just escaped, it's where you put a `\` in front of every `/`
+
+##tweet_passes_filter
+
+##flatten_dict
+
+abstract:
+```python
+```
+
+practical:
+```python
+{'key':{'key2':{'key3':'blah blah'}}}
+```
+
+output:
+```python
+(['key1', 'key2', 'key3'], 'blah blah')
+```
+
+*returns* a list of tuples wherer each tuple contains the a list of keys to get to a value ant the value located at those nested keys.
+
+see: http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
 
 ##author
 

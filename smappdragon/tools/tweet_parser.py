@@ -58,8 +58,8 @@ class TweetParser(object):
 
 	'''
 		get a list of lists that contains the 
-		keys that are in our filter.
-		http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
+		keys that are in our filter and the value
+		at the end of those keys. makes a list of tuples.
 	'''
 	def flatten_dict(self, dict_obj, path=None):
 		if path is None:

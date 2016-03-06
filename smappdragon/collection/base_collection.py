@@ -1,6 +1,8 @@
 import abc
 import json
 import operator
+import unicodecsv
+from pprint import pprint
 
 from bson import BSON, json_util
 from smappdragon.tools.tweet_parser import TweetParser
@@ -46,6 +48,7 @@ class BaseCollection(object):
 	'''
 	def dump_to_bson(self, output_bson):
 		filehandle = open(output_bson, 'ab+')
+
 		for tweet in self.get_iterator():
 			filehandle.write(BSON.encode(tweet))
 		filehandle.close()
@@ -57,16 +60,41 @@ class BaseCollection(object):
 	'''
 	def dump_to_json(self, output_json):
 		filehandle = open(output_json, 'ab+')
+
 		for tweet in self.get_iterator():
-			filehandle.write(json.dumps(tweet, default=json_util.default))
+			filehandle.write(json.dumps(tweet, default=json_util.default)+'\n')
 		filehandle.close()
 
 	'''
 		dumps the contents of a collection 
-		csv format, depending on provided fields
+		csv format
 	'''
-	def dump_to_csv(self, csv_field_object, output_csv):
+	def dump_to_csv(self, output_csv):
+		count = 0
 		tweet_parser = TweetParser()
+		filehandle = open(output_csv, 'ab+')
+		writer = unicodecsv.writer(filehandle)
+
+		for tweet in self.get_iterator():
+			row_to_write = []
+			flat_tweet_list = []
+
+			for flat_entry in tweet_parser.flatten_dict(tweet):
+				flat_tweet_list.append(flat_entry)
+
+			key_paths, values = zip(*flat_tweet_list)
+
+			if count == 0:
+				writer.writerow(['.'.join(key_path) for key_path in key_paths])
+				count += 1
+
+			#stuff retained for the end
+			retain_dict = {}
+			for tweet_tuple in flat_tweet_list:
+				row_to_write.append(unicode(tweet_tuple[1]))
+			row_to_write = [column or u'' for column in row_to_write]
+			writer.writerow(row_to_write)
+		filehandle.close()
 
 	'''
 		returns a dictionary with
