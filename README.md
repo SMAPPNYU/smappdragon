@@ -141,7 +141,7 @@ abstract:
 ```python
 from smappdragon import BsonCollection
 
-collection = BsonCollection('/path/to/bson/file.bson')
+collection = BsonCollection('/PATH/TO/BSON/FILE.bson')
 ```
 
 practical:
@@ -300,7 +300,7 @@ dumps all tweets in a collection to bson.
 
 abstract:
 ```python
-collection.dump_to_bson('/path/to/output/file.bson')
+collection.dump_to_bson('/PATH/TO/OUTPUT/FILE.bson')
 ```
 
 pratical:
@@ -318,7 +318,7 @@ dumps all tweets in a collection to json formatted bson (a json object on each l
 
 abstract:
 ```python
-collection.dump_to_json('/path/to/output/file.json')
+collection.dump_to_json('/PATH/TO/OUTPUT/FILE.json')
 ```
 
 pratical:
@@ -336,7 +336,7 @@ dumps all tweets in a collection to csv.
 
 abstract:
 ```python
-collection.dump_to_csv('/path/to/output/file.csv')
+collection.dump_to_csv('/PATH/TO/OUTPUT/FILE.csv')
 ```
 
 pratical:
@@ -374,7 +374,7 @@ tells you wether or not a tweet object has a certain [twitter entity](https://de
 
 abstract:
 ```python
-tweet_parser.contains_entity(entity_type, tweet)
+tweet_parser.contains_entity(ENTITY_TYPE, TWEET_OBJ)
 ```
 
 practical:
@@ -395,7 +395,7 @@ gets a particular list of [twitter entities](https://dev.twitter.com/overview/ap
 
 abstract:
 ```python
-tweet_parser.get_entity(entity_type, tweet)
+tweet_parser.get_entity(ENTITY_TYPE, TWEET_OBJ)
 ```
 
 practical:
@@ -431,7 +431,7 @@ gets the field of a particular [twitter entity](https://dev.twitter.com/overview
 
 abstract:
 ```python
-tweet_parser.get_entity_field(field, entity)
+tweet_parser.get_entity_field(FIELD, ENTITY)
 ```
 
 practical:
