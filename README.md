@@ -480,15 +480,16 @@ True
 
 ##flatten_dict
 
-flattens a tweet into a list of key paths and values. this is a one dimensional structure.
+flattens a tweet into a list of key paths and values. this is a one dimensional structure. you can flatten two objects and then compare them more easily.
 
 abstract:
 ```python
+self.flatten_dict(TWEET_OBJ)
 ```
 
 practical:
 ```python
-{'key':{'key2':{'key3':'blah blah'}}, 'cat':'tab'}
+self.flatten_dict({'key':{'key2':{'key3':'blah blah'}}, 'cat':'tab'})
 ```
 
 output:
@@ -502,6 +503,7 @@ output:
 *returns* a list of tuples wherer each tuple contains the a list of keys to get to a value ant the value located at those nested keys.
 
 see: http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
+see: the tweet_passes_filter method in tweet_parser.py for an example of how to use it to comapare two objects.
 
 ##author
 
