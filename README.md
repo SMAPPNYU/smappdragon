@@ -296,9 +296,59 @@ note: passing an empty filter will return all tweets in a collection, empty filt
 
 ##dump_to_bson
 
+dumps all tweets in a collection to bson.
+
+abstract:
+```python
+collection.dump_to_bson('/path/to/output/file.bson')
+```
+
+pratical:
+```python
+collection.dump_to_bson('~/smappstuff/file.bson')
+# or 
+collection.limit(5).dump_to_bson('/Users/kevin/work/smappwork/file.bson')
+```
+
+*returns* a bson file that dumps to disk.
+
 ##dump_to_json
 
+dumps all tweets in a collection to json formatted bson (a json object on each line of the file).
+
+abstract:
+```python
+collection.dump_to_json('/path/to/output/file.json')
+```
+
+pratical:
+```python
+collection.dump_to_json('~/smappstuff/file.json')
+# or 
+collection.limit(5).dump_to_json('/Users/kevin/work/smappwork/file.json')
+```
+
+*returns* a json file that dumps to disk.
+
 ##dump_to_csv
+
+dumps all tweets in a collection to csv.
+
+abstract:
+```python
+collection.dump_to_csv('/path/to/output/file.csv')
+```
+
+pratical:
+```python
+collection.dump_to_csv('~/smappstuff/file.csv')
+# or 
+collection.limit(5).dump_to_csv('/Users/kevin/work/smappwork/file.csv')
+```
+
+*returns* a csv file taht dumps to disk.
+
+note: media and lists of objects are converted to a unicode string and put as one field in the csv.
 
 ##tools
 
