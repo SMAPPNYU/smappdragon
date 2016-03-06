@@ -455,7 +455,28 @@ note: those urls look weird, they are just escaped, it's where you put a `\` in 
 
 ##tweet_passes_filter
 
+checks to see if a tweet passes a filter
+
+abstract:
+```python
+tweet_parser.tweet_passes_filter(FILTER_OBJECT, TWEET_OBJECT)
+```
+
+practical:
+```python
+tweet_parser.tweet_passes_filter({'a':'b'}, {'a':'b', 'c':'d'})
+```
+
+output:
+```python
+True
+```
+
+*return* true if a tweet passes a filter or false if a tweet fails to pass a filter.
+
 ##flatten_dict
+
+flattens a tweet into a list of key paths and values. this is a one dimensional structure.
 
 abstract:
 ```python
@@ -463,12 +484,15 @@ abstract:
 
 practical:
 ```python
-{'key':{'key2':{'key3':'blah blah'}}}
+{'key':{'key2':{'key3':'blah blah'}}, 'cat':'tab'}
 ```
 
 output:
 ```python
-(['key1', 'key2', 'key3'], 'blah blah')
+[
+(['key1', 'key2', 'key3'], 'blah blah'),
+(['cat'], 'tab')
+]
 ```
 
 *returns* a list of tuples wherer each tuple contains the a list of keys to get to a value ant the value located at those nested keys.
