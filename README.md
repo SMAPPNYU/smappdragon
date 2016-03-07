@@ -12,6 +12,7 @@
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
 	- [bson_collection](https://github.com/SMAPPNYU/smappdragon#bson_collection)
+	- [json_collection](https://github.com/SMAPPNYU/smappdragon#json_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [get_iterator](https://github.com/SMAPPNYU/smappdragon#get_iterator)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
@@ -155,6 +156,28 @@ collection = BsonCollection('~/Documents/file.bson')
 
 test: `python -m unittest tests.test_bson_collection`
 
+##json_collection
+
+this allows you to use any json file (with a json object on each line) as a data source for smappdragon
+
+abstract:
+```python
+from smappdragon import JsonCollection
+
+collection = JsonCollection('/PATH/TO/JSON/FILE.json')
+```
+
+practical:
+```python
+from smappdragon import JsonCollection
+
+collection = JsonCollection('~/Documents/file.json')
+```
+
+*returns* a collection object can have methods called on it
+
+test: `python -m unittest tests.test_json_collection`
+
 you should create a `config.py` file in the `tests` directory structured like so:
 
 ```python
@@ -164,9 +187,8 @@ config = {
 		.
 		.
 	},
-	'bson':{ \
-        'valid': 'bson/valid.bson', \
-        'invalid': 'bson/invalid.bson' \
+	'json':{ \
+        'valid': 'json/valid.json' \
     } \
 }
 ```
