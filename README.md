@@ -166,7 +166,7 @@ config = {
 		.
 	},
 	'bson':{ \
-        'valid': 'bson/valid.json' \
+        'valid': 'bson/valid.bson' \
     } \
 }
 ```
