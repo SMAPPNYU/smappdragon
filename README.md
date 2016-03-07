@@ -156,6 +156,22 @@ collection = BsonCollection('~/Documents/file.bson')
 
 test: `python -m unittest tests.test_bson_collection`
 
+you should create a `config.py` file in the `tests` directory structured like so:
+
+```python
+config = {
+	'blah':{
+		.
+		.
+		.
+	},
+	'bson':{ \
+        'valid': 'bson/valid.json' \
+    } \
+}
+```
+this config is used for testing it is gitignored.
+
 ##json_collection
 
 this allows you to use any json file (with a json object on each line) as a data source for smappdragon
@@ -193,7 +209,6 @@ config = {
 }
 ```
 this config is used for testing it is gitignored.
-
 
 ##base_collection
 
