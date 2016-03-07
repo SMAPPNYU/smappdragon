@@ -2,7 +2,6 @@ import abc
 import json
 import operator
 import unicodecsv
-from pprint import pprint
 
 from bson import BSON, json_util
 from smappdragon.tools.tweet_parser import TweetParser
