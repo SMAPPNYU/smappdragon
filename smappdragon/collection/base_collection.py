@@ -81,14 +81,14 @@ class BaseCollection(object):
 			for flat_entry in tweet_parser.flatten_dict(tweet):
 				flat_tweet_list.append(flat_entry)
 
-			key_paths, values = zip(*flat_tweet_list)
+			# split list of tuples into
+			# two lists and grab the first list
+			key_paths = zip(*flat_tweet_list)[0]
 
 			if count == 0:
 				writer.writerow(['.'.join(key_path) for key_path in key_paths])
 				count += 1
 
-			#stuff retained for the end
-			retain_dict = {}
 			for tweet_tuple in flat_tweet_list:
 				row_to_write.append(unicode(tweet_tuple[1]))
 			row_to_write = [column or u'' for column in row_to_write]

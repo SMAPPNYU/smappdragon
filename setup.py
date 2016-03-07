@@ -19,5 +19,6 @@ setup(name='smappdragon',
 	license='MIT',
 	install_requires=[
 	  'pymongo>=3.2.1',
+      'unicodecsv>=0.14.1'
 	]
 )
