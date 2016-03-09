@@ -33,7 +33,9 @@
 
 TODO:
 
-write json_collection
+data limit
+
+sets a data limit on how many tweets can come through.
 
 custom_filter
 add ability to add custom filter function
@@ -47,11 +49,8 @@ multiple collection names, multiple bson files, multiple json files.
 user should be able to give a list of collection names as an input, again this 
 combining multiple collections.(give a list of the collections in a mongo database)
 
-add language detection:
-https://github.com/mikemccand/chromium-compact-language-detector
-
 add mongo operators:
-https://docs.mongodb.org/manual/reference/operator/query-comparison/postgres
+https://docs.mongodb.org/manual/reference/operator/query/
 
 process:
 
