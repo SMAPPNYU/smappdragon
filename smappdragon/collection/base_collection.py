@@ -13,6 +13,7 @@ class BaseCollection(object):
 	def __init__(self):
 		self.limit = 0
 		self.filter = {}
+		self.custom_filters = []
 
 	'''
 		returns an iterator that
@@ -94,6 +95,14 @@ class BaseCollection(object):
 			row_to_write = [column or u'' for column in row_to_write]
 			writer.writerow(row_to_write)
 		filehandle.close()
+
+	'''
+		takes a function as an input
+		and appends it to the list of
+		custom filters that need to be passed
+	'''
+	def set_custom_filter(self, func):
+		self.custom_filters.append(func)
 
 	'''
 		returns a dictionary with

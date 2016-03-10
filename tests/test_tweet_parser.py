@@ -92,6 +92,11 @@ class TestTweetParser(unittest.TestCase):
 		filter_obj = {'t':'m'}
 		self.assertFalse(self.tweet_parser.tweet_passes_filter(filter_obj, tweet_to_test))
 
+	def test_tweet_passes_good_custom_filter(self):
+
+	def test_tweet_fails_bad_custom_filter(self):
+		
+
 if __name__ == '__main__':
 	unittest.main()
 

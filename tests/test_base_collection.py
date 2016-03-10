@@ -132,3 +132,12 @@ class TestBaseCollection(unittest.TestCase):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
 
+	def test_set_custom_filter_is_set(self):
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		def is_tweet_a_retweet():
+
+		colllection.set_custom_filter(is_tweet_a_retweet)
+
+
+if __name__ == '__main__':
+	unittest.main()

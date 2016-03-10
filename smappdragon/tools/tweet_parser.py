@@ -38,6 +38,15 @@ class TweetParser(object):
 		return None
 
 	'''
+		tests a tweet to see if it passes a 
+		custom filter method, this just returns the
+		value of the filter method passed in
+	'''
+	@staticmethod
+	def tweet_passes_custom_filter(func, tweet):
+		return func(tweet)
+
+	'''
 		return true or false depends if
 		tweet passes through the filter
 		filters are just dictionaries.
