@@ -38,6 +38,15 @@ class TweetParser(object):
 		return None
 
 	'''
+		applies a transformation to all tweets that
+		pass through it. can be used to add fields
+		or tae off fields
+	'''
+	@staticmethod
+	def transform_tweet(map_structure, tweet):
+		pass
+		
+	'''
 		tests a tweet to see if it passes a 
 		custom filter method, this just returns the
 		value of the filter method passed in
@@ -55,11 +64,6 @@ class TweetParser(object):
 			if not self.tweet_passes_custom_filter(function, tweet):
 				return False
 		return True
-
-
-	@staticmethod
-	def transform_tweet(map_structure, tweet):
-		pass
 
 	'''
 		return true or false depends if
