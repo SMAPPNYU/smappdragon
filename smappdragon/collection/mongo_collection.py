@@ -1,5 +1,6 @@
 import pymongo
 
+from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
 
 class MongoCollection(BaseCollection):
@@ -20,11 +21,13 @@ class MongoCollection(BaseCollection):
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
+		tweet_parser = TweetParser()
 		mongo_cursor = self.mongo_collection.find( \
 			filter=self.filter, \
 			no_cursor_timeout=True, \
 			limit=self.limit \
 		)
 		for tweet in mongo_cursor:
-			yield tweet
+			if tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
+				yield tweet
 		mongo_cursor.close()
