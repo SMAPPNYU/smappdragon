@@ -7,7 +7,7 @@
 					|_|   |_|                    |___/
 ```
 
-:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress).
+:dragon: smappdragon is a set of tools for working with twitter data. check us out on [pypi](https://pypi.python.org/pypi/smappdragon). a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress). [the old toolkit is here.](https://github.com/SMAPPNYU/smapp-toolkit)
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
@@ -28,19 +28,23 @@
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 		- [tweet_passes_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_filter)
 		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
+		- [tweet_passes_custom_filter]()
+		- [transform_tweet]()
 
 ##contributing
 
 TODO:
 
-data limit
+set_data_limit
+
+sets a data limit in terms of GB or MB on how much data can come out of a collection.
 
 sets a data limit on how many tweets can come through.
 
 custom_filter
 add ability to add custom filter function
 
-map_tweet
+transform_tweet
 add a map function that lets you apply a transformation to each tweet, like easily adding a label
 or ideology, similar to custom filter function. this would allow you to transform a tweet object
 removing fields via a mongo like query syntax
@@ -49,7 +53,7 @@ multiple collection names, multiple bson files, multiple json files.
 user should be able to give a list of collection names as an input, again this 
 combining multiple collections.(give a list of the collections in a mongo database)
 
-add mongo operators:
+add mongo operators and dot syntax:
 https://docs.mongodb.org/manual/reference/operator/query/
 
 process:

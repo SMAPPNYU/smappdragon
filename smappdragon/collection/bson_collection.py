@@ -20,7 +20,7 @@ class BsonCollection(BaseCollection):
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
-		count = 0
+		count = 1
 		tweet_parser = TweetParser()
 		bson_handle = open(self.filepath, 'rb')
 		for tweet in bson.decode_file_iter(bson_handle):

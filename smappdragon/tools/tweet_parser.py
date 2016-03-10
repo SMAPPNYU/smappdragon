@@ -43,8 +43,23 @@ class TweetParser(object):
 		value of the filter method passed in
 	'''
 	@staticmethod
-	def tweet_passes_custom_filter(func, tweet):
-		return func(tweet)
+	def tweet_passes_custom_filter(function, tweet):
+		return function(tweet)
+
+	'''
+		just tests multiple custom filters
+		see, tweet_passes_custom_filter
+	'''
+	def tweet_passes_custom_filter_list(self, function_list, tweet):
+		for function in function_list:
+			if not self.tweet_passes_custom_filter(function, tweet):
+				return False
+		return True
+
+
+	@staticmethod
+	def transform_tweet(map_structure, tweet):
+		pass
 
 	'''
 		return true or false depends if

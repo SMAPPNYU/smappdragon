@@ -21,11 +21,11 @@ class JsonCollection(BaseCollection):
 		no spaghetti string
 	'''
 	def get_iterator(self):
-		count = 0
+		count = 1
 		tweet_parser = TweetParser()
 		json_handle = open(self.filepath, 'rb')
 		for tweet in json_handle:
-			if self.limit < count and self.limit != 0:
+			if self.limit != 0 and self.limit <= count:
 				raise StopIteration
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet):
 				count += 1

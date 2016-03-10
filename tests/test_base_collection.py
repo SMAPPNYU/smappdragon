@@ -3,55 +3,26 @@ import unittest
 
 from tests.config import config
 from smappdragon import BsonCollection
-from smappdragon import MongoCollection
 
 class TestBaseCollection(unittest.TestCase):
 
 	def test_base_top_entities_returns_dict(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		returndict = collection.top_entities({'hashtags':5})
 		self.assertTrue(isinstance(returndict, dict))
 
 	def test_base_top_entities_returns_hashtags(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		returndict = collection.top_entities({'hashtags':5})
 		self.assertTrue('hashtags' in returndict)
 
 	def test_base_top_entities_returns_hashtags_and_media(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		returndict = collection.top_entities({'user_mentions':5, 'media':3})
 		self.assertTrue('user_mentions' in returndict and 'media' in returndict)
 
 	def test_base_top_entities_returns_counts(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		returndict = collection.top_entities({'urls':5, 'symbols':3})
 		if len(returndict['urls']) > 0:
 			self.assertTrue(len(returndict['urls']) == 5)
@@ -59,40 +30,19 @@ class TestBaseCollection(unittest.TestCase):
 			self.assertTrue(len(returndict['symbols']) == 3)
 
 	def test_limit_is_set(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.set_limit(5)
 		self.assertEqual(5, collection.limit)
 		collection.set_limit(0)
 
 	def test_limit_actually_limits(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.get_iterator()
 		count = len([tweet for tweet in collection.set_limit(5).get_iterator()])
 		self.assertEqual(5, count)
 
 	def test_filter_is_set(self):
-		collection = MongoCollection(     \
-			config['mongo']['host'],      \
-			config['mongo']['port'],      \
-			config['mongo']['user'],      \
-			config['mongo']['password'],  \
-			config['mongo']['database'],  \
-			config['mongo']['collection'] \
-		)
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.set_filter({'a':'b', 'c':'d', 'e':{'f':'g', 'h':'i'}})
 		self.assertEqual(collection.filter, {'a':'b', 'c':'d', 'e':{'f':'g', 'h':'i'}})
 
@@ -134,9 +84,23 @@ class TestBaseCollection(unittest.TestCase):
 
 	def test_set_custom_filter_is_set(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		def is_tweet_a_retweet():
+		def is_tweet_a_retweet(tweet):
+			if 'retweeted' in tweet and tweet['retweeted']:
+				return True
+			else:
+				return False
+		collection.set_custom_filter(is_tweet_a_retweet)
+		self.assertTrue(len(collection.custom_filters) == 1)
 
-		colllection.set_custom_filter(is_tweet_a_retweet)
+	def test_set_custom_filter_is_not_double_set(self):
+		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		def is_tweet_a_retweet(tweet):
+			if 'retweeted' in tweet and tweet['retweeted']:
+				return True
+			else:
+				return False
+		collection.set_custom_filter(is_tweet_a_retweet)
+		self.assertFalse(len(collection.custom_filters) > 1)
 
 
 if __name__ == '__main__':

@@ -43,6 +43,15 @@ class BaseCollection(object):
 		return self
 
 	'''
+		takes a function as an input
+		and appends it to the list of
+		custom filters that need to be passed
+	'''
+	def set_custom_filter(self, func):
+		self.custom_filters.append(func)
+		return self
+
+	'''
 		dumps the contents of a collection 
 		to a bson file, this is a binary format
 	'''
@@ -95,14 +104,6 @@ class BaseCollection(object):
 			row_to_write = [column or u'' for column in row_to_write]
 			writer.writerow(row_to_write)
 		filehandle.close()
-
-	'''
-		takes a function as an input
-		and appends it to the list of
-		custom filters that need to be passed
-	'''
-	def set_custom_filter(self, func):
-		self.custom_filters.append(func)
 
 	'''
 		returns a dictionary with
