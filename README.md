@@ -33,31 +33,11 @@
 		- [tweet_passes_custom_filter_list]()
 		- [transform_tweet]()
 
-##contributing
+##installation
 
-install pylint: `pip install pylint`
+`pip install smappdragon`
 
-write your code
-
-run `pylint smappdragon`
-
-fix style issues
-
-submit your pull request to the `dev` branch
-
-some pointers:
-
-do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
-
-use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
-
-only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
-
-an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
-
-be nice.
-
-[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
+`pip install smappdragon --upgrade`
 
 ##testing 
 
@@ -597,6 +577,32 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 *not ready* - could use mongo operator support
 
 transforms a tweet, either adding fields or removing fields
+
+##contributing
+
+install pylint: `pip install pylint`
+
+write your code
+
+run `pylint smappdragon`
+
+fix style issues
+
+submit your pull request to the `dev` branch
+
+some pointers:
+
+do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
+
+use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
+
+only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
+
+an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
+
+be nice.
+
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
 
 ##author
 
