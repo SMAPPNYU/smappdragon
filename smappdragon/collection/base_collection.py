@@ -52,6 +52,15 @@ class BaseCollection(object):
 		return self
 
 	'''
+		takes a function as an input
+		and appends it to the list of
+		custom filters that need to be passed
+	'''
+	def set_custom_filter_list(self, functions_list):
+		self.custom_filters.extend(functions_list)
+		return self
+
+	'''
 		dumps the contents of a collection 
 		to a bson file, this is a binary format
 	'''

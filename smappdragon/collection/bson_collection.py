@@ -27,7 +27,7 @@ class BsonCollection(BaseCollection):
 			if self.limit < count and self.limit != 0:
 				raise StopIteration
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
-				and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
+			and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
 				count += 1
 				yield tweet
 		bson_handle.close()
