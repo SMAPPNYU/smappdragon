@@ -298,7 +298,7 @@ sets a method you define as a filter for tweets
 
 abstract:
 ```python
-collection.set_custom_filter(FUNCTION, TWEET_FILTER)
+collection.set_custom_filter(FUNCTION)
 ```
 
 practical:
@@ -308,9 +308,9 @@ def is_tweet_a_retweet(tweet):
 		return True
 	else:
 		return False
-collection.set_custom_filter(is_tweet_a_retweet, tweet)
+collection.set_custom_filter(is_tweet_a_retweet)
 # or 
-collection.set_custom_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).top_entities({'hashtags':10})
+collection.set_custom_filter(is_tweet_a_retweet).top_entities({'hashtags':10})
 ```
 *returns* a collection object that will only return tweets that match or pass the specified custom filter method.
 
