@@ -35,31 +35,6 @@
 
 ##contributing
 
-TODO:
-
-set_data_limit
-
-sets a data limit in terms of GB or MB on how much data can come out of a collection.
-
-sets a data limit on how many tweets can come through.
-
-custom_filter
-add ability to add custom filter function
-
-transform_tweet
-add a map function that lets you apply a transformation to each tweet, like easily adding a label
-or ideology, similar to custom filter function. this would allow you to transform a tweet object
-removing fields via a mongo like query syntax
-
-multiple collection names, multiple bson files, multiple json files.
-user should be able to give a list of collection names as an input, again this 
-combining multiple collections.(give a list of the collections in a mongo database)
-
-add mongo operators and dot syntax:
-https://docs.mongodb.org/manual/reference/operator/query/
-
-process:
-
 install pylint: `pip install pylint`
 
 write your code
