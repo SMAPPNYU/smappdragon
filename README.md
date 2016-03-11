@@ -32,6 +32,7 @@
 		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
 		- [transform_tweet](https://github.com/SMAPPNYU/smappdragon#transform_tweet)
+	- [mongo_query]()
 
 ##installation
 
@@ -577,6 +578,14 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 *not ready* - could use mongo operator support
 
 transforms a tweet, either adding fields or removing fields
+
+*returns*
+
+##mongo_query
+
+*not ready*
+
+allows you to perform mongo queries on tweet objects (python dicts more generally)
 
 ##contributing
 
