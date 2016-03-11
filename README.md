@@ -571,6 +571,58 @@ output:
 see: http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
 see: the tweet_passes_filter method in tweet_parser.py for an example of how to use it to comapare two objects.
 
+##tweet_passes_custom_filter
+
+tells you wether or not a tweet passes a certain custom filter method that you define
+
+abstract:
+```python
+tweet_parser.tweet_passes_custom_filter(FILTER_FUNCTION, TWEET)
+```
+
+practical:
+```python
+def is_tweet_a_retweet(tweet):
+	if 'retweeted' in tweet and tweet['retweeted']:
+		return True
+	else:
+		return False
+tweet_parser.tweet_passes_custom_filter(FILTER_FUNCTION, TWEET)
+```
+
+*returns* true or false depending on whether or not a tweet passes through the filter
+
+##tweet_passes_custom_filter_list
+
+tells you wether or not a tweet passes a list of certain custom filter method that you define
+
+abstract:
+```python
+tweet_parser.tweet_passes_custom_filter_list([FILTER_FUNCTION, ANOTHER_FILTER_FUNCTION], TWEET)
+```
+
+practical:
+```python
+def is_tweet_a_retweet(tweet):
+	if 'retweeted' in tweet and tweet['retweeted']:
+		return True
+	else:
+		return False
+def screen_name_is_yvan(tweet):
+	if screen_name in tweet and tweet['screen_name']:
+		return True
+	return False
+tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_retweet], 'cat':'tab'})
+```
+
+*returns* true or false depending on whether or not a tweet passes through the list of filters
+
+##transform_tweet
+
+*not ready* - could use mongo operator support
+
+transforms a tweet, either adding fields or removing fields
+
 ##author
 
 [yvan](https://github.com/yvan)
