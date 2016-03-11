@@ -18,7 +18,7 @@
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
-		- [set_custom_filter]()
+		- [set_custom_filter](https://github.com/SMAPPNYU/smappdragon#set_custom_filter)
 		- [dump_to_bson](https://github.com/SMAPPNYU/smappdragon#dump_to_bson)
 		- [dump_to_json](https://github.com/SMAPPNYU/smappdragon#dump_to_json)
 		- [dump_to_csv](https://github.com/SMAPPNYU/smappdragon#dump_to_csv)
