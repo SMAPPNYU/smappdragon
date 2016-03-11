@@ -29,9 +29,9 @@
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 		- [tweet_passes_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_filter)
 		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
-		- [tweet_passes_custom_filter]()
-		- [tweet_passes_custom_filter_list]()
-		- [transform_tweet]()
+		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
+		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
+		- [transform_tweet](https://github.com/SMAPPNYU/smappdragon#transform_tweet)
 
 ##installation
 
