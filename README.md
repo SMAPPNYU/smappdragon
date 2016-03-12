@@ -314,6 +314,33 @@ collection.set_custom_filter(is_tweet_a_retweet).top_entities({'hashtags':10})
 ```
 *returns* a collection object that will only return tweets that match or pass the specified custom filter method.
 
+##set_custom_filter_list
+
+sets a list of methods you define as a set of filters for tweets
+
+abstract:
+```python
+collection.set_custom_filter_list([FUNCTION_ONE, FUNCTION_TWO, ETC])
+```
+
+practical:
+```python
+def is_tweet_a_retweet(tweet):
+	if 'retweeted' in tweet and tweet['retweeted']:
+		return True
+	else:
+		return False
+def screen_name_is_yvan(tweet):
+	if screen_name in tweet and tweet['screen_name'] == 'yvan':
+		return True
+	return False
+collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
+# or 
+collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan]).top_entities({'hashtags':10})
+```
+
+*returns* a collection object that will only return tweets that match or pass the specified custom filter methods.
+
 note: passing an empty filter will return all tweets in a collection, empty filters `[]` are like no filter.
 
 ##dump_to_bson
@@ -565,7 +592,7 @@ def is_tweet_a_retweet(tweet):
 	else:
 		return False
 def screen_name_is_yvan(tweet):
-	if screen_name in tweet and tweet['screen_name']:
+	if screen_name in tweet and tweet['screen_name'] == 'yvan':
 		return True
 	return False
 tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_retweet], 'cat':'tab'})
