@@ -587,7 +587,7 @@ def is_tweet_a_retweet(tweet):
 		return True
 	else:
 		return False
-tweet_parser.tweet_passes_custom_filter(FILTER_FUNCTION, TWEET)
+tweet_parser.tweet_passes_custom_filter(is_tweet_retweet, {text: 'blah blah', retweeted: True})
 ```
 
 *returns* true or false depending on whether or not a tweet passes through the filter
@@ -612,7 +612,7 @@ def screen_name_is_yvan(tweet):
 	if screen_name in tweet and tweet['screen_name']:
 		return True
 	return False
-tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_retweet], 'cat':'tab'})
+tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_retweet], {text: 'blah blah', retweeted: True})
 ```
 
 *returns* true or false depending on whether or not a tweet passes through the list of filters
