@@ -69,3 +69,6 @@ tests/config.py
 
 .DS_STORE
 .DS_Store
+
+# thing that turns on our env
+.env
