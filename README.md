@@ -41,7 +41,7 @@
 
 `pip install smappdragon --upgrade`
 
-smappdragon runs in python 3. if you dont have this version of python, [install anaconda](https://www.continuum.io/downloads), [or miniconda](http://conda.pydata.org/miniconda.html), whatever you do we recommend at least python 3.5.
+smappdragon runs in python 3. if you dont have this version of python, [install anaconda](https://www.continuum.io/downloads), [or miniconda](http://conda.pydata.org/miniconda.html), whatever you do we recommend at least python 3.0 .
 
 (check python binary location with `which python`) 
 should be /usr/bin/python (mac osx base install), /usr/local/bin/python (homebrew), /Users/YOURNAME/miniconda3/bin/python (miniconda), /Users/YOURNAME/anaconda/bin/python (anaconda)
