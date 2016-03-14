@@ -24,9 +24,8 @@ class MongoCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		mongo_cursor = self.mongo_collection.find( \
 			filter=self.filter, \
-			no_cursor_timeout=True, \
-			limit=self.limit, \
-			no_cursor_timeout=False \
+			no_cursor_timeout=False, \
+			limit=self.limit \
 		)
 		for tweet in mongo_cursor:
 			if tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
