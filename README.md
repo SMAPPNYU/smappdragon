@@ -19,6 +19,7 @@
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
 		- [set_custom_filter](https://github.com/SMAPPNYU/smappdragon#set_custom_filter)
+		- [set_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#set_custom_filter_list)
 		- [dump_to_bson](https://github.com/SMAPPNYU/smappdragon#dump_to_bson)
 		- [dump_to_json](https://github.com/SMAPPNYU/smappdragon#dump_to_json)
 		- [dump_to_csv](https://github.com/SMAPPNYU/smappdragon#dump_to_csv)
@@ -29,60 +30,16 @@
 		- [get_entity_field](https://github.com/SMAPPNYU/smappdragon#get_entity_field)
 		- [tweet_passes_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_filter)
 		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
-		- [tweet_passes_custom_filter]()
-		- [tweet_passes_custom_filter_list]()
-		- [transform_tweet]()
+		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
+		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
+		- [transform_tweet](https://github.com/SMAPPNYU/smappdragon#transform_tweet)
+	- [mongo_query]()
 
-##contributing
+##installation
 
-TODO:
+`pip install smappdragon`
 
-set_data_limit
-
-sets a data limit in terms of GB or MB on how much data can come out of a collection.
-
-sets a data limit on how many tweets can come through.
-
-custom_filter
-add ability to add custom filter function
-
-transform_tweet
-add a map function that lets you apply a transformation to each tweet, like easily adding a label
-or ideology, similar to custom filter function. this would allow you to transform a tweet object
-removing fields via a mongo like query syntax
-
-multiple collection names, multiple bson files, multiple json files.
-user should be able to give a list of collection names as an input, again this 
-combining multiple collections.(give a list of the collections in a mongo database)
-
-add mongo operators and dot syntax:
-https://docs.mongodb.org/manual/reference/operator/query/
-
-process:
-
-install pylint: `pip install pylint`
-
-write your code
-
-run `pylint smappdragon`
-
-fix style issues
-
-submit your pull request to the `dev` branch
-
-some pointers:
-
-do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
-
-use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
-
-only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
-
-an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
-
-be nice.
-
-[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
+`pip install smappdragon --upgrade`
 
 ##testing 
 
@@ -342,7 +299,7 @@ sets a method you define as a filter for tweets
 
 abstract:
 ```python
-collection.set_custom_filter(FUNCTION, TWEET_FILTER)
+collection.set_custom_filter(FUNCTION)
 ```
 
 practical:
@@ -352,11 +309,38 @@ def is_tweet_a_retweet(tweet):
 		return True
 	else:
 		return False
-collection.set_custom_filter(is_tweet_a_retweet, tweet)
+collection.set_custom_filter(is_tweet_a_retweet)
 # or 
-collection.set_custom_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).top_entities({'hashtags':10})
+collection.set_custom_filter(is_tweet_a_retweet).top_entities({'hashtags':10})
 ```
 *returns* a collection object that will only return tweets that match or pass the specified custom filter method.
+
+##set_custom_filter_list
+
+sets a list of methods you define as a set of filters for tweets
+
+abstract:
+```python
+collection.set_custom_filter_list([FUNCTION_ONE, FUNCTION_TWO, ETC])
+```
+
+practical:
+```python
+def is_tweet_a_retweet(tweet):
+	if 'retweeted' in tweet and tweet['retweeted']:
+		return True
+	else:
+		return False
+def screen_name_is_yvan(tweet):
+	if screen_name in tweet and tweet['screen_name'] == 'yvan':
+		return True
+	return False
+collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
+# or 
+collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan]).top_entities({'hashtags':10})
+```
+
+*returns* a collection object that will only return tweets that match or pass the specified custom filter methods.
 
 note: passing an empty filter will return all tweets in a collection, empty filters `[]` are like no filter.
 
@@ -609,7 +593,7 @@ def is_tweet_a_retweet(tweet):
 	else:
 		return False
 def screen_name_is_yvan(tweet):
-	if screen_name in tweet and tweet['screen_name']:
+	if screen_name in tweet and tweet['screen_name'] == 'yvan':
 		return True
 	return False
 tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_retweet], {text: 'blah blah', retweeted: True})
@@ -622,6 +606,40 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 *not ready* - could use mongo operator support
 
 transforms a tweet, either adding fields or removing fields
+
+*returns*
+
+##mongo_query
+
+*not ready*
+
+allows you to perform mongo queries on tweet objects (python dicts more generally)
+
+##contributing
+
+install pylint: `pip install pylint`
+
+write your code
+
+run `pylint smappdragon`
+
+fix style issues
+
+submit your pull request to the `dev` branch
+
+some pointers:
+
+do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
+
+use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
+
+only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
+
+an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
+
+be nice.
+
+[good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
 
 ##author
 
