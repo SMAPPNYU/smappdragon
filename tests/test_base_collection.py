@@ -141,14 +141,14 @@ class TestBaseCollection(unittest.TestCase):
 
 	# special test because custom logic is different on mongo
 	def test_mongo_collection_custom_filter_filters(self):
-		collectionone = MongoCollection( \
-            config['mongo']['host'], \
-            config['mongo']['port'], \
-            config['mongo']['user'], \
-            config['mongo']['password'], \
-            config['mongo']['database'], \
-            config['mongo']['collection'] \
-        )
+		(collectionone = MongoCollection(
+            config['mongo']['host'],
+            config['mongo']['port'],
+            config['mongo']['user'],
+            config['mongo']['password'],
+            config['mongo']['database'],
+            config['mongo']['collection']
+        ))
 		full_collection_len = len(list(collectionone.get_iterator()))
 		def is_tweet_a_retweet(tweet):
 			if 'retweeted' in tweet and tweet['retweeted']:
@@ -157,14 +157,14 @@ class TestBaseCollection(unittest.TestCase):
 				return False
 		num_retweets = len(list(collectionone.set_custom_filter(is_tweet_a_retweet).get_iterator()))
 
-		collectiontwo = MongoCollection( \
-            config['mongo']['host'], \
-            config['mongo']['port'], \
-            config['mongo']['user'], \
-            config['mongo']['password'], \
-            config['mongo']['database'], \
-            config['mongo']['collection'] \
-        )
+		(collectiontwo = MongoCollection(
+            config['mongo']['host'],
+            config['mongo']['port'],
+            config['mongo']['user'],
+            config['mongo']['password'],
+            config['mongo']['database'],
+            config['mongo']['collection']
+        ))
 		def is_not_a_retweet(tweet):
 			if 'retweeted' in tweet and tweet['retweeted']:
 				return False
