@@ -44,7 +44,7 @@ class TweetParser(object):
 	'''
 	@staticmethod
 	def transform_tweet(map_structure, tweet):
-		
+		pass
 
 	'''
 		tests a tweet to see if it passes a 
