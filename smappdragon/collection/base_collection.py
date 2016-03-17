@@ -77,7 +77,7 @@ class BaseCollection(object):
 		each line, this not a binary format
 	'''
 	def dump_to_json(self, output_json):
-		filehandle = open(output_json, 'ab+')
+		filehandle = open(output_json, 'a')
 
 		for tweet in self.get_iterator():
 			filehandle.write(json.dumps(tweet, default=json_util.default)+'\n')
@@ -102,14 +102,14 @@ class BaseCollection(object):
 
 			# split list of tuples into
 			# two lists and grab the first list
-			key_paths = zip(*flat_tweet_list)[0]
+			key_paths, _ = zip(*flat_tweet_list)
 
 			if count == 0:
 				writer.writerow(['.'.join(key_path) for key_path in key_paths])
 				count += 1
 
 			for tweet_tuple in flat_tweet_list:
-				row_to_write.append(unicode(tweet_tuple[1]))
+				row_to_write.append(str(tweet_tuple[1]))
 			row_to_write = [column or u'' for column in row_to_write]
 			writer.writerow(row_to_write)
 		filehandle.close()

@@ -7,7 +7,7 @@ class TestBsonCollection(unittest.TestCase):
 
 	def test_iterator_returns_tweets(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		self.assertTrue(len(list(collection.set_limit(10).get_iterator())) > 0)
+		self.assertTrue(len(list(collection.get_iterator())) > 0)
 
 	# special test because custom logic is different on mongo
 	def test_bson_collection_custom_filter_filters(self):

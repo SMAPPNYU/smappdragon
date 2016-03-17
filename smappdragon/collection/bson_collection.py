@@ -25,7 +25,8 @@ class BsonCollection(BaseCollection):
 		bson_handle = open(self.filepath, 'rb')
 		for tweet in bson.decode_file_iter(bson_handle):
 			if self.limit < count and self.limit != 0:
-				raise StopIteration
+				bson_handle.close()
+				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
 			and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
 				count += 1

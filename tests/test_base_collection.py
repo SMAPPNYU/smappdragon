@@ -39,7 +39,7 @@ class TestBaseCollection(unittest.TestCase):
 	def test_limit_actually_limits(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.get_iterator()
-		count = len([tweet for tweet in collection.set_limit(5).get_iterator()])
+		count = len(list(tweet for tweet in collection.set_limit(5).get_iterator()))
 		self.assertEqual(5, count)
 
 	def test_filter_is_set(self):
@@ -138,7 +138,7 @@ class TestBaseCollection(unittest.TestCase):
 
 		#the numbes of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
-		
+
 
 if __name__ == '__main__':
 	unittest.main()
