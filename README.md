@@ -392,6 +392,8 @@ collection.limit(5).dump_to_json('/Users/kevin/work/smappwork/file.json')
 
 ##dump_to_csv
 
+*super sketchy right now, might now work*
+
 dumps all tweets in a collection to csv.
 
 abstract:
