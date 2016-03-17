@@ -1,4 +1,5 @@
 import os
+import json
 
 from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
@@ -23,8 +24,9 @@ class JsonCollection(BaseCollection):
 	def get_iterator(self):
 		count = 1
 		tweet_parser = TweetParser()
-		json_handle = open(self.filepath, 'rb')
+		json_handle = open(self.filepath, 'r')
 		for tweet in json_handle:
+			tweet = json.loads(tweet)
 			if self.limit != 0 and self.limit <= count:
 				raise StopIteration
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
