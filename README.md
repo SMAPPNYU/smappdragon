@@ -627,27 +627,21 @@ allows you to perform mongo queries on tweet objects (python dicts more generall
 
 ##contributing
 
-install pylint: `pip install pylint`
+install the developer environment: `conda env create -f environment.yml`
 
-write your code
+run `pylint smappdragon` and fix style issues
 
-run `pylint smappdragon`
+submit your pull request on a feature branch `feature/added-language-support` to be merged with the `dev` branch
 
-fix style issues
-
-submit your pull request to the `dev` branch
-
-some pointers:
+bad style:
 
 do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
 
 use as few dependencies as possible. if you have a choice between using a little bit of extra code or importing a dependency and using a little less code. do not import the dependecy. write the extra code.
 
-only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separatae file.
+only create an extra file with methods if those methods could be used on their own. in other words do not make pure helper classes for the sake of abstracting code. it just makes the project more confusing. if there's code that's repeated more than 3-4x make a helper method in the place where it's used not a separate file.
 
 an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
-
-be nice.
 
 [good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
 
