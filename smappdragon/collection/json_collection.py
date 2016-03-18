@@ -28,7 +28,7 @@ class JsonCollection(BaseCollection):
 		for tweet in json_handle:
 			tweet = json.loads(tweet)
 			if self.limit != 0 and self.limit <= count:
-				raise StopIteration
+				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
 			and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
 				count += 1

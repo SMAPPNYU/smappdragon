@@ -77,7 +77,7 @@ class TestBaseCollection(unittest.TestCase):
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		collection.dump_to_csv(output_path)
+		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 		self.assertTrue(os.path.getsize(output_path) > 0)
 
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
@@ -138,7 +138,6 @@ class TestBaseCollection(unittest.TestCase):
 
 		#the numbes of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
-
 
 if __name__ == '__main__':
 	unittest.main()

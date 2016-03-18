@@ -85,32 +85,58 @@ class BaseCollection(object):
 
 	'''
 		dumps the contents of a collection 
-		csv format
+		csv format,not having fields is very
+		unwieldy
 	'''
-	def dump_to_csv(self, output_csv):
+	def dump_to_csv(self, output_csv, input_fields):
 		count = 0
 		tweet_parser = TweetParser()
-		filehandle = open(output_csv, 'ab+')
+		filehandle = open(output_csv, 'wb')
 		writer = unicodecsv.writer(filehandle)
+
+		expanded_fields = []
+		expanded_fields_list_keys = []
+
+		for field_path in input_fields:
+			fields = field_path.split('.')
+			if fields[-1].isdigit():
+				expanded_fields_list_keys.append((fields[0:len(fields)-1], fields[len(fields)-1]))
+				if fields[0:len(fields)-1] not in expanded_fields:
+					expanded_fields.append(fields[0:len(fields)-1])
+			else:
+				expanded_fields.append(fields)
 
 		for tweet in self.get_iterator():
 			row_to_write = []
 			flat_tweet_list = []
 
+			# flatten each tweet, and put the resulting tuples
+			# in a list
 			for flat_entry in tweet_parser.flatten_dict(tweet):
 				flat_tweet_list.append(flat_entry)
 
-			# split list of tuples into
-			# two lists and grab the first list
-			key_paths, _ = zip(*flat_tweet_list)
-
+			# write a header if its the first
+			# tweet
 			if count == 0:
-				writer.writerow(['.'.join(key_path) for key_path in key_paths])
+				writer.writerow(input_fields)
 				count += 1
 
+			# if each flattened key path 
+			# is a path the user wants add
+			# it to be a row to write
 			for tweet_tuple in flat_tweet_list:
-				row_to_write.append(str(tweet_tuple[1]))
-			row_to_write = [column or u'' for column in row_to_write]
+				if tweet_tuple[0] in expanded_fields:
+					if isinstance(tweet_tuple[1], list):
+						# for each possible array index
+						for list_key in expanded_fields_list_keys:
+							if list_key[0] == tweet_tuple[0] and int(list_key[1]) < len(tweet_tuple[1]):
+								row_to_write.append(tweet_tuple[1][int(list_key[1])])
+							else:
+								row_to_write.append('None')
+					else:
+						row_to_write.append(str(tweet_tuple[1]))
+
+			#convert each thing to unicode
 			writer.writerow(row_to_write)
 		filehandle.close()
 
