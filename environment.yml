@@ -2,6 +2,7 @@ name: smappdragon
 dependencies:
 - python=3.5
 - pip
+- pylint
 - pip:
   - pymongo>=3.2
   - unicodecsv>=0.14.1

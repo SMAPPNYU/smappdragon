@@ -144,8 +144,6 @@ this config is used for testing it is gitignored.
 
 ##json_collection
 
-*might not work right*
-
 this allows you to use any json file (with a json object on each line) as a data source for smappdragon
 
 abstract:
