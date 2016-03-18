@@ -106,9 +106,6 @@ class BaseCollection(object):
 			else:
 				expanded_fields.append(fields)
 
-		print(expanded_fields_list_keys)
-		print(expanded_fields)
-
 		for tweet in self.get_iterator():
 			row_to_write = []
 			flat_tweet_list = []
@@ -138,8 +135,8 @@ class BaseCollection(object):
 								row_to_write.append('None')
 					else:
 						row_to_write.append(str(tweet_tuple[1]))
-			# print(row_to_write)
-			row_to_write = [column or u'' for column in row_to_write]
+
+			#convert each thing to unicode
 			writer.writerow(row_to_write)
 		filehandle.close()
 

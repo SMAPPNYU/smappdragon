@@ -390,25 +390,27 @@ collection.limit(5).dump_to_json('/Users/kevin/work/smappwork/file.json')
 
 ##dump_to_csv
 
-*super sketchy right now, might now work*
-
 dumps all tweets in a collection to csv.
 
 abstract:
 ```python
-collection.dump_to_csv('/PATH/TO/OUTPUT/FILE.csv')
+collection.dump_to_csv('/PATH/TO/OUTPUT/FILE.csv', ['FIELD1', 'FIELD2', 'FIELD3.SUBFIELD', ETC])
 ```
 
 pratical:
 ```python
-collection.dump_to_csv('~/smappstuff/file.csv')
+collection.dump_to_csv('~/smappstuff/file.csv', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 # or 
-collection.limit(5).dump_to_csv('/Users/kevin/work/smappwork/file.csv')
+collection.limit(5).dump_to_csv('/Users/kevin/work/smappwork/file.csv', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 ```
 
-*returns* a csv file taht dumps to disk.
+*returns* a csv file that dumps to disk.
 
 note: media and lists of objects are converted to a unicode string and put as one field in the csv.
+
+note: this will dump in the order in which fields appear in a tweet and not the order in which you list them in your flist of fields.
+
+note: empty lists `[]` will return nothing. you must specifyfields.
 
 ##tools
 
