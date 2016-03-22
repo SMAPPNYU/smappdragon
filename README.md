@@ -7,7 +7,7 @@
 					|_|   |_|                    |___/
 ```
 
-[![PyPI version](https://badge.fury.io/py/smappdragon.svg)](https://badge.fury.io/py/smappdragon)
+[![PyPI](https://img.shields.io/pypi/v/smappdragon.svg)]() [![PyPI](https://img.shields.io/pypi/dm/smappdragon.svg)]()
 
 :dragon: smappdragon is a set of tools for working with twitter data. a more abstract wrapper for smappdragon can be found in [smappboa](https://github.com/SMAPPNYU/smappboa) (work in progress). [the old smapp-toolkit is here.](https://github.com/SMAPPNYU/smapp-toolkit)
 
