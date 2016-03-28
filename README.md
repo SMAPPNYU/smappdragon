@@ -53,11 +53,13 @@ if you are 2.X.X, you're out of date
 
 ##testing 
 
-You absolutely need to write unit tests for any methods you add to smappdragon, this software needs to stay as stable as porssible as it will be the basis for other software.
+you absolutely need to write unit tests for any methods you add to smappdragon, this software needs to stay as stable as porssible as it will be the basis for other software.
 
-This folder contains tests for smappdragon.
+this folder contains tests for smappdragon.
 
-The `bson` folder contains two bson files on which to run tests. One if a valid.bson file with tweets that have properly formatted fields. Another is an sketchy.bson file that has tweets with strange fields, missing fields, etc.
+the `bson` folder contains two bson files on which to run tests. One if a valid.bson file with tweets that have properly formatted fields. Another is an sketchy.bson file that has tweets with strange fields, missing fields, etc.
+
+our test covearge setup: https://github.com/coagulant/coveralls-python
 
 ##collection
 
