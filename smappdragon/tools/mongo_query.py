@@ -38,3 +38,4 @@ class MongoQuery(object):
         tweet_parser.flatten_dict(tweet)
         for operator in MONGO_OPERATORS:
             if operator filter_object:
+                pass
