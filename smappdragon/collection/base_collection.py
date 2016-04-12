@@ -1,4 +1,5 @@
 import abc
+import json
 import operator
 import unicodecsv
 
@@ -106,6 +107,9 @@ class BaseCollection(object):
 				expanded_fields.append(fields)
 
 		for tweet in self.get_iterator():
+			#use json.loads and not json_util
+			#to get a regular dict
+			tweet = json.loads(json_util.dumps(tweet))
 			row_to_write = []
 			flat_tweet_list = []
 

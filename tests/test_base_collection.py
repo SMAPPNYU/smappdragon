@@ -106,6 +106,7 @@ class TestBaseCollection(unittest.TestCase):
 				else:
 					count += 1
 		filehandle.close()
+		
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
 
