@@ -2,6 +2,7 @@ import os
 import unittest
 import unicodecsv
 
+from bson import json_util
 from tests.config import config
 from smappdragon import BsonCollection
 from smappdragon import MongoCollection
@@ -79,16 +80,32 @@ class TestBaseCollection(unittest.TestCase):
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
-		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source'])
 		with open(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv', 'rb') as filehandle:
 			count = 0
 			for line in unicodecsv.reader(filehandle):
 				if count != 0:
-					self.assertEqual(line, ['661275583813431296', "{'text': 'jadehelm', 'indices': [74, 83]}", "{'text': 'newworldorder', 'indices': [84, 98]}"])
+					val_count = 0
+					for csv_row_value in line:
+						everything_in_order = True
+						if val_count == 0:
+							self.assertEqual(csv_row_value, '661275583813431296')
+						elif val_count == 1:
+							loaded_dict = json_util.loads(csv_row_value)
+							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'jadehelm' and loaded_dict['indices'] == [74, 83]:
+								everything_in_order = False
+						elif val_count == 2:
+							loaded_dict = json_util.loads(csv_row_value)
+							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'newworldorder' and loaded_dict['indices'] == [84, 98]:
+								everything_in_order = False
+						else:
+							self.assertEqual(csv_row_value, '<a href="https://twitter.com/Col_Connaughton" rel="nofollow">Colin\'s Autotweeterpro5.3</a>')
+						if everything_in_order:
+							self.assertTrue(True)
+						val_count += 1
 				else:
 					count += 1
 		filehandle.close()
-		
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
 

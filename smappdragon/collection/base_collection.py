@@ -123,19 +123,18 @@ class BaseCollection(object):
 			# if each flattened key path 
 			# is a path the user wants add
 			# it to be a row to write
-			for tweet_tuple in flat_tweet_list:
-				if tweet_tuple[0] in expanded_fields:
-					# print('tweet_tuple {}'.format(tweet_tuple))
-					# print('expanded {}'.format(expanded_fields))
-					if isinstance(tweet_tuple[1], list):
-						# for each possible array index
-						for list_key in expanded_fields_list_keys:
-							if list_key[0] == tweet_tuple[0] and int(list_key[1]) < len(tweet_tuple[1]):
-								row_to_write.append(tweet_tuple[1][int(list_key[1])])
-							else:
-								row_to_write.append('None')
-					else:
-						row_to_write.append(tweet_tuple[1].encode('utf-8').decode('utf-8'))
+			for expanded_field in expanded_fields:
+				for tweet_tuple in flat_tweet_list:
+					if tweet_tuple[0] == expanded_field:
+						if isinstance(tweet_tuple[1], list):
+							# for each possible array index
+							for list_key in expanded_fields_list_keys:
+								if list_key[0] == tweet_tuple[0] and int(list_key[1]) < len(tweet_tuple[1]):
+									row_to_write.append(json_util.dumps(tweet_tuple[1][int(list_key[1])]))
+								else:
+									row_to_write.append('None')
+						else:
+							row_to_write.append(tweet_tuple[1].encode('utf-8').decode('utf-8'))
 
 			#convert each thing to unicode
 			writer.writerow(row_to_write)
