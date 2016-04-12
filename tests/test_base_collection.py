@@ -73,7 +73,7 @@ class TestBaseCollection(unittest.TestCase):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json')
 
-	def test_dump_to_csv_orders_properly(self):
+	def test_dump_to_csv_orders_and_encodes_properly(self):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
 
