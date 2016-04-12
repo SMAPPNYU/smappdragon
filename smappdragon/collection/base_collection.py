@@ -135,7 +135,7 @@ class BaseCollection(object):
 							else:
 								row_to_write.append('None')
 					else:
-						row_to_write.append(tweet_tuple[1].encode('utf-8'))
+						row_to_write.append(tweet_tuple[1].encode('utf-8').decode('utf-8'))
 
 			#convert each thing to unicode
 			writer.writerow(row_to_write)

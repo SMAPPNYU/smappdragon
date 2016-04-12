@@ -639,6 +639,11 @@ run `pylint smappdragon` and fix style issues
 
 submit your pull request on a feature branch `feature/added-language-support` to be merged with the `dev` branch
 
+resources:
+
+[best tutorial on python encoding/decoding](http://pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/)
+[csv encoding explanation](http://stackoverflow.com/questions/15420467/the-python-csv-writer-is-adding-letters-to-the-beginning-of-each-element-and-iss)
+
 bad style:
 
 do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
@@ -650,6 +655,8 @@ only create an extra file with methods if those methods could be used on their o
 an example of good helper code is the [tweet_parser](https://github.com/SMAPPNYU/smappdragon/blob/master/smappdragon/tools/tweet_parser.py) in `smappdragon/tools`.
 
 [good guide to distributing to pypi](https://packaging.python.org/en/latest/distributing/)
+
+`python setup.py sdist upload`
 
 ##author
 
