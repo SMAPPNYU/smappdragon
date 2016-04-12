@@ -1,5 +1,4 @@
 import abc
-import json
 import operator
 import unicodecsv
 
@@ -80,7 +79,7 @@ class BaseCollection(object):
 		filehandle = open(output_json, 'a')
 
 		for tweet in self.get_iterator():
-			filehandle.write(json.dumps(tweet, default=json_util.default)+'\n')
+			filehandle.write(json_util.dumps(tweet)+'\n')
 		filehandle.close()
 
 	'''
@@ -126,6 +125,8 @@ class BaseCollection(object):
 			# it to be a row to write
 			for tweet_tuple in flat_tweet_list:
 				if tweet_tuple[0] in expanded_fields:
+					# print('tweet_tuple {}'.format(tweet_tuple))
+					# print('expanded {}'.format(expanded_fields))
 					if isinstance(tweet_tuple[1], list):
 						# for each possible array index
 						for list_key in expanded_fields_list_keys:

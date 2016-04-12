@@ -85,9 +85,8 @@ class TweetParser(object):
 		return True
 
 	'''
-		get a list of lists that contains the 
-		keys that are in our filter and the value
-		at the end of those keys. makes a list of tuples.
+		get a list where each element in the list
+		is a tuple that contains, (['path','to','value'], value_at_path)
 	'''
 	def flatten_dict(self, dict_obj, path=None):
 		if path is None:

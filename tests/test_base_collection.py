@@ -1,9 +1,11 @@
 import os
 import unittest
+import unicodecsv
 
 from tests.config import config
 from smappdragon import BsonCollection
 from smappdragon import MongoCollection
+from smappdragon import JsonCollection
 
 class TestBaseCollection(unittest.TestCase):
 
@@ -71,7 +73,24 @@ class TestBaseCollection(unittest.TestCase):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json')
 
-	def tests_dump_to_csv_dumps(self):
+	# def test_dump_to_csv_dumps(self):
+	# 	if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
+	# 		os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+
+	# 	output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
+	# 	collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
+	# 	collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+	# 	with open(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv', 'r') as filehandle:
+	# 		for line in unicodecsv.reader(filehandle):
+	# 			print(line)
+	# 	filehandle.close()
+	# 	self.assertTrue(os.path.getsize(output_path) > 0)
+
+
+	# if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
+	# 	os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+
+	def test_dump_to_csv_orders_properly(self):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
 

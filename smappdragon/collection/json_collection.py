@@ -1,6 +1,6 @@
 import os
-import json
 
+from bson import json_util
 from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
 
@@ -26,7 +26,7 @@ class JsonCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		json_handle = open(self.filepath, 'r')
 		for tweet in json_handle:
-			tweet = json.loads(tweet)
+			tweet = json_util.loads(tweet)
 			if self.limit != 0 and self.limit <= count:
 				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
