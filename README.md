@@ -15,6 +15,7 @@
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
 	- [bson_collection](https://github.com/SMAPPNYU/smappdragon#bson_collection)
 	- [json_collection](https://github.com/SMAPPNYU/smappdragon#json_collection)
+	- [csv_collection](https://github.com/SMAPPNYU/smappdragon#csv_collection)
 	- [base_collection](https://github.com/SMAPPNYU/smappdragon#base_collection)
 		- [get_iterator](https://github.com/SMAPPNYU/smappdragon#get_iterator)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
@@ -164,7 +165,7 @@ from smappdragon import JsonCollection
 collection = JsonCollection('~/Documents/file.json')
 ```
 
-*returns* a collection object can have methods called on it
+*returns* a collection object that can have methods called on it
 
 test: `python -m unittest tests.test_json_collection`
 
@@ -179,6 +180,38 @@ config = {
 	},
 	'json':{ \
         'valid': 'json/valid.json' \
+    } \
+}
+```
+this config is used for testing it is gitignored.
+
+##csv_collection
+
+this allows you to use any csv file (with a csv header) as a data source for smappdragon
+
+abstract:
+```python
+```
+
+practical:
+```python
+```
+
+*returns* a collection object that can have methods called on it
+
+test: `python -m unittest tests.test_csv_collection`
+
+you should create a `config.py` file in the `tests` directory structured like so:
+
+```python
+config = {
+	'blah':{
+		.
+		.
+		.
+	},
+	'csv':{ \
+        'valid': 'json/valid.csv' \
     } \
 }
 ```
