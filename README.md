@@ -191,10 +191,16 @@ this allows you to use any csv file (with a csv header) as a data source for sma
 
 abstract:
 ```python
+from smappdragon import CsvCollection
+
+collection = CsvCollection('/PATH/TO/CSV/FILE.csv')
 ```
 
 practical:
 ```python
+from smappdragon import CsvCollection
+
+collection = CsvCollection('~/Documents/file.csv')
 ```
 
 *returns* a collection object that can have methods called on it
