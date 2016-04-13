@@ -80,7 +80,7 @@ class TestBaseCollection(unittest.TestCase):
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
-		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source', 'user.id', 'timestamp.$date'])
+		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source', 'user.id', 'timestamp.$date', 'text'])
 		with open(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv', 'rb') as filehandle:
 			count = 0
 			for line in unicodecsv.reader(filehandle):
@@ -104,6 +104,8 @@ class TestBaseCollection(unittest.TestCase):
 							self.assertEqual(csv_row_value, '379851447')
 						elif val_count == 5:
 							self.assertEqual(csv_row_value, '1446495359000')
+						elif val_count == 6:
+							self.assertEqual(csv_row_value, 'Susan Lindauer, Rtd US Army LTC Potter: Jade Helm https://t.co/VA4bQRudLt #jadehelm #newworldorder #usa #tyranny #threat')
 						if everything_in_order:
 							self.assertTrue(True)
 						val_count += 1
