@@ -38,9 +38,9 @@ class TweetParser(object):
 		return None
 
 	'''
-		applies a transformation to all tweets that
-		pass through it. can be used to add fields
-		or tae off fields
+		applies a transformation to the tweet that
+		passes through it. can be used to add fields
+		or take off fields
 	'''
 	@staticmethod
 	def transform_tweet(map_structure, tweet):

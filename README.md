@@ -187,6 +187,8 @@ this config is used for testing it is gitignored.
 
 ##csv_collection
 
+*newly added*
+
 this allows you to use any csv file (with a csv header) as a data source for smappdragon
 
 abstract:
