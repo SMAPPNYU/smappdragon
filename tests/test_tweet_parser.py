@@ -218,6 +218,31 @@ class TestTweetParser(unittest.TestCase):
 				return False
 		self.assertFalse(self.tweet_parser.tweet_passes_custom_filter_list([is_tweet_a_retweet, tweet_has_blah], tweet_object))
 
+	def test_transform_transforms_tweet(self):
+		tweet_object = { \
+			'blah':1, \
+			'retweeted':False,
+			'entities':{ \
+				'user_mentions':[ \
+					{ \
+				      "screen_name": "TwitterEng", \
+				      "name": "Twitter Engineering", \
+				      "id": 6844292, \
+				      "id_str": "6844292", \
+				      "indices": [81, 92] \
+				    }, { \
+				      "screen_name": "TwitterOSS", \
+				      "name": "Twitter Open Source", \
+				      "id": 376825877, \
+				      "id_str": "376825877", \
+				      "indices": [121, 132] \
+				    } \
+				] \
+		  	} \
+		}
+		
+
+
 
 if __name__ == '__main__':
 	unittest.main()

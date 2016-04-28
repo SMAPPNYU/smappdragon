@@ -40,12 +40,17 @@ class TweetParser(object):
 	'''
 		applies a transformation to the tweet that
 		passes through it. can be used to add fields
-		or take off fields
+		or take off fields like so
+		{'id':{'$exists':true}, 'user.time_zone':{'$exists':true}, 'created_at':{'$exists':true}}
 	'''
 	@staticmethod
 	def transform_tweet(map_structure, tweet):
-		pass
+		flat_tweet_list = [tweet_tuple for tweet_tuple in self.flatten_dict(tweet)]
+		flat_map_structure = [map_tuple for map_tuple in self.flatten_dict(map_structure)]
 
+		for flat_map_tuple in flat_map_structure:
+				for flat_tweet_tuple in flat_tweet_list:
+					if flat_map_tuple[0] == flat_tweet_tuple[0]:
 	'''
 		tests a tweet to see if it passes a 
 		custom filter method, this just returns the
