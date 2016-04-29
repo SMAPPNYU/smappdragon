@@ -13,6 +13,7 @@ class BaseCollection(object):
 	def __init__(self):
 		self.limit = 0
 		self.filter = {}
+		self.keep_fields = []
 		self.custom_filters = []
 
 	'''
@@ -23,6 +24,14 @@ class BaseCollection(object):
 	@abc.abstractmethod
 	def get_iterator(self):
 		pass
+
+	'''
+		sets the fields to keep when
+		the user calls strip tweets
+	'''
+	def strip_tweets(self, keep_fields):
+		self.keep_fields = keep_fields
+		return self
 
 	'''
 		returns the modified collection

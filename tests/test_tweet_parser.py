@@ -218,7 +218,7 @@ class TestTweetParser(unittest.TestCase):
 				return False
 		self.assertFalse(self.tweet_parser.tweet_passes_custom_filter_list([is_tweet_a_retweet, tweet_has_blah], tweet_object))
 
-	def test_transform_transforms_tweet(self):
+	def test_strip_tweets_totally_strips_tweet(self):
 		tweet_object = { \
 			'blah':1, \
 			'retweeted':False,
@@ -241,22 +241,98 @@ class TestTweetParser(unittest.TestCase):
 				] \
 		  	} \
 		}
-		filter_obj = {
-			'id':'silly_val',
-			'created_at':'time'
 
+		# self.assertEqual(self.tweet_parser.strip_tweet([], tweet_object), {})
+
+	def test_strip_tweets_keeps_fields(self):
+		tweet_object = { \
+			'blah':1, \
+			'retweeted':False,
+			'created_at': 'time',
+			'entities':{ \
+				'user_mentions':[ \
+					{ \
+				      "screen_name": "TwitterEng", \
+				      "name": "Twitter Engineering", \
+				      "id": 6844292, \
+				      "id_str": "6844292", \
+				      "indices": [81, 92] \
+				    }, { \
+				      "screen_name": "TwitterOSS", \
+				      "name": "Twitter Open Source", \
+				      "id": 376825877, \
+				      "id_str": "376825877", \
+				      "indices": [121, 132] \
+				    } \
+				] \
+		  	}, \
+		  	"user" : {
+				"follow_request_sent" : None,
+				"profile_use_background_image" : True,
+				"default_profile_image" : False,
+				"geo_enabled" : False,
+				"verified" : False,
+				"profile_image_url_https" : "https://pbs.twimg.com/profile_images/496694241536397313/zQY6Kebr_normal.jpeg",
+				"profile_sidebar_fill_color" : "DDEEF6",
+				"id" : 379851447,
+				"profile_text_color" : "333333",
+				"followers_count" : 3159,
+				"profile_sidebar_border_color" : "C0DEED",
+				"id_str" : "379851447",
+				"profile_background_color" : "C0DEED",
+				"listed_count" : 401,
+				"utc_offset" : 0,
+				"statuses_count" : 477638,
+				"description" : "#gaza #palestine #israel #BDS MAD EVIL ISRAEL MURDERS BABIES CIVILIANS to STEAL PALESTINIAN LAND RESOURCES with USA UK HELP. To stop my tweets, BLOCK or MUTE me",
+				"friends_count" : 2019,
+				"profile_link_color" : "0084B4",
+				"profile_image_url" : "http://pbs.twimg.com/profile_images/496694241536397313/zQY6Kebr_normal.jpeg",
+				"following" : None,
+				"time_zone" : "London",
+				"profile_background_image_url_https" : "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_banner_url" : "https://pbs.twimg.com/profile_banners/379851447/1416509762",
+				"profile_background_image_url" : "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"name" : "ISRAEL BOMBS BABIES",
+				"lang" : "en",
+				"profile_background_tile" : False,
+				"favourites_count" : 15917,
+				"screen_name" : "Col_Connaughton",
+				"notifications" : None,
+				"url" : None,
+				"created_at" : "Sun Sep 25 17:29:09 +0000 2011",
+				"contributors_enabled" : False,
+				"location" : "London UK",
+				"protected" : False,
+				"default_profile" : True,
+				"is_translator" : False
+			}
 		}
-		def transform_tweet(old_tweet):
-			new_tweet = {}
-			new_tweet['id'] = 'silly_val' # assign arbitrary value
-			new_tweet['created_at'] = old_tweet['created_at'] # assign a value present in old tweet
-			new_tweet['entities']['user_mentions'] = old_tweet['entities']['user_mentions']
-			new_tweet['user']
-			return new_tweet
+		stripped_obj = {
+			'blah':1,
+			'entities':{ \
+				'user_mentions':[ \
+					{ \
+				      "screen_name": "TwitterEng", \
+				      "name": "Twitter Engineering", \
+				      "id": 6844292, \
+				      "id_str": "6844292", \
+				      "indices": [81, 92] \
+				    }, { \
+				      "screen_name": "TwitterOSS", \
+				      "name": "Twitter Open Source", \
+				      "id": 376825877, \
+				      "id_str": "376825877", \
+				      "indices": [121, 132] \
+				    } \
+				] \
+		  	}, \
+		  	"user": {
+		  		"profile_image_url_https" : "https://pbs.twimg.com/profile_images/496694241536397313/zQY6Kebr_normal.jpeg"
+		  	}
+		}
 
-		self.assertTrue
-
-
+		self.maxDiff = None
+		self.assertEqual(self.tweet_parser.strip_tweet(['blah', 'entities.user_mentions', 'user.profile_image_url_https'], tweet_object), stripped_obj)
 
 if __name__ == '__main__':
 	unittest.main()

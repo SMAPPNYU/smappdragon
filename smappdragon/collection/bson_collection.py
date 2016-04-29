@@ -20,15 +20,16 @@ class BsonCollection(BaseCollection):
 		and yields all tweets in a particular collection
 	'''
 	def get_iterator(self):
-		count = 1
 		tweet_parser = TweetParser()
 		bson_handle = open(self.filepath, 'rb')
-		for tweet in bson.decode_file_iter(bson_handle):
+		for count, tweet in enumerate(bson.decode_file_iter(bson_handle)):
 			if self.limit < count and self.limit != 0:
 				bson_handle.close()
 				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
 			and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
-				count += 1
-				yield tweet
+				if len(self.keep_fields) > 0:
+					yield tweet_parser.strip_tweet(self.keep_fields, tweet) 
+				else: 
+					yield tweet
 		bson_handle.close()

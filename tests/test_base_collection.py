@@ -184,5 +184,8 @@ class TestBaseCollection(unittest.TestCase):
 		#the numbes of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
+	def test_stirp_tweets_strips_totally(self):
+		pass
+
 if __name__ == '__main__':
 	unittest.main()

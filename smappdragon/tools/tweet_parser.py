@@ -47,6 +47,38 @@ class TweetParser(object):
 		return function(tweet)
 
 	'''
+		removes all the the specified field from a tweet
+	'''
+	@staticmethod
+	def strip_tweet(keep_fields, tweet):
+		stripped_tweet = {}
+		expanded_fields = [field_path.split('.') for field_path in keep_fields]
+		for expanded_field in expanded_fields:
+			prev = {}
+			prev_tweet = {}
+			temp_iteration_dict = {}
+			for count, field in enumerate(expanded_field):
+				#if its a top level field
+				if field in tweet:
+					if count+1 == len(expanded_field):
+						temp_iteration_dict[field] = tweet[field]
+					else: 
+						temp_iteration_dict[field] = {}
+					prev_tweet = tweet[field]
+					prev = temp_iteration_dict[field]
+				# if its a mid level field
+				elif field in prev_tweet:
+					if count+1 == len(expanded_field):
+						prev[field] = prev_tweet[field]
+					else: 
+						prev[field] = {}
+					prev_tweet = prev_tweet[field]
+					prev = prev[field]
+			c = temp_iteration_dict.copy()
+			stripped_tweet.update(c)
+		return stripped_tweet
+
+	'''
 		just tests multiple custom filters
 		see, tweet_passes_custom_filter
 	'''

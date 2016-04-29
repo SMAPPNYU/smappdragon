@@ -33,5 +33,9 @@ class TestCsvCollection(unittest.TestCase):
         #the numbes of retweets and non retweets should add up to the whole collection
         self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
+    def test_strip_tweets_keeps_fields(self):
+        pass
+
+
 if __name__ == '__main__':
     unittest.main()
