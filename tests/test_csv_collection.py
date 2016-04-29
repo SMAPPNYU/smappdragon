@@ -1,7 +1,9 @@
 import os
 import unittest
+
 from tests.config import config
 from smappdragon import CsvCollection
+from smappdragon.tools.tweet_parser import TweetParser
 
 class TestCsvCollection(unittest.TestCase):
 
@@ -34,7 +36,18 @@ class TestCsvCollection(unittest.TestCase):
         self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
     def test_strip_tweets_keeps_fields(self):
-        pass
+        tweet_parser = TweetParser()
+        collection = CsvCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['csv']['valid'])
+        self.maxDiff = None
+        it = collection.strip_tweets(['source', 'text', 'id_str']).get_iterator()
+        def tweets_have_right_keys(iterator, fields):
+            for tweet in iterator:
+                keys = [key for key,value in tweet_parser.flatten_dict(tweet)]
+                for elem in fields:
+                    if elem not in keys:
+                        return False
+            return True     
+        self.assertTrue(tweets_have_right_keys(it, [['source'], ['text'], ['id_str']]))
 
 
 if __name__ == '__main__':

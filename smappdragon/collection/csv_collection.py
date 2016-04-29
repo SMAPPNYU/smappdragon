@@ -23,7 +23,7 @@ class CsvCollection(BaseCollection):
         tweet_parser = TweetParser()
         csv_handle = open(self.filepath, 'rb')
         for count, tweet in enumerate(unicodecsv.DictReader(csv_handle)):
-            if self.limit < count and self.limit != 0:
+            if self.limit < count+1 and self.limit != 0:
                 csv_handle.close()
                 return
             elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
