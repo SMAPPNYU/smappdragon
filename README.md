@@ -20,6 +20,7 @@
 		- [get_iterator](https://github.com/SMAPPNYU/smappdragon#get_iterator)
 		- [top_entities](https://github.com/SMAPPNYU/smappdragon#top_entities)
 		- [set_limit](https://github.com/SMAPPNYU/smappdragon#set_limit)
+		- [strip_tweets](https://github.com/SMAPPNYU/smappdragon#strip_tweets)
 		- [set_filter](https://github.com/SMAPPNYU/smappdragon#set_filter)
 		- [set_custom_filter](https://github.com/SMAPPNYU/smappdragon#set_custom_filter)
 		- [set_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#set_custom_filter_list)
@@ -324,6 +325,22 @@ collection.set_limit(10).top_entities({'hashtags':10})
 ```
 
 *returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
+
+##strip_tweets
+
+abstract:
+```python
+collection.strip_tweets(FIELDS_TO_KEEP)
+```
+
+practical:
+```python
+collection.strip_tweets(['id', 'user.id', 'entities.user_mentions'])
+```
+
+*returns* a collection object that will return reduced tweet objects where all the fields but the specified ones are filtered away.
+
+*note* list indexes do not work here, 'entities.user_mentions.0' does not work, you can only preserve entire lists.
 
 ##set_filter
 
