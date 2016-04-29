@@ -222,6 +222,7 @@ class TestTweetParser(unittest.TestCase):
 		tweet_object = { \
 			'blah':1, \
 			'retweeted':False,
+			'created_at': 'time',
 			'entities':{ \
 				'user_mentions':[ \
 					{ \
@@ -240,7 +241,20 @@ class TestTweetParser(unittest.TestCase):
 				] \
 		  	} \
 		}
-		
+		filter_obj = {
+			'id':'silly_val',
+			'created_at':'time'
+
+		}
+		def transform_tweet(old_tweet):
+			new_tweet = {}
+			new_tweet['id'] = 'silly_val' # assign arbitrary value
+			new_tweet['created_at'] = old_tweet['created_at'] # assign a value present in old tweet
+			new_tweet['entities']['user_mentions'] = old_tweet['entities']['user_mentions']
+			new_tweet['user']
+			return new_tweet
+
+		self.assertTrue
 
 
 
