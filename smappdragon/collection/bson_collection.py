@@ -23,12 +23,12 @@ class BsonCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		bson_handle = open(self.filepath, 'rb')
 		for count, tweet in enumerate(bson.decode_file_iter(bson_handle)):
-			if self.limit < count and self.limit != 0:
+			if self.limit < count+1 and self.limit != 0:
 				bson_handle.close()
 				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
 			and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
-				if len(self.keep_fields) > 0:
+				if self.should_strip:
 					yield tweet_parser.strip_tweet(self.keep_fields, tweet) 
 				else: 
 					yield tweet

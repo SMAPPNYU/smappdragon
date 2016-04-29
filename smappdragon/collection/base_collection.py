@@ -14,6 +14,7 @@ class BaseCollection(object):
 		self.limit = 0
 		self.filter = {}
 		self.keep_fields = []
+		self.should_strip = False
 		self.custom_filters = []
 
 	'''
@@ -31,6 +32,7 @@ class BaseCollection(object):
 	'''
 	def strip_tweets(self, keep_fields):
 		self.keep_fields = keep_fields
+		self.should_strip = True
 		return self
 
 	'''

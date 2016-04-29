@@ -184,8 +184,14 @@ class TestBaseCollection(unittest.TestCase):
 		#the numbes of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
-	def test_stirp_tweets_strips_totally(self):
-		pass
+	def test_strip_tweets_strips_many_tweets_totally(self):
+		collectionone = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		iterator = collectionone.strip_tweets([]).get_iterator()
+		first_tweet = next(iterator)
+		second_tweet = next(iterator)
+		#exhaust the iterator
+		len(list(iterator))
+		self.assertTrue(first_tweet == {} and second_tweet == {})
 
 if __name__ == '__main__':
 	unittest.main()

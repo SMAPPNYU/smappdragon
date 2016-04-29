@@ -20,15 +20,16 @@ class CsvCollection(BaseCollection):
         and yields all tweets in a particular collection
     '''
     def get_iterator(self):
-        count = 1
         tweet_parser = TweetParser()
         csv_handle = open(self.filepath, 'rb')
-        for tweet in unicodecsv.DictReader(csv_handle):
+        for count, tweet in enumerate(unicodecsv.DictReader(csv_handle)):
             if self.limit < count and self.limit != 0:
                 csv_handle.close()
                 return
             elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
             and tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
-                count += 1
-                yield tweet
+                if self.should_strip:
+                    yield tweet_parser.strip_tweet(self.keep_fields, tweet) 
+                else: 
+                    yield tweet
         csv_handle.close()

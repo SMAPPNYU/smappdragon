@@ -74,6 +74,7 @@ class TweetParser(object):
 						prev[field] = {}
 					prev_tweet = prev_tweet[field]
 					prev = prev[field]
+			# merge into main dict
 			c = temp_iteration_dict.copy()
 			stripped_tweet.update(c)
 		return stripped_tweet

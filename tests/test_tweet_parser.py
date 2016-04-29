@@ -242,7 +242,7 @@ class TestTweetParser(unittest.TestCase):
 		  	} \
 		}
 
-		# self.assertEqual(self.tweet_parser.strip_tweet([], tweet_object), {})
+		self.assertEqual(self.tweet_parser.strip_tweet([], tweet_object), {})
 
 	def test_strip_tweets_keeps_fields(self):
 		tweet_object = { \

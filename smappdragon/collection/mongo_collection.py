@@ -29,5 +29,8 @@ class MongoCollection(BaseCollection):
 		)
 		for tweet in mongo_cursor:
 			if tweet_parser.tweet_passes_custom_filter_list(self.custom_filters, tweet):
-				yield tweet
+				if self.should_strip:
+					yield tweet_parser.strip_tweet(self.keep_fields, tweet) 
+				else: 
+					yield tweet
 		mongo_cursor.close()
