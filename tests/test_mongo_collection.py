@@ -1,6 +1,9 @@
+import os
 import unittest
+
 from tests.config import config
 from smappdragon import MongoCollection
+from smappdragon.tools.tweet_parser import TweetParser
 
 class TestMongoCollection(unittest.TestCase):
 
@@ -17,6 +20,7 @@ class TestMongoCollection(unittest.TestCase):
 
 	# special test because custom logic is different on mongo
 	def test_mongo_collection_custom_filter_filters(self):
+		print('test filters')
 		collectionone = MongoCollection(
 			config['mongo']['host'],
 			config['mongo']['port'],
@@ -25,13 +29,13 @@ class TestMongoCollection(unittest.TestCase):
 			config['mongo']['database'],
 			config['mongo']['collection']
 		)
-		full_collection_len = len(list(collectionone.get_iterator()))
+		full_collection_len = len(list(collectionone.set_limit(10).get_iterator()))
 		def is_tweet_a_retweet(tweet):
 			if 'retweeted' in tweet and tweet['retweeted']:
 				return True
 			else:
 				return False
-		num_retweets = len(list(collectionone.set_custom_filter(is_tweet_a_retweet).get_iterator()))
+		num_retweets = len(list(collectionone.set_limit(10).set_custom_filter(is_tweet_a_retweet).get_iterator()))
 
 		collectiontwo = MongoCollection(
 			config['mongo']['host'],
@@ -46,23 +50,32 @@ class TestMongoCollection(unittest.TestCase):
 				return False
 			else:
 				return True
-		num_non_retweets = len(list(collectiontwo.set_custom_filter(is_not_a_retweet).get_iterator()))
+		num_non_retweets = len(list(collectiontwo.set_limit(10).set_custom_filter(is_not_a_retweet).get_iterator()))
 
 		#the number of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
 	def test_strip_tweets_keeps_fields(self):
-		collection = MongoCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		print('testing strip')
+		tweet_parser = TweetParser()
+		collection = MongoCollection(
+			config['mongo']['host'],
+			config['mongo']['port'],
+			config['mongo']['user'],
+			config['mongo']['password'],
+			config['mongo']['database'],
+			config['mongo']['collection']
+		)
 		self.maxDiff = None
-		it = collection.strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
+		it = collection.set_limit(10).strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
 		def tweets_have_right_keys(iterator, fields):
 			for tweet in iterator:
-				keys = [key for key in tweet]
-				print(keys)
-				if not fields  == keys:
-					return False
+				keys = [key for key,value in tweet_parser.flatten_dict(tweet)]
+				for elem in fields:
+					if elem not in keys:
+						return False
 			return True		
-		self.assertTrue(tweets_have_right_keys(it, ['id', 'entities.user_mentions', 'user.profile_image_url_https']))
+		self.assertTrue(tweets_have_right_keys(it, [['id'], ['entities', 'user_mentions'], ['user', 'profile_image_url_https']]))
 
 if __name__ == '__main__':
 	unittest.main()

@@ -1,7 +1,9 @@
 import os
 import unittest
+
 from tests.config import config
 from smappdragon import BsonCollection
+from smappdragon.tools.tweet_parser import TweetParser
 
 class TestBsonCollection(unittest.TestCase):
 
@@ -32,17 +34,18 @@ class TestBsonCollection(unittest.TestCase):
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
 	def test_strip_tweets_keeps_fields(self):
+		tweet_parser = TweetParser()
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		self.maxDiff = None
 		it = collection.strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
 		def tweets_have_right_keys(iterator, fields):
 			for tweet in iterator:
-				keys = [key for key in tweet]
-				print(keys)
-				if not fields  == keys:
-					return False
+				keys = [key for key,value in tweet_parser.flatten_dict(tweet)]
+				for elem in fields:
+					if elem not in keys:
+						return False
 			return True		
-		self.assertTrue(tweets_have_right_keys(it, ['id', 'entities.user_mentions', 'user.profile_image_url_https']))
+		self.assertTrue(tweets_have_right_keys(it, [['id'], ['entities', 'user_mentions'], ['user', 'profile_image_url_https']]))
 
 if __name__ == '__main__':
 	unittest.main()
