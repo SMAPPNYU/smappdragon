@@ -32,7 +32,17 @@ class TestJsonCollection(unittest.TestCase):
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
 	def test_strip_tweets_keeps_fields(self):
-		pass
+		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
+		self.maxDiff = None
+		it = collection.strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
+		def tweets_have_right_keys(iterator, fields):
+			for tweet in iterator:
+				keys = [key for key in tweet]
+				print(keys)
+				if not fields  == keys:
+					return False
+			return True		
+		self.assertTrue(tweets_have_right_keys(it, ['id', 'entities.user_mentions', 'user.profile_image_url_https']))
 
 if __name__ == '__main__':
 	unittest.main()
