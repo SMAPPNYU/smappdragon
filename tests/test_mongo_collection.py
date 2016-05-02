@@ -20,7 +20,6 @@ class TestMongoCollection(unittest.TestCase):
 
 	# special test because custom logic is different on mongo
 	def test_mongo_collection_custom_filter_filters(self):
-		print('test filters')
 		collectionone = MongoCollection(
 			config['mongo']['host'],
 			config['mongo']['port'],
@@ -56,7 +55,6 @@ class TestMongoCollection(unittest.TestCase):
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
 
 	def test_strip_tweets_keeps_fields(self):
-		print('testing strip')
 		tweet_parser = TweetParser()
 		collection = MongoCollection(
 			config['mongo']['host'],
