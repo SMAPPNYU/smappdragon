@@ -32,7 +32,7 @@ class TestJsonCollection(unittest.TestCase):
 
 		#the numbes of retweets and non retweets should add up to the whole collection
 		self.assertEqual(num_retweets + num_non_retweets, full_collection_len)
-
+		
 	def test_strip_tweets_keeps_fields(self):
 		tweet_parser = TweetParser()
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'])

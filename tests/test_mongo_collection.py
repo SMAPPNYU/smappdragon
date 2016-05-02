@@ -35,7 +35,7 @@ class TestMongoCollection(unittest.TestCase):
 			else:
 				return False
 		num_retweets = len(list(collectionone.set_limit(10).set_custom_filter(is_tweet_a_retweet).get_iterator()))
-
+		
 		collectiontwo = MongoCollection(
 			config['mongo']['host'],
 			config['mongo']['port'],
