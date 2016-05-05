@@ -9,7 +9,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/smappdragon.svg)](https://pypi.python.org/pypi/smappdragon) [![PyPI](https://img.shields.io/pypi/dm/smappdragon.svg)](https://pypi.python.org/pypi/smappdragon) [![PyPI](https://img.shields.io/pypi/l/smappdragon.svg)](https://github.com/SMAPPNYU/smappdragon/blob/master/LICENSE)
 
-:dragon: smappdragon is a set of tools for working with twitter data. a more abstract wrapper for smappdragon can be found in [smappy](https://github.com/SMAPPNYU/smappy) (work in progress). [the old smapp-toolkit is here.](https://github.com/SMAPPNYU/smapp-toolkit)
+:dragon: smappdragon is a set of tools for working with twitter data. a more abstract / contextual wrapper for smappdragon can be found in [pysmap](https://github.com/SMAPPNYU/pysmap) (work in progress). [the old smapp-toolkit is here.](https://github.com/SMAPPNYU/smapp-toolkit).
 
 - [collection](https://github.com/SMAPPNYU/smappdragon#collection)
 	- [mongo_collection](https://github.com/SMAPPNYU/smappdragon#mongo_collection)
