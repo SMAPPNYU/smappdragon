@@ -51,37 +51,37 @@ class TestBaseCollection(unittest.TestCase):
 		self.assertEqual(collection.filter, {'a':'b', 'c':'d', 'e':{'f':'g', 'h':'i'}})
 
 	def test_dump_to_bson_dumps(self):
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson')
 
-		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.bson'
+		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.bson'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.dump_to_bson(output_path)
 		self.assertTrue(os.path.getsize(output_path) > 0)
 
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson')
 
 	def test_dump_to_json_dumps(self):
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json')
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.bson.json'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.dump_to_json(output_path)
 		self.assertTrue(os.path.getsize(output_path) > 0)
 
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.bson.json')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json')
 
 	def test_dump_to_csv_orders_and_encodes_properly(self):
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
-		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
+		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
 		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source', 'user.id', 'timestamp.$date', 'text'])
-		with open(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv', 'rb') as filehandle:
+		with open(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv', 'rb') as filehandle:
 			count = 0
 			for line in unicodecsv.reader(filehandle):
 				if count != 0:
@@ -113,20 +113,20 @@ class TestBaseCollection(unittest.TestCase):
 					count += 1
 		filehandle.close()
 		
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
 	def test_dump_to_csv_dumps(self):
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
-		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.csv'
+		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 		self.assertTrue(os.path.getsize(output_path) > 0)
 
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/bson/output.csv')
+		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
 	def test_set_custom_filter_is_set(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
