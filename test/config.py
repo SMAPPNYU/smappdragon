@@ -9,14 +9,14 @@ config = \
             'collection': 'tweets_1' \
     }, \
     'bson':{ \
-        'valid': 'bson/valid.bson', \
-        'invalid': 'bson/invalid.bson' \
+        'valid': 'data/valid.bson', \
+        'invalid': 'data/invalid.bson' \
     }, \
     'json':{ \
-        'valid': 'bson/valid.bson.json', \
-        'valid-single': 'bson/valid-single.bson.json' \
+        'valid': 'data/valid.bson.json', \
+        'valid-single': 'data/valid-single.bson.json' \
     }, \
     'csv':{ \
-        'valid': 'bson/valid.csv', \
+        'valid': 'data/valid.csv', \
     } \
 }

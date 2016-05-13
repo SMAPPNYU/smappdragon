@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from tests.config import config
+from test.config import config
 from smappdragon import MongoCollection
 from smappdragon.tools.tweet_parser import TweetParser
 

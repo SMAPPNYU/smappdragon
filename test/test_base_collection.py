@@ -3,35 +3,12 @@ import unittest
 import unicodecsv
 
 from bson import json_util
-from tests.config import config
+from test.config import config
 from smappdragon import BsonCollection
 from smappdragon import MongoCollection
 from smappdragon import JsonCollection
 
 class TestBaseCollection(unittest.TestCase):
-
-	def test_base_top_entities_returns_dict(self):
-		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		returndict = collection.top_entities({'hashtags':5})
-		self.assertTrue(isinstance(returndict, dict))
-
-	def test_base_top_entities_returns_hashtags(self):
-		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		returndict = collection.top_entities({'hashtags':5})
-		self.assertTrue('hashtags' in returndict)
-
-	def test_base_top_entities_returns_hashtags_and_media(self):
-		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		returndict = collection.top_entities({'user_mentions':5, 'media':3})
-		self.assertTrue('user_mentions' in returndict and 'media' in returndict)
-
-	def test_base_top_entities_returns_counts(self):
-		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		returndict = collection.top_entities({'urls':5, 'symbols':3})
-		if len(returndict['urls']) > 0:
-			self.assertTrue(len(returndict['urls']) == 5)
-		if len(returndict['symbols']) > 0:
-			self.assertTrue(len(returndict['symbols']) == 3)
 
 	def test_limit_is_set(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
@@ -66,7 +43,7 @@ class TestBaseCollection(unittest.TestCase):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json')
 
-		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'bson/output.bson.json'
+		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.bson.json'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
 		collection.dump_to_json(output_path)
 		self.assertTrue(os.path.getsize(output_path) > 0)
