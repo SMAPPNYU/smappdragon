@@ -86,7 +86,7 @@ collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserN
 
 *returns* a collection object that can have methods called on it
 
-test: `python -m unittest tests.test_mongo_collection`
+test: `python -m unittest test.test_mongo_collection`
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
@@ -129,7 +129,7 @@ collection = BsonCollection('~/Documents/file.bson')
 
 *returns* a collection object can have methods called on it
 
-test: `python -m unittest tests.test_bson_collection`
+test: `python -m unittest test.test_bson_collection`
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
@@ -167,7 +167,7 @@ collection = JsonCollection('~/Documents/file.json')
 
 *returns* a collection object that can have methods called on it
 
-test: `python -m unittest tests.test_json_collection`
+test: `python -m unittest test.test_json_collection`
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
@@ -207,7 +207,7 @@ collection = CsvCollection('~/Documents/file.csv')
 
 *returns* a collection object that can have methods called on it
 
-test: `python -m unittest tests.test_csv_collection`
+test: `python -m unittest test.test_csv_collection`
 
 you should create a `config.py` file in the `tests` directory structured like so:
 
@@ -229,7 +229,7 @@ this config is used for testing it is gitignored.
 
 this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
 
-test: `python -m unittest tests.test_base_collection`
+test: `python -m unittest test.test_base_collection`
 
 ##get_iterator
 
@@ -489,7 +489,7 @@ tweet_parser = TweetParser()
 
 *returns* an instance of the TweetParser class that can textract data from tweets or entities
 
-test: `python -m unittest tests.test_tweet_parser`
+test: `python -m unittest test.test_tweet_parser`
 
 ##contains_entity
 
