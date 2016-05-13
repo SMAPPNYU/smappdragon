@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(name='smappdragon',
 	packages=['smappdragon', 'smappdragon.collection', 'smappdragon.tools'],
-	version='0.0.21',
+	version='0.0.22',
 	description='smappdragon is a set of tools for working with twitter data',
 	author='yvan',
 	author_email='yns207@nyu.edu',
