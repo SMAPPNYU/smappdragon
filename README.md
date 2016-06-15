@@ -35,8 +35,7 @@
 		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
 		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
-		- [transform_tweet](https://github.com/SMAPPNYU/smappdragon#transform_tweet)
-
+		- [strip_tweet](#strip_tweet)
 ##installation
 
 `pip install smappdragon`
@@ -294,6 +293,8 @@ collection.set_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).
 *returns* a collection object that will only return tweets that match the specified filter. so if you ask for {`id_str`:`4576334`} you will only get tweets where the `id_str` field is `4576334`.
 
 note: passing an empty filter will return all tweets in a collection, empty filters `{}` are like no filter.
+
+note: to make sure you are querying what you really want you should examine the twitter docs on [tweet](https://dev.twitter.com/overview/api/tweets) and [user](https://dev.twitter.com/overview/api/users) objects. some field names are shared between objects (example `id_str` is part of both user and tweet objects, even when a user object is nested inside a tweet object)
 
 ##set_custom_filter
 
@@ -607,13 +608,20 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 
 *returns* true or false depending on whether or not a tweet passes through the list of filters
 
-##transform_tweet
+##strip_tweet
 
-*not ready* - could use mongo operator support
+strips a tweet of all its fields except the ones specified
 
-transforms a tweet, either adding fields or removing fields
 
-*returns* a tweet if it passes your custom filter
+abstract:
+```python
+```
+
+practical:
+```python
+```
+
+*returns* a collection where all the tweets will be stripped down to the fields you want
 
 ##contributing
 
