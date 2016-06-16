@@ -335,7 +335,7 @@ def is_tweet_a_retweet(tweet):
 	else:
 		return False
 def screen_name_is_yvan(tweet):
-	if screen_name in tweet and tweet['screen_name'] == 'yvan':
+	if 'screen_name' in tweet['user'] and tweet['user']['screen_name'] == 'yvan':
 		return True
 	return False
 collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
