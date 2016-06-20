@@ -36,7 +36,7 @@
 		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
 		- [strip_tweet](#strip_tweet)
-		
+
 ##installation
 
 `pip install smappdragon`
@@ -234,9 +234,15 @@ test: `python -m unittest test.test_base_collection`
 
 makes an iterator that can iterate through all tweets in a particular collection
 
-abstract / practical:
+abstract:
 ```python
 collection.get_iterator()
+```
+
+practical:
+```python
+for tweet in collection.get_iterator():
+	print(tweet)
 ```
 
 *returns* an iterable object that will yield all the tweets in a particular collection
