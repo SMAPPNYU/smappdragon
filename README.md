@@ -36,6 +36,7 @@
 		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
 		- [strip_tweet](#strip_tweet)
+		
 ##installation
 
 `pip install smappdragon`
