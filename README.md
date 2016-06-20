@@ -622,13 +622,15 @@ strips a tweet of all its fields except the ones specified
 
 abstract:
 ```python
+tweet_parser.strip_tweet(KEEP_FIELDS, TWEET)
 ```
 
 practical:
 ```python
+tweet_parser.strip_tweet(['id', 'user.id', 'entities.user_mentions'], tweet)
 ```
 
-*returns* a collection where all the tweets will be stripped down to the fields you want
+*returns* a tweet stripped down to the fields you want, retaining only specified fields
 
 ##contributing
 
