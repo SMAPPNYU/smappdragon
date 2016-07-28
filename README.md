@@ -260,7 +260,7 @@ practical:
 ```python
 collection.set_limit(10)
 # or 
-collection.set_limit(10).top_entities({'hashtags':10})
+collection.set_limit(10)
 ```
 
 *returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
@@ -294,7 +294,7 @@ practical:
 ```python
 collection.set_filter({'id_str':'4576334'})
 # or 
-collection.set_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}}).top_entities({'hashtags':10})
+collection.set_filter({'id_str':'4576334', 'user':{'screen_name':'yvanscher'}})
 ```
 
 *returns* a collection object that will only return tweets that match the specified filter. so if you ask for {`id_str`:`4576334`} you will only get tweets where the `id_str` field is `4576334`.
@@ -321,7 +321,7 @@ def is_tweet_a_retweet(tweet):
 		return False
 collection.set_custom_filter(is_tweet_a_retweet)
 # or 
-collection.set_custom_filter(is_tweet_a_retweet).top_entities({'hashtags':10})
+collection.set_custom_filter(is_tweet_a_retweet)
 ```
 *returns* a collection object that will only return tweets that match or pass the specified custom filter method.
 
@@ -347,7 +347,7 @@ def screen_name_is_yvan(tweet):
 	return False
 collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
 # or 
-collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan]).top_entities({'hashtags':10})
+collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
 ```
 
 *returns* a collection object that will only return tweets that match or pass the specified custom filter methods.
