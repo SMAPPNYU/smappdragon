@@ -14,13 +14,13 @@ class MongoCollection(BaseCollection):
 		if 'passed_mongo' in kwargs:
 			self.mongo = kwargs['passed_mongo']
 			self.mongo_database = self.mongo[args[2]]
-			if username and password:
+			if args[0] and args[1]:
 				self.mongo_database.authenticate(args[0], args[1])
 			self.mongo_collection = self.mongo_database[args[3]]
 		else:
 			self.mongo = pymongo.MongoClient(args[0], int(args[1]))
 			self.mongo_database = self.mongo[args[4]]
-			if username and password:
+			if args[2] and args[3]:
 				self.mongo_database.authenticate(args[2], args[3])
 			self.mongo_collection = self.mongo_database[args[5]]
 

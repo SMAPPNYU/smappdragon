@@ -1,4 +1,5 @@
 import os
+import pymongo
 import unittest
 
 from test.config import config
@@ -76,11 +77,16 @@ class TestMongoCollection(unittest.TestCase):
 		self.assertTrue(tweets_have_right_keys(it, [['id'], ['entities', 'user_mentions'], ['user', 'profile_image_url_https']]))
 
 	def test_pass_in_mongo(self):
-		pass
+		mongo_to_pass = pymongo.MongoClient(config['mongo']['host'], int(config['mongo']['port']))
+		collection = MongoCollection(
+			config['mongo']['user'],
+			config['mongo']['password'],
+			config['mongo']['database'],
+			config['mongo']['collection'],
+			passed_mongo=mongo_to_pass
+		)
+		self.assertTrue(len(list(collection.set_limit(10).get_iterator())) > 0)
 
-	def test_not_passing in mongo(self):
-		pass
-		
 if __name__ == '__main__':
 	unittest.main()
 
