@@ -75,6 +75,12 @@ class TestMongoCollection(unittest.TestCase):
 			return True		
 		self.assertTrue(tweets_have_right_keys(it, [['id'], ['entities', 'user_mentions'], ['user', 'profile_image_url_https']]))
 
+	def test_pass_in_mongo(self):
+		pass
+
+	def test_not_passing in mongo(self):
+		pass
+		
 if __name__ == '__main__':
 	unittest.main()
 

@@ -65,7 +65,7 @@ target/
 *.pyc
 
 #cofig.py in tests/
-test/config.py
+config.py
 
 .DS_STORE
 .DS_Store

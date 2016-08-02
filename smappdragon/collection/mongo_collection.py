@@ -7,14 +7,22 @@ class MongoCollection(BaseCollection):
 	'''
 		method that tells us how to
 		create the MongoCollection object
+		*args -> address, port, username, password, database_name, collection_name
 	'''
-	def __init__(self, address, port, username, password, database_name, collection_name):
+	def __init__(self, *args, **kwargs):
 		BaseCollection.__init__(self)
-		self.mongo = pymongo.MongoClient(address, int(port))
-		self.mongo_database = self.mongo[database_name]
-		self.mongo_collection = self.mongo_database[collection_name]
-		if username and password:
-			self.mongo_database.authenticate(username, password)
+		if 'passed_mongo' in kwargs:
+			self.mongo = kwargs['passed_mongo']
+			self.mongo_database = self.mongo[args[2]]
+			if username and password:
+				self.mongo_database.authenticate(args[0], args[1])
+			self.mongo_collection = self.mongo_database[args[3]]
+		else:
+			self.mongo = pymongo.MongoClient(args[0], int(args[1]))
+			self.mongo_database = self.mongo[args[4]]
+			if username and password:
+				self.mongo_database.authenticate(args[2], args[3])
+			self.mongo_collection = self.mongo_database[args[5]]
 
 	'''
 		method that creates a cursor
