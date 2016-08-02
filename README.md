@@ -81,6 +81,12 @@ practical:
 from smappdragon import MongoCollection
 
 collection = MongoCollection('superhost.bio.nyu.edu', 27574, smappReadWriteUserName, 'PASSWORD', 'GERMANY_ELECTION_2015_Nagler', 'tweet_collection_name')
+
+#or with a passed in mongo connection
+import pymongo
+mongo_to_pass = pymongo.MongoClient('superhost.bio.nyu.edu', 27574)
+collection = MongoCollection('smappReadWriteUserName', 'PASSWORD', 'GERMANY_ELECTION_2015_Nagler', 'tweet_collection_name', passed_mongo=mongo_to_pass)
+
 ```
 
 *returns* a collection object that can have methods called on it
@@ -186,9 +192,7 @@ this config is used for testing it is gitignored.
 
 ##csv_collection
 
-*newly added*
-
-this allows you to use any csv file (with a csv header) as a data source for smappdragon
+this allows you to use any csv file (with a csv header) as a data source for smappdragon. we recommend using native json and not using csv collection, it's know to have a few bugs.
 
 abstract:
 ```python
