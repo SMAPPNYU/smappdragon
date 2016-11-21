@@ -101,25 +101,42 @@ class TweetParser(object):
 		# lists of tuples that
 		# come from our dicts
 		flat_tweet_list = []
-		for tweet_tuple in self.flatten_dict(tweet):
+		for tweet_tuple in self.list_flat_json(tweet):
 			flat_tweet_list.append(tweet_tuple)
-		for filter_tuple in self.flatten_dict(filter_obj):
+		for filter_tuple in self.list_flat_json(filter_obj):
 			if filter_tuple not in flat_tweet_list:
 				return False
 		return True
 
 	'''
-		get a list where each element in the list
-		is a tuple that contains, (['path','to','value'], value_at_path)
+		flattens json {"blah": {"txt":"t"} , "z": [5, "g", "5.6"]} -> 
+		kudos: https://medium.com/@amirziai/flattening-json-objects-in-python-f5343c794b10#.hgkmqsawh
 	'''
-	def flatten_dict(self, dict_obj, path=None):
-		if path is None:
-			path = []
-		if isinstance(dict_obj, dict):
-			for key in dict_obj.keys():
-				local_path = path[:]
-				local_path.append(key)
-				for val in self.flatten_dict(dict_obj[key], local_path):
-					yield val
-		else:
-			yield path, dict_obj
+	@staticmethod
+	def flatten_json(y):
+	    out = {}
+	    def flatten(x, name=''):
+	        if type(x) is dict:
+	            for a in x:
+	                flatten(x[a], name + a + '.')
+	        elif type(x) is list:
+	            i = 0
+	            for a in x:
+	                flatten(a, name + str(i) + '.')
+	                i += 1
+	        else:
+	            out[name[:-1]] = x
+	    flatten(y)
+	    return out
+
+	'''
+		get a list of tuples of flattened json
+		better for searching
+	'''
+	@staticmethod
+	def list_flat_json(flat_dict_obj):
+		for key, value in flat_dict_obj.items():
+			out = ()
+			out[0] = key.split('.')
+			out[1] = value
+			yield out

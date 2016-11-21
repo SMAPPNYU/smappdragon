@@ -8,6 +8,8 @@ from smappdragon import BsonCollection
 from smappdragon import MongoCollection
 from smappdragon import JsonCollection
 
+from smappdragon.tools.tweet_parser import TweetParser
+
 class TestBaseCollection(unittest.TestCase):
 
 	def test_limit_is_set(self):
@@ -52,46 +54,29 @@ class TestBaseCollection(unittest.TestCase):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.bson.json')
 
 	def test_dump_to_csv_orders_and_encodes_properly(self):
+		tweet_parser = TweetParser()
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
 			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
-		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source', 'user.id', 'timestamp.$date', 'text'])
+		for obj in collection.get_iterator():
+			for key, val in tweet_parser.flatten_json(obj).items():
+				if val == None:
+					val = ''
+			test_json = obj
+		collection.dump_to_csv(output_path)
 		with open(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv', 'rb') as filehandle:
-			count = 0
-			for line in unicodecsv.reader(filehandle):
-				if count != 0:
-					val_count = 0
-					for csv_row_value in line:
-						everything_in_order = True
-						if val_count == 0:
-							self.assertEqual(csv_row_value, '661275583813431296')
-						elif val_count == 1:
-							loaded_dict = json_util.loads(csv_row_value)
-							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'jadehelm' and loaded_dict['indices'] == [74, 83]:
-								everything_in_order = False
-						elif val_count == 2:
-							loaded_dict = json_util.loads(csv_row_value)
-							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'newworldorder' and loaded_dict['indices'] == [84, 98]:
-								everything_in_order = False
-						elif val_count == 3:
-							self.assertEqual(csv_row_value, '<a href="https://twitter.com/Col_Connaughton" rel="nofollow">Colin\'s Autotweeterpro5.3</a>')
-						elif val_count == 4:
-							self.assertEqual(csv_row_value, '379851447')
-						elif val_count == 5:
-							self.assertEqual(csv_row_value, '1446495359000')
-						elif val_count == 6:
-							self.assertEqual(csv_row_value, 'Susan Lindauer, Rtd US Army LTC Potter: Jade Helm https://t.co/VA4bQRudLt #jadehelm #newworldorder #usa #tyranny #threat')
-						if everything_in_order:
-							self.assertTrue(True)
-						val_count += 1
-				else:
-					count += 1
+			reader = unicodecsv.DictReader(filehandle)
+			for row in reader:
+				print(sorted(row.items()))
+				print(sorted(obj.items()))
+				self.assertTrue(sorted(row.items()) == sorted(obj.items()))
+
 		filehandle.close()
 		
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
+		# if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+		# 	os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
 	def test_dump_to_csv_dumps(self):
 		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
@@ -99,11 +84,11 @@ class TestBaseCollection(unittest.TestCase):
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])
-		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+		collection.dump_to_csv(output_path)
 		self.assertTrue(os.path.getsize(output_path) > 0)
 
-		if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
-			os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
+		# if os.path.exists(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv'):
+		# 	os.remove(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv')
 
 	def test_set_custom_filter_is_set(self):
 		collection = BsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['bson']['valid'])

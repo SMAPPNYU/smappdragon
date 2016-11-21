@@ -40,7 +40,7 @@ class TestBsonCollection(unittest.TestCase):
 		it = collection.strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
 		def tweets_have_right_keys(iterator, fields):
 			for tweet in iterator:
-				keys = [key for key,value in tweet_parser.flatten_dict(tweet)]
+				keys = [key for key,value in tweet_parser.list_flat_json(tweet)]
 				for elem in fields:
 					if elem not in keys:
 						return False

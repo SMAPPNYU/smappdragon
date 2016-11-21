@@ -99,61 +99,26 @@ class BaseCollection(object):
 		csv format,not having fields is very
 		unwieldy
 	'''
-	def dump_to_csv(self, output_csv, input_fields):
-		count = 0
+	def dump_to_csv(self, output_csv):
 		tweet_parser = TweetParser()
 		filehandle = open(output_csv, 'wb')
-		writer = unicodecsv.writer(filehandle)
 
-		expanded_fields = []
-		expanded_fields_list_keys = []
-
-		for field_path in input_fields:
-			fields = field_path.split('.')
-			if fields[-1].isdigit():
-				expanded_fields_list_keys.append((fields[0:len(fields)-1], fields[len(fields)-1]))
-				if fields[0:len(fields)-1] not in expanded_fields:
-					expanded_fields.append(fields[0:len(fields)-1])
-			else:
-				expanded_fields.append(fields)
-
+		# get the header
+		key_set = set()
 		for tweet in self.get_iterator():
-			#use json.loads and not json_util
-			#to get a regular dict
 			tweet = json.loads(json_util.dumps(tweet))
-			row_to_write = []
-			flat_tweet_list = []
+			key_set.update(list(tweet_parser.flatten_json(tweet).keys()))
+			
+		key_set.discard('timestamp.$date')
+		key_set.discard('_id.$oid')
+		key_set.update(['_id', 'timestamp'])
+		writer = unicodecsv.DictWriter(filehandle, fieldnames=key_set)
+		writer.writeheader()
 
+		# write actual tweet data
+		for tweet in self.get_iterator():
 			# flatten each tweet, and put the resulting tuples
-			# in a list
-			for flat_entry in tweet_parser.flatten_dict(tweet):
-				flat_tweet_list.append(flat_entry)
-
-			# write a header if its the first
-			# tweet
-			if count == 0:
-				writer.writerow(input_fields)
-				count += 1
-
-			# if each flattened key path 
-			# is a path the user wants add
-			# it to be a row to write
-			for expanded_field in expanded_fields:
-				for tweet_tuple in flat_tweet_list:
-					if tweet_tuple[0] == expanded_field:
-						if isinstance(tweet_tuple[1], list):
-							# for each possible array index
-							for list_key in expanded_fields_list_keys:
-								if list_key[0] == tweet_tuple[0] and int(list_key[1]) < len(tweet_tuple[1]):
-									row_to_write.append(json_util.dumps(tweet_tuple[1][int(list_key[1])]))
-								else:
-									row_to_write.append('None')
-						else:
-							if isinstance(tweet_tuple[1], str):
-								row_to_write.append(tweet_tuple[1].encode('utf-8').decode('utf-8'))
-							else:
-								row_to_write.append(tweet_tuple[1])
-
-			#convert each thing to unicode
-			writer.writerow(row_to_write)
+			# in a new dict
+			new_dict = tweet_parser.flatten_json(tweet)
+			writer.writerow(new_dict)
 		filehandle.close()

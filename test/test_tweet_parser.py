@@ -64,11 +64,11 @@ class TestTweetParser(unittest.TestCase):
 		    }
 		self.assertEqual('blog.twitter.com/2013/rich-phot', self.tweet_parser.get_entity_field('display_url', url_entity_object))
 
-	def test_flatten_dict_flattens(self):
+	def test_flatten_json_flattens(self):
 		dict_to_flatten = {'a':'b', 'c':{'d':'e', 'f':{'g':'h', 'i':'j'}}}
 		actual_flat_dict = [(['a'], 'b'), (['c', 'd'], 'e'), (['c', 'f', 'i'], 'j'), (['c', 'f', 'g'], 'h')]
 		dict_was_flattened = True
-		for entry in self.tweet_parser.flatten_dict(dict_to_flatten):
+		for entry in self.tweet_parser.list_flat_json(dict_to_flatten):
 			if entry not in actual_flat_dict:
 				dict_was_flattened = False
 		self.assertTrue(dict_was_flattened)
