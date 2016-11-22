@@ -25,7 +25,10 @@ class JsonCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		json_handle = open(self.filepath, 'r')
 		for count, tweet in enumerate(json_handle):
-			tweet = json_util.loads(tweet)
+			try:
+				tweet = json_util.loads(tweet)
+			except json.decoder.JSONDecodeError:
+				continue
 			if self.limit != 0 and self.limit <= count:
 				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
