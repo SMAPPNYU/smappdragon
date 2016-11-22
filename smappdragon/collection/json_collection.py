@@ -27,7 +27,7 @@ class JsonCollection(BaseCollection):
 		for count, tweet in enumerate(json_handle):
 			try:
 				tweet = json_util.loads(tweet)
-			except json.decoder.JSONDecodeError:
+			except ValueError:
 				continue
 			if self.limit != 0 and self.limit <= count:
 				return
