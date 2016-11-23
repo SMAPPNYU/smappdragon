@@ -446,9 +446,11 @@ id_str,coordinates.coordinates.0,coordinates.coordinates.1,user.id_str,user.lang
 
 *returns* a csv file that dumps to disk.
 
-note: to get things inside a list you need to refer to their list index. its better to overshoot (so if you want to get 5 entites urls where there are 5) you would use `['entities.urls.0.expanded_url','entities.urls.1.expanded_url','entities.urls.2.expanded_url','entities.urls.3.expanded_url','entities.urls.4.expanded_url']`, for tweet objects with less than 5 entities this will put empty values.
+note: to get things inside a list you need to refer to their list index. its better to overshoot (so if you want to get 5 entites urls where there are 5) you would use `['entities.urls.0.expanded_url','entities.urls.1.expanded_url','entities.urls.2.expanded_url','entities.urls.3.expanded_url','entities.urls.4.expanded_url']`, for tweet objects with less than 5 `urls` entities this will fill out urls up to 5 urls, if there are less than 5 the extra ones will be empty `,,` fields
 
 note: empty lists `[]` will return nothing. you must specify fields.
+
+note: fields that have no value will appear empty `,,`
 
 ##tools
 
