@@ -150,7 +150,9 @@ class BaseCollection(object):
 									row_to_write.append('None')
 						else:
 							if isinstance(tweet_tuple[1], str):
-								row_to_write.append(tweet_tuple[1].encode('utf-8').decode('utf-8'))
+								value = tweet_tuple[1].encode('utf-8').decode('utf-8')
+								value = value.replace('\n','').replace('\r','')
+								row_to_write.append(value)
 							else:
 								row_to_write.append(tweet_tuple[1])
 
