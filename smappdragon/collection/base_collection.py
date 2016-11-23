@@ -1,7 +1,7 @@
+import csv
 import abc
 import json
 import operator
-import unicodecsv
 
 from bson import BSON, json_util
 from smappdragon.tools.tweet_parser import TweetParser
@@ -100,62 +100,39 @@ class BaseCollection(object):
 		unwieldy
 	'''
 	def dump_to_csv(self, output_csv, input_fields):
-		count = 0
-		tweet_parser = TweetParser()
-		filehandle = open(output_csv, 'wb')
-		writer = unicodecsv.writer(filehandle)
 
-		expanded_fields = []
-		expanded_fields_list_keys = []
+		def return_val_for_column(tweet, columns):
+		    temp_tweet = {}
+		    for sub_field in columns:
+		        if temp_tweet == {}:
+		            temp_tweet = json.loads(json_util.dumps(tweet))
+		        try:
+		            if sub_field.isdigit():
+		                sub_field = int(sub_field)
+		            val = temp_tweet[sub_field]
+		            if isinstance(val,dict) or isinstance(val,list):
+		                temp_tweet = val
+		                continue
+		            else: 
+		                if isinstance(val,str):
+		                    val = val.replace('\n',' ').replace('\r',' ')
+		                return val
+		        except (KeyError, IndexError) as e:
+		            return None
+		            break
 
-		for field_path in input_fields:
-			fields = field_path.split('.')
-			if fields[-1].isdigit():
-				expanded_fields_list_keys.append((fields[0:len(fields)-1], fields[len(fields)-1]))
-				if fields[0:len(fields)-1] not in expanded_fields:
-					expanded_fields.append(fields[0:len(fields)-1])
-			else:
-				expanded_fields.append(fields)
+		filehandle = open(output_csv, 'w', encoding='utf-8')
+		writer = csv.writer(filehandle)
+		writer.writerow(input_fields)
 
 		for tweet in self.get_iterator():
-			#use json.loads and not json_util
-			#to get a regular dict
-			tweet = json.loads(json_util.dumps(tweet))
-			row_to_write = []
-			flat_tweet_list = []
-
-			# flatten each tweet, and put the resulting tuples
-			# in a list
-			for flat_entry in tweet_parser.flatten_dict(tweet):
-				flat_tweet_list.append(flat_entry)
-
-			# write a header if its the first
-			# tweet
-			if count == 0:
-				writer.writerow(input_fields)
-				count += 1
-
-			# if each flattened key path 
-			# is a path the user wants add
-			# it to be a row to write
-			for expanded_field in expanded_fields:
-				for tweet_tuple in flat_tweet_list:
-					if tweet_tuple[0] == expanded_field:
-						if isinstance(tweet_tuple[1], list):
-							# for each possible array index
-							for list_key in expanded_fields_list_keys:
-								if list_key[0] == tweet_tuple[0] and int(list_key[1]) < len(tweet_tuple[1]):
-									row_to_write.append(json_util.dumps(tweet_tuple[1][int(list_key[1])]))
-								else:
-									row_to_write.append('None')
-						else:
-							if isinstance(tweet_tuple[1], str):
-								value = tweet_tuple[1].encode('utf-8').decode('utf-8')
-								value = value.replace('\n','').replace('\r','')
-								row_to_write.append(value)
-							else:
-								row_to_write.append(tweet_tuple[1])
-
-			#convert each thing to unicode
-			writer.writerow(row_to_write)
+		    row_to_write = []
+		    for field in input_fields:
+		        split_fields = field.split('.')
+		        ret = return_val_for_column(tweet, split_fields)
+		        if isinstance(ret,str):
+		            row_to_write.append(ret)
+		        else:
+		            row_to_write.append(ret)
+		    writer.writerow(row_to_write)
 		filehandle.close()

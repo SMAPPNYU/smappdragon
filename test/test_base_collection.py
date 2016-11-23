@@ -57,7 +57,7 @@ class TestBaseCollection(unittest.TestCase):
 
 		output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
 		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
-		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0', 'entities.hashtags.1', 'source', 'user.id', 'timestamp.$date', 'text'])
+		collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0.text', 'entities.hashtags.1.text', 'source', 'user.id', 'timestamp.$date', 'text'])
 		with open(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv', 'rb') as filehandle:
 			count = 0
 			for line in unicodecsv.reader(filehandle):
@@ -68,12 +68,10 @@ class TestBaseCollection(unittest.TestCase):
 						if val_count == 0:
 							self.assertEqual(csv_row_value, '661275583813431296')
 						elif val_count == 1:
-							loaded_dict = json_util.loads(csv_row_value)
-							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'jadehelm' and loaded_dict['indices'] == [74, 83]:
+							if csv_row_value != 'jadehelm':
 								everything_in_order = False
 						elif val_count == 2:
-							loaded_dict = json_util.loads(csv_row_value)
-							if not all(k in loaded_dict for k in ['text', 'indices']) and loaded_dict['text'] == 'newworldorder' and loaded_dict['indices'] == [84, 98]:
+							if csv_row_value != 'newworldorder':
 								everything_in_order = False
 						elif val_count == 3:
 							self.assertEqual(csv_row_value, '<a href="https://twitter.com/Col_Connaughton" rel="nofollow">Colin\'s Autotweeterpro5.3</a>')
