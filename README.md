@@ -410,13 +410,45 @@ collection.dump_to_csv('~/smappstuff/file.csv', ['id_str', 'entities.hashtags.0'
 collection.set_limit(5).dump_to_csv('/Users/kevin/work/smappwork/file.csv', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 ```
 
+input:
+```
+[
+    'id_str',
+    'coordinates.coordinates.0',
+    'coordinates.coordinates.1',
+    'user.id_str',
+    'user.lang',
+    'lang',
+    'text',
+    'user.screen_name',
+    'user.location',
+    'user.description',
+    'created_at',
+    'user.friends_count',
+    'user.followers_count',
+    'retweet_count',
+    'entities.urls.0.expanded_url',
+    'entities.urls.1.expanded_url',
+    'entities.urls.2.expanded_url',
+    'entities.urls.3.expanded_url',
+    'entities.urls.4.expanded_url'
+]
+```
+
+output:
+```csv
+id_str,coordinates.coordinates.0,coordinates.coordinates.1,user.id_str,user.lang,lang,text,user.screen_name,user.location,user.description,created_at,user.friends_count,user.followers_count,retweet_count,entities.urls.0.expanded_url,entities.urls.1.expanded_url,entities.urls.2.expanded_url,entities.urls.3.expanded_url,entities.urls.4.expanded_url
+
+788556059375874048,50,50,2240756971,en,en,RT @dailypenn: The DP and @WellesleyNews are jointly endorsing Wellesley alum @HillaryClinton over Wharton ’68 @realDonaldTrump.… ,CorrectRecord,,Correct The Record is a strategic research and rapid response team designed to defend Hillary Clinton from baseless attacks.,Wed Oct 19 01:43:09 +0000 2016,224,23080,0,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/
+
+788556059317186560,,,4655522325,fr,fr,Barack Obama conseille à Donald Trump « d’arrêter de pleurnicher » -  https://t.co/eEl1mOnIwp https://t.co/8EeOGya28r,metrodakar_net,Senegal,,Wed Oct 19 01:43:09 +0000 2016,110,657,0,http://www.metrodakar.net/barack-obama-conseille-a-donald-trump-darreter-de-pleurnicher/,,,,
+```
+
 *returns* a csv file that dumps to disk.
 
-note: media and lists of objects are converted to a unicode string and put as one field in the csv.
+note: to get things inside a list you need to refer to their list index. its better to overshoot (so if you want to get 5 entites urls where there are 5) you would use `['entities.urls.0.expanded_url','entities.urls.1.expanded_url','entities.urls.2.expanded_url','entities.urls.3.expanded_url','entities.urls.4.expanded_url']`, for tweet objects with less than 5 entities this will put empty values.
 
-note: this will dump in the order in which fields appear in a tweet and not the order in which you list them in your flist of fields.
-
-note: empty lists `[]` will return nothing. you must specifyfields.
+note: empty lists `[]` will return nothing. you must specify fields.
 
 ##tools
 
