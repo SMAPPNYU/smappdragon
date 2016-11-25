@@ -334,6 +334,74 @@ class TestTweetParser(unittest.TestCase):
 		self.maxDiff = None
 		self.assertEqual(self.tweet_parser.strip_tweet(['blah', 'entities.user_mentions', 'user.profile_image_url_https'], tweet_object), stripped_obj)
 
+	def test_parses_columns_from_tweet(self):
+		tweet_object = { \
+			'blah':1, \
+			'retweeted':False,
+			'created_at': 'time',
+			'entities':{ \
+				'user_mentions':[ \
+					{ \
+				      "screen_name": "TwitterEng", \
+				      "name": "Twitter Engineering", \
+				      "id": 6844292, \
+				      "id_str": "6844292", \
+				      "indices": [81, 92] \
+				    }, { \
+				      "screen_name": "TwitterOSS", \
+				      "name": "Twitter Open Source", \
+				      "id": 376825877, \
+				      "id_str": "376825877", \
+				      "indices": [121, 132] \
+				    } \
+				] \
+		  	}, \
+		  	"user" : {
+				"follow_request_sent" : None,
+				"profile_use_background_image" : True,
+				"default_profile_image" : False,
+				"geo_enabled" : False,
+				"verified" : False,
+				"profile_image_url_https" : "https://pbs.twimg.com/profile_images/496694241536397313/zQY6Kebr_normal.jpeg",
+				"profile_sidebar_fill_color" : "DDEEF6",
+				"id" : 379851447,
+				"profile_text_color" : "333333",
+				"followers_count" : 3159,
+				"profile_sidebar_border_color" : "C0DEED",
+				"id_str" : "379851447",
+				"profile_background_color" : "C0DEED",
+				"listed_count" : 401,
+				"utc_offset" : 0,
+				"statuses_count" : 477638,
+				"description" : "#gaza #palestine #israel #BDS MAD EVIL ISRAEL MURDERS BABIES CIVILIANS to STEAL PALESTINIAN LAND RESOURCES with USA UK HELP. To stop my tweets, BLOCK or MUTE me",
+				"friends_count" : 2019,
+				"profile_link_color" : "0084B4",
+				"profile_image_url" : "http://pbs.twimg.com/profile_images/496694241536397313/zQY6Kebr_normal.jpeg",
+				"following" : None,
+				"time_zone" : "London",
+				"profile_background_image_url_https" : "https://abs.twimg.com/images/themes/theme1/bg.png",
+				"profile_banner_url" : "https://pbs.twimg.com/profile_banners/379851447/1416509762",
+				"profile_background_image_url" : "http://abs.twimg.com/images/themes/theme1/bg.png",
+				"name" : "ISRAEL BOMBS BABIES",
+				"lang" : "en",
+				"profile_background_tile" : False,
+				"favourites_count" : 15917,
+				"screen_name" : "Col_Connaughton",
+				"notifications" : None,
+				"url" : None,
+				"created_at" : "Sun Sep 25 17:29:09 +0000 2011",
+				"contributors_enabled" : False,
+				"location" : "London UK",
+				"protected" : False,
+				"default_profile" : True,
+				"is_translator" : False
+			}
+		}
+		ret = self.tweet_parser.parse_columns_from_tweet(tweet_object, ['blah', 'entities.user_mentions.0.id_str', 'entities.user_mentions.1.id_str', 'user.wrong_ass_index', 'user.profile_sidebar_fill_color', 'user.profile_background_tile'])
+		ret_values = [col_val[1] for col_val in ret]
+		self.assertEqual(ret_values, [1, '6844292', '376825877', None, 'DDEEF6', False])
+
+
 if __name__ == '__main__':
 	unittest.main()
 
