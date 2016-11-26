@@ -35,6 +35,7 @@
 		- [flatten_dict](https://github.com/SMAPPNYU/smappdragon#flatten_dict)
 		- [tweet_passes_custom_filter](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter)
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
+        - [parse_columns_from_tweet](#parse_columns_from_tweet)
 		- [strip_tweet](#strip_tweet)
 
 ##installation
@@ -653,10 +654,42 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 
 *returns* true or false depending on whether or not a tweet passes through the list of filters
 
+##parse_columns_from_tweet
+
+takes a tweet and returns the values for the fields you give it
+
+abstract:
+```python
+tweet_parser.parse_columns_from_tweet(TWEET, INPUT_FIELDS)
+```
+
+practical:
+```python
+for tweet in self.get_iterator():
+    tweet_parser = TweetParser()
+    ret = tweet_parser.parse_columns_from_tweet(tweet,input_fields)
+    print(ret)
+```
+
+*input* a tweet and the fields you'd like to extract out of the tweet
+```
+#tweet
+{"name":"sam", "age":25, "fav_count":36, siblings:[{"name":"bob"},{"name":"jo"},{"name":"yako"}]}
+#fields to get
+['name', 'age', 'siblings.0.name',siblings.2.name]
+```
+
+*output* a list of tuple pairs where each pair is `(INPUT_FIELD, VALUE)`
+```
+('name','sam')
+('age',25)
+('siblings.0.name','bob')
+('siblings.2.name','yako')
+```
+
 ##strip_tweet
 
 strips a tweet of all its fields except the ones specified
-
 
 abstract:
 ```python
