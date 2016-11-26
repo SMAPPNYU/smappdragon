@@ -26,6 +26,7 @@
 		- [dump_to_bson](https://github.com/SMAPPNYU/smappdragon#dump_to_bson)
 		- [dump_to_json](https://github.com/SMAPPNYU/smappdragon#dump_to_json)
 		- [dump_to_csv](https://github.com/SMAPPNYU/smappdragon#dump_to_csv)
+        - [dump_to_sqlite_db](#dump_to_sqlite_db)
 - [tools](https://github.com/SMAPPNYU/smappdragon#tools)
 	- [tweet_parser](https://github.com/SMAPPNYU/smappdragon#tweet_parser)
 		- [contains_entity](https://github.com/SMAPPNYU/smappdragon#contains_entity)
