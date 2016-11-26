@@ -122,14 +122,14 @@ class BaseCollection(object):
             if s is None:
                 return 'NULL'
             return s
-        
+
         tweet_parser = TweetParser()
         column_str = ','.join([column for column in input_fields]).replace('.','__')
         question_marks = ','.join(['?' for column in input_fields])
 
         con = sqlite3.connect(output_db)
         cur = con.cursor()
-        cur.execute("CREATE TABLE data ({});".format(column_str))
+        cur.execute("CREATE TABLE IF NOT EXISTS data ({});".format(column_str))
 
         for tweet in self.get_iterator():
             ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
