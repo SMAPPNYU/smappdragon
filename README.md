@@ -453,6 +453,64 @@ note: empty lists `[]` will return nothing. you must specify fields.
 
 note: fields that have no value will appear empty `,,`
 
+##dump_to_sqlite_db
+
+dumps all tweets (only the fields you specify) to an sqlite database file
+
+abstract:
+```python
+collection.dump_to_sqlite_db('/PATH/TO/OUTPUT/FILE.db', ['FIELD1', 'FIELD2', 'FIELD3.SUBFIELD', ETC])
+```
+
+pratical:
+```python
+collection.dump_to_sqlite_db('~/smappstuff/file.db', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+# or 
+collection.set_limit(5).dump_to_sqlite_db('/Users/kevin/work/smappwork/file.db', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+```
+
+*input* a collection object and a list of fields/subfields
+```
+[
+    'id_str',
+    'coordinates.coordinates.0',
+    'coordinates.coordinates.1',
+    'user.id_str',
+    'user.lang',
+    'lang',
+    'text',
+    'user.screen_name',
+    'user.location',
+    'user.description',
+    'created_at',
+    'user.friends_count',
+    'user.followers_count',
+    'retweet_count',
+    'entities.urls.0.expanded_url',
+    'entities.urls.1.expanded_url',
+    'entities.urls.2.expanded_url',
+    'entities.urls.3.expanded_url',
+    'entities.urls.4.expanded_url'
+]
+```
+
+*output* an sqlite db that looks like so:
+```
+sqlite> .schema
+CREATE TABLE data (id_str,user__id_str,text,entities__urls__0__expanded_url,entities__urls__1__expanded_url,entities__media__0__expanded_url,entities__media__1__expanded_url);
+sqlite> .tables
+data
+sqlite> select * from data;
+686799531875405824|491074580|@_tessr @ProductHunt No one has stolen me yet. Security through obscurity.|NULL|NULL|NULL|NULL
+686661056115175425|491074580|Predictions of peach's demise already starting. Nice.|NULL|NULL|NULL|NULL
+686956278099349506|491074580|When was the state of the union first started? Ok wow since the office has existed. https://t.co/Cqgjkhr3Aa|https://en.wikipedia.org/wiki/State_of_the_Union#History|NULL|NULL|NULL
+687115788487122944|491074580|RT @lessig: Looks like the @citizenequality act got a supporter tonight. Thank you @POTUS|NULL|NULL|NULL|NULL
+686661056115175425|491074580|Predictions of peach's demise already starting. Nice.|NULL|NULL|NULL|NULL
+687008713039835136|491074580|#GOPDebate approaching. Can't wait to observer a trump in its natural habitat!|NULL|NULL|NULL|NULL
+687208777561448448|18673945|@yvanscher hey! saw u upvoted Cubeit on ProductHunt. Any feedback on how we can make Cubeit better for you? :) Thanks!|NULL|NULL|NULL|NULL
+686662539913084928|491074580|RT @PopSci: iOS 9.3 update will tint your screen at night, for your health https://t.co/zrDt4TsoXB https://t.co/yXCEGQPHWp|http://pops.ci/cJWqhM|NULL|http://twitter.com/PopSci/status/686661925267206144/photo/1|NULL
+```
+
 ##tools
 
 these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source

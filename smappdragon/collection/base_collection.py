@@ -1,6 +1,7 @@
 import csv
 import abc
 import json
+import sqlite3
 import operator
 
 from bson import BSON, json_util
@@ -85,7 +86,7 @@ class BaseCollection(object):
     '''
         dumps the contents of a collection
         to a json file, a json object on
-        each line, this not a binary format
+        each line
     '''
     def dump_to_json(self, output_json):
         filehandle = open(output_json, 'a')
@@ -96,17 +97,43 @@ class BaseCollection(object):
 
     '''
         dumps the contents of a collection 
-        csv format,not having fields is very
-        unwieldy
+        to csv format with columns specified
+        by input_fields
     '''
     def dump_to_csv(self, output_csv, input_fields):
         filehandle = open(output_csv, 'w', encoding='utf-8')
         writer = csv.writer(filehandle)
         writer.writerow(input_fields)
+        tweet_parser = TweetParser()
 
         for tweet in self.get_iterator():
-            tp = TweetParser()
-            ret = tp.parse_columns_from_tweet(tweet,input_fields)
+            ret = tweet_parser.parse_columns_from_tweet(tweet,input_fields)
             ret_values = [col_val[1] for col_val in ret]
             writer.writerow(ret_values)
         filehandle.close()
+
+    '''
+        dumps the contents of a collection 
+        to an sqlite database with columns
+        specified by input_fields
+    '''
+    def dump_to_sqlite_db(self, output_db, input_fields):
+        def replace_none(s):
+            if s is None:
+                return 'NULL'
+            return s
+        
+        tweet_parser = TweetParser()
+        column_str = ','.join([column for column in input_fields]).replace('.','__')
+        question_marks = ','.join(['?' for column in input_fields])
+
+        con = sqlite3.connect(output_db)
+        cur = con.cursor()
+        cur.execute("CREATE TABLE data ({});".format(column_str))
+
+        for tweet in self.get_iterator():
+            ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
+            row = [replace_none(col_val[1]) for col_val in ret]
+            cur.execute("INSERT INTO data ({}) VALUES ({});".format(column_str, question_marks), row)
+            con.commit()
+        con.close()

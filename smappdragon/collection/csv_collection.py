@@ -1,5 +1,5 @@
 import os
-import unicodecsv
+import csv
 
 from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
@@ -22,7 +22,7 @@ class CsvCollection(BaseCollection):
 	def get_iterator(self):
 		tweet_parser = TweetParser()
 		csv_handle = open(self.filepath, 'rb')
-		for count, tweet in enumerate(unicodecsv.DictReader(csv_handle)):
+		for count, tweet in enumerate(csv.DictReader(csv_handle)):
 			if self.limit < count+1 and self.limit != 0:
 				csv_handle.close()
 				return
