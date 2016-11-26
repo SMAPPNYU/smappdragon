@@ -681,10 +681,12 @@ for tweet in self.get_iterator():
 
 *output* a list of tuple pairs where each pair is `(INPUT_FIELD, VALUE)`
 ```
+[
 ('name','sam')
 ('age',25)
 ('siblings.0.name','bob')
 ('siblings.2.name','yako')
+]
 ```
 
 ##strip_tweet
