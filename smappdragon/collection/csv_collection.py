@@ -21,7 +21,7 @@ class CsvCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-		csv_handle = open(self.filepath, 'rb')
+		csv_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(csv.DictReader(csv_handle)):
 			if self.limit < count+1 and self.limit != 0:
 				csv_handle.close()
