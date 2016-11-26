@@ -23,12 +23,9 @@ class JsonCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-		json_handle = open(self.filepath, 'r')
+		json_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(json_handle):
-			try:
-				tweet = json_util.loads(tweet)
-			except ValueError:
-				continue
+			tweet = json_util.loads(tweet)
 			if self.limit != 0 and self.limit <= count:
 				return
 			elif tweet_parser.tweet_passes_filter(self.filter, tweet) \
