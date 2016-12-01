@@ -3,10 +3,6 @@ read about twitter entities here
 https://dev.twitter.com/overview/api/entities-in-twitter-objects
 '''
 
-import json
-
-from bson import BSON, json_util
-
 class TweetParser(object):
     def __init__(self):
         pass
@@ -138,7 +134,7 @@ class TweetParser(object):
             temp_tweet = {}
             for sub_field in columns:
                 if temp_tweet == {}:
-                    temp_tweet = json.loads(json_util.dumps(tweet))
+                    temp_tweet = tweet
                 try:
                     if sub_field.isdigit():
                         sub_field = int(sub_field)

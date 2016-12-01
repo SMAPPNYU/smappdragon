@@ -79,7 +79,7 @@ class TestBaseCollection(unittest.TestCase):
                         elif val_count == 4:
                             self.assertEqual(csv_row_value, '379851447')
                         elif val_count == 5:
-                            self.assertEqual(csv_row_value, '1446495359000')
+                            self.assertEqual(csv_row_value, '2015-11-02 20:15:59+00:00')
                         elif val_count == 6:
                             self.assertEqual(csv_row_value, 'Susan Lindauer, Rtd US Army LTC Potter: Jade Helm https://t.co/VA4bQRudLt #jadehelm #newworldorder #usa #tyranny #threat')
                         if everything_in_order:
