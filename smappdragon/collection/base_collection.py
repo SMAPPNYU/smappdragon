@@ -133,8 +133,6 @@ class BaseCollection(object):
 
         insert_list = []
         for count,tweet in enumerate(self.get_iterator()):
-            # on 0 and every 10k open transaction
-            # every 10k close out the transaction
             ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
             row = [replace_none(col_val[1]) for col_val in ret]
             insert_list.append(tuple(row))
