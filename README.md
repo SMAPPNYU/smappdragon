@@ -285,7 +285,7 @@ collection.strip_tweets(['id', 'user.id', 'entities.user_mentions'])
 
 *returns* a collection object that will return reduced tweet objects where all the fields but the specified ones are filtered away.
 
-*note* list indexes do not work here, 'entities.user_mentions.0' does not work, you can only preserve entire lists.
+*note* you cannot use strip_tweets with [csv_collection](#csv_collection)
 
 ##set_filter
 
