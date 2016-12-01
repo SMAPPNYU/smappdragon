@@ -131,9 +131,10 @@ class BaseCollection(object):
         cur = con.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS data ({});".format(column_str))
 
-        for tweet in self.get_iterator():
+        for count,tweet in enumerate(self.get_iterator()):
             ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
             row = [replace_none(col_val[1]) for col_val in ret]
             cur.execute("INSERT INTO data ({}) VALUES ({});".format(column_str, question_marks), row)
-            con.commit()
+            if count % 10000:
+                con.commit()
         con.close()
