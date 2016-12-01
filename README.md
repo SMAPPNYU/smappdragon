@@ -410,6 +410,8 @@ pratical:
 collection.dump_to_csv('~/smappstuff/file.csv', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
 # or 
 collection.set_limit(5).dump_to_csv('/Users/kevin/work/smappwork/file.csv', ['id_str', 'entities.hashtags.0', 'entities.hashtags.1'])
+# or if you want to omit the header
+collection.dump_to_csv('out_file.csv', ['id_str'], write_header=False)
 ```
 
 input:
@@ -447,6 +449,9 @@ id_str,coordinates.coordinates.0,coordinates.coordinates.1,user.id_str,user.lang
 ```
 
 *returns* a csv file that dumps to disk.
+
+`write_header` - the 'write_header' optional variable tellls the csv dump to write or not write its header, the use purpose is to give the user this option, the technical purposes it to make it easier to
+not dump the header more than 1 time in the middle of a file when dumping a pysmap dataset to csv.
 
 note: to get things inside a list you need to refer to their list index. its better to overshoot (so if you want to get 5 entites urls where there are 5) you would use `['entities.urls.0.expanded_url','entities.urls.1.expanded_url','entities.urls.2.expanded_url','entities.urls.3.expanded_url','entities.urls.4.expanded_url']`, for tweet objects with less than 5 `urls` entities this will fill out urls up to 5 urls, if there are less than 5 the extra ones will be empty `,,` fields
 

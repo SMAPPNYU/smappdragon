@@ -100,10 +100,11 @@ class BaseCollection(object):
         to csv format with columns specified
         by input_fields
     '''
-    def dump_to_csv(self, output_csv, input_fields):
+    def dump_to_csv(self, output_csv, input_fields, write_header=True):
         filehandle = open(output_csv, 'a', encoding='utf-8')
         writer = csv.writer(filehandle)
-        writer.writerow(input_fields)
+        if write_header:
+            writer.writerow(input_fields)
         tweet_parser = TweetParser()
 
         for tweet in self.get_iterator():
