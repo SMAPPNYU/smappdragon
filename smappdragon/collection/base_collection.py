@@ -101,7 +101,7 @@ class BaseCollection(object):
         by input_fields
     '''
     def dump_to_csv(self, output_csv, input_fields):
-        filehandle = open(output_csv, 'w', encoding='utf-8')
+        filehandle = open(output_csv, 'a', encoding='utf-8')
         writer = csv.writer(filehandle)
         writer.writerow(input_fields)
         tweet_parser = TweetParser()
