@@ -131,10 +131,18 @@ class BaseCollection(object):
         cur = con.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS data ({});".format(column_str))
 
+        insert_list = []
         for count,tweet in enumerate(self.get_iterator()):
+            # on 0 and every 10k open transaction
+            # every 10k close out the transaction
             ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
             row = [replace_none(col_val[1]) for col_val in ret]
-            cur.execute("INSERT INTO data ({}) VALUES ({});".format(column_str, question_marks), row)
-            if count % 10000:
+            insert_list.append(tuple(row))
+            if (count % 10000) == 0:
+                cur.executemany("INSERT INTO data ({}) VALUES ({});".format(column_str, question_marks), insert_list)
                 con.commit()
+                insert_list = []
+        if count < 10000:
+            cur.executemany("INSERT INTO data ({}) VALUES ({});".format(column_str, question_marks), insert_list)
+            con.commit()
         con.close()
