@@ -790,11 +790,19 @@ separate file
 
 abstract:
 ```python
+clean_tweets(INPUT_TYPE, YOUR_DIRTY_INPUT_FILE, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
 ```
 
 practical:
 ```python
+from smappdragon.tools.tweet_cleaner import clean_tweets
+
+clean_tweets('json', ~/smappwork/my_dirty_file.json, ~/smappwork/clean_tweets.json, ~/smappwork/dirty_tweets.json)
 ```
+
+*input* a json file and the names of your dirty/clean output files.
+
+*return* a file with clean tweets and a file with dirty tweets.
 
 resources:
 
