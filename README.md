@@ -38,7 +38,7 @@
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
         - [parse_columns_from_tweet](#parse_columns_from_tweet)
 		- [strip_tweet](#strip_tweet)
-    -[tweet_cleaner](#tweet_cleaner)
+    - [tweet_cleaner](#tweet_cleaner)
         - [clean_tweets](#clean_tweets)
 
 ##installation
