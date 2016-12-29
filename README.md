@@ -785,7 +785,7 @@ functions for cleaning tweets
 
 #clean_tweets
 
-a catch att tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a 
+a catch all tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a 
 separate file
 
 abstract:
