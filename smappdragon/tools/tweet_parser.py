@@ -1,8 +1,3 @@
-'''
-read about twitter entities here
-https://dev.twitter.com/overview/api/entities-in-twitter-objects
-'''
-
 class TweetParser(object):
     def __init__(self):
         pass
@@ -154,3 +149,8 @@ class TweetParser(object):
             split_field = field.split('.')
             ret_columns.append((field,return_val_for_column(tweet, split_field)))
         return ret_columns
+
+'''
+author @yvan
+tweet parser is a tool for making tweet filters
+'''

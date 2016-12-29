@@ -38,6 +38,8 @@
 		- [tweet_passes_custom_filter_list](https://github.com/SMAPPNYU/smappdragon#tweet_passes_custom_filter_list)
         - [parse_columns_from_tweet](#parse_columns_from_tweet)
 		- [strip_tweet](#strip_tweet)
+    -[tweet_cleaner](#tweet_cleaner)
+        - [clean_tweets](#clean_tweets)
 
 ##installation
 
@@ -776,6 +778,23 @@ install the developer environment: `conda env create -f environment.yml`
 run `pylint smappdragon` and fix style issues
 
 submit your pull request on a feature branch `feature/added-language-support` to be merged with the `dev` branch
+
+#tweet_cleaner
+
+functions for cleaning tweets
+
+#clean_tweets
+
+a catch att tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a 
+separate file
+
+abstract:
+```python
+```
+
+practical:
+```python
+```
 
 resources:
 
