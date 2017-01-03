@@ -804,12 +804,14 @@ clean_tweets('json', ~/smappwork/my_dirty_file.json, ~/smappwork/clean_tweets.js
 
 *return* a file with clean tweets and a file with dirty tweets.
 
-resources:
+note: this assumes that the correct underlying format/encoding will be utf8 unicode. if you want your file to be something else you are on your own.
+
+#resources:
 
 [best tutorial on python encoding/decoding](http://pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/)
 [csv encoding explanation](http://stackoverflow.com/questions/15420467/the-python-csv-writer-is-adding-letters-to-the-beginning-of-each-element-and-iss)
 
-bad style:
+#bad style:
 
 do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
 
