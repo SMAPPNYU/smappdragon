@@ -74,8 +74,7 @@ class TestTweetCleaner(unittest.TestCase):
                     print('blah')
                     excepted = True
         self.assertFalse(excepted)
-        self.tearDown()
-            
+        self.tearDown()            
 
 if __name__ == '__main__':
     unittest.main()
