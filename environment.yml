@@ -1,7 +1,5 @@
 name: smappdragon
 dependencies:
-- python=3.5
-- pip
-- pylint
+- python=3.6
 - pip:
   - pymongo>=3.2  
