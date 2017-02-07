@@ -40,6 +40,7 @@
 		- [strip_tweet](#strip_tweet)
     - [tweet_cleaner](#tweet_cleaner)
         - [clean_tweets](#clean_tweets)
+        - [clean_tweets_multiple](#clean_tweets_multiple)
 
 ##installation
 
@@ -790,14 +791,14 @@ separate file
 
 abstract:
 ```python
-clean_tweets(INPUT_TYPE, YOUR_DIRTY_INPUT_FILE, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
+clean_tweets(YOUR_DIRTY_INPUT_FILE, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
 ```
 
 practical:
 ```python
 from smappdragon.tools.tweet_cleaner import clean_tweets
 
-clean_tweets('json', ~/smappwork/my_dirty_file.json, ~/smappwork/clean_tweets.json, ~/smappwork/dirty_tweets.json)
+clean_tweets('~/smappwork/my_dirty_file.json', '~/smappwork/clean_tweets.json', '~/smappwork/dirty_tweets.json')
 ```
 
 *input* a json file and the names of your dirty/clean output files.
@@ -805,6 +806,32 @@ clean_tweets('json', ~/smappwork/my_dirty_file.json, ~/smappwork/clean_tweets.js
 *return* a file with clean tweets and a file with dirty tweets.
 
 note: this assumes that the correct underlying format/encoding will be utf8 unicode. if you want your file to be something else you are on your own.
+
+note: only does json cleaning for now.
+
+#clean_tweets_multiple
+
+a catch all tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a separate file. same as (clean_tweets except it can clean multiple files).
+
+abstract:
+```python
+clean_tweets(DIRTY_FILE_PATTERN, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
+```
+
+practical:
+```python
+from smappdragon.tools.tweet_cleaner import clean_tweets
+
+clean_tweets('~/smappwork/my_dirty_file_pattern_*.json', '~/smappwork/clean_tweets.json', '~/smappwork/dirty_tweets.json')
+```
+
+*input* a json file and the names of your dirty/clean output files.
+
+*return* a file with clean tweets and a file with dirty tweets.
+
+note: this assumes that the correct underlying format/encoding will be utf8 unicode. if you want your file to be something else you are on your own.
+
+note: only does json cleaning for now.
 
 #resources:
 

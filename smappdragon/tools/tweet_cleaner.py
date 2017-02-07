@@ -1,20 +1,27 @@
 import os
-import bson
 import csv
+import glob
+import bson
 import json
 
-def clean_tweets(input_type, input_file_path, output_file_path, error_file_path):
-    if input_type == 'bson':
-        bson_handle = open(input_file_path, 'rb')
-        try:
-            for count, line in enumerate(bson.decode_file_iter(bson_handle)):
-                pass
-        except:
-            pass
-    elif input_type == 'json':
-        json_handle = open(input_file_path, 'r', encoding='utf-8')
-        with open(output_file_path, 'w', encoding='utf-8') as fo:
-            with open(error_file_path, 'w', encoding='utf-8') as f:
+def clean_tweets(input_file_path, output_file_path, error_file_path):
+    json_handle = open(input_file_path, 'r', encoding='utf-8')
+    with open(output_file_path, 'w', encoding='utf-8') as fo:
+        with open(error_file_path, 'w', encoding='utf-8') as f:
+            for count, line in enumerate(json_handle):
+                try:
+                    tweet = json.loads(line)
+                    fo.write(json.dumps(tweet))
+                    fo.write('\n')
+                except:
+                    f.write(line)
+    json_handle.close()
+
+def clean_tweets_multiple(input_file_pattern, output_file_path, error_file_path):
+    for path in glob.glob(os.path.expanduser(input_file_pattern)):
+        json_handle = open(path, 'r', encoding='utf-8')
+        with open(output_file_path, 'a', encoding='utf-8') as fo:
+            with open(error_file_path, 'a', encoding='utf-8') as f:
                 for count, line in enumerate(json_handle):
                     try:
                         tweet = json.loads(line)

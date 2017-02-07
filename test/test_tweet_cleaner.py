@@ -5,7 +5,7 @@ import unittest
 
 from test.config import config
 from smappdragon import JsonCollection
-from smappdragon.tools.tweet_cleaner import clean_tweets
+from smappdragon.tools.tweet_cleaner import clean_tweets, clean_tweets_multiple
 
 class TestTweetCleaner(unittest.TestCase):
 
@@ -25,8 +25,7 @@ class TestTweetCleaner(unittest.TestCase):
 
     def test_clean_tweets_on_dirty_data(self):
         self.setUp()
-        clean_tweets('json', 
-        os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['dirty'], 
+        clean_tweets(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['dirty'], 
         os.path.dirname(os.path.abspath(__file__))+'/../test/output.json', 
         os.path.dirname(os.path.abspath(__file__))+'/../test/output_err.json')
 
@@ -51,8 +50,7 @@ class TestTweetCleaner(unittest.TestCase):
 
     def test_clean_tweets_on_clean_data(self):
         self.setUp()
-        clean_tweets('json', 
-        os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], 
+        clean_tweets(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], 
         os.path.dirname(os.path.abspath(__file__))+'/../test/output.json', 
         os.path.dirname(os.path.abspath(__file__))+'/../test/output_err.json')
 
@@ -71,10 +69,34 @@ class TestTweetCleaner(unittest.TestCase):
                 try:
                     json.loads(line)
                 except:
-                    print('blah')
                     excepted = True
         self.assertFalse(excepted)
-        self.tearDown()            
+        self.tearDown()
+
+    def test_clean_multiple_files(self):
+        self.setUp()
+        clean_tweets_multiple(os.path.dirname(os.path.realpath(__file__)) +'/'+ 'data/dirty*', 
+        os.path.dirname(os.path.abspath(__file__))+'/../test/output.json', 
+        os.path.dirname(os.path.abspath(__file__))+'/../test/output_err.json')
+
+        col = JsonCollection(os.path.dirname(os.path.abspath(__file__))+'/../test/output.json')
+
+        with open(os.path.dirname(os.path.abspath(__file__))+'/../test/output.json', 'r') as f:
+            for line in f:
+                try:
+                    json.loads(line)
+                except:
+                    self.assertTrue(False)
+
+        excepted = False
+        with open(os.path.dirname(os.path.abspath(__file__))+'/../test/output_err.json', 'r') as f:
+            for line in f:
+                try:
+                    json.loads(line)
+                except:
+                    excepted = True
+        self.assertTrue(excepted)
+        self.tearDown()
 
 if __name__ == '__main__':
     unittest.main()
