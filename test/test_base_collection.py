@@ -1,7 +1,7 @@
 import os
+import csv
 import sqlite3
 import unittest
-import unicodecsv
 
 from bson import json_util
 from test.config import config
@@ -59,9 +59,9 @@ class TestBaseCollection(unittest.TestCase):
         output_path = os.path.dirname(os.path.realpath(__file__)) + '/' + 'data/output.csv'
         collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid-single'])
         collection.dump_to_csv(output_path, ['id_str', 'entities.hashtags.0.text', 'entities.hashtags.1.text', 'source', 'user.id', 'timestamp.$date', 'text'])
-        with open(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv', 'rb') as filehandle:
+        with open(os.path.dirname(os.path.abspath(__file__))+'/data/output.csv', 'r') as filehandle:
             count = 0
-            for line in unicodecsv.reader(filehandle):
+            for line in csv.reader(filehandle):
                 if count != 0:
                     val_count = 0
                     for csv_row_value in line:

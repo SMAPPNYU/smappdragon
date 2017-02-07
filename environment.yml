@@ -4,6 +4,4 @@ dependencies:
 - pip
 - pylint
 - pip:
-  - pymongo>=3.2
-  - unicodecsv>=0.14.1
-  
+  - pymongo>=3.2  
