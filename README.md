@@ -42,7 +42,7 @@
         - [clean_tweets](#clean_tweets)
         - [clean_tweets_multiple](#clean_tweets_multiple)
 
-##installation
+## installation
 
 `pip install smappdragon`
 
@@ -56,7 +56,7 @@ should be `/usr/bin/python` (mac osx base install), `/usr/local/bin/python` (hom
 (check with `python --version`)
 if you are 2.X.X, you're out of date
 
-##testing 
+## testing 
 
 you absolutely need to write unit tests for any methods you add to smappdragon, this software needs to stay as stable as porssible as it will be the basis for other software.
 
@@ -66,11 +66,11 @@ the `bson` folder contains two bson files on which to run tests. One if a valid.
 
 our test covearge setup: https://github.com/coagulant/coveralls-python
 
-##collection
+## collection
 
 classes for interfacing with a tweets from different data sources
 
-##mongo_collection
+## mongo_collection
 
 this allows you to plug into a running live mongodb database and run smappdragon methods on the resulting collection object. 
 
@@ -119,7 +119,7 @@ config = {
 ```
 this config is used for testing it is gitignored.
 
-##bson_collection
+## bson_collection
 
 this allows you to use any bson file as a data source for smappdragon
 
@@ -157,7 +157,7 @@ config = {
 ```
 this config is used for testing it is gitignored.
 
-##json_collection
+## json_collection
 
 this allows you to use any json file (with a json object on each line) as a data source for smappdragon
 
@@ -195,7 +195,7 @@ config = {
 ```
 this config is used for testing it is gitignored.
 
-##csv_collection
+## csv_collection
 
 this allows you to use any csv file (with a csv header) as a data source for smappdragon. we recommend using native json and not using csv collection, it's know to have a few bugs.
 
@@ -233,13 +233,13 @@ config = {
 ```
 this config is used for testing it is gitignored.
 
-##base_collection
+## base_collection
 
 this is the base class for all collection objects. methods that all collection objects use are found here. this is actually the most important class.
 
 test: `python -m unittest test.test_base_collection`
 
-##get_iterator
+## get_iterator
 
 makes an iterator that can iterate through all tweets in a particular collection
 
@@ -256,7 +256,7 @@ for tweet in collection.get_iterator():
 
 *returns* an iterable object that will yield all the tweets in a particular collection
 
-##set_limit
+## set_limit
 
 sets a limit on the number of documents a collection can return 
 
@@ -274,7 +274,7 @@ collection.set_limit(10)
 
 *returns* a collection object limited to querying / filtering only as many tweets as the limit number allows. a limit of 10 will only allow 10 tweets to be processed.
 
-##strip_tweets
+## strip_tweets
 
 abstract:
 ```python
@@ -290,7 +290,7 @@ collection.strip_tweets(['id', 'user.id', 'entities.user_mentions'])
 
 *note* you cannot use strip_tweets with [csv_collection](#csv_collection)
 
-##set_filter
+## set_filter
 
 sets a filter to apply toa all tweets, the filter is a mongo style query dictionary
 
@@ -312,7 +312,7 @@ note: passing an empty filter will return all tweets in a collection, empty filt
 
 note: to make sure you are querying what you really want you should examine the twitter docs on [tweet](https://dev.twitter.com/overview/api/tweets) and [user](https://dev.twitter.com/overview/api/users) objects. some field names are shared between objects (example `id_str` is part of both user and tweet objects, even when a user object is nested inside a tweet object)
 
-##set_custom_filter
+## set_custom_filter
 
 sets a method you define as a filter for tweets
 
@@ -334,7 +334,7 @@ collection.set_custom_filter(is_tweet_a_retweet)
 ```
 *returns* a collection object that will only return tweets that match or pass the specified custom filter method.
 
-##set_custom_filter_list
+## set_custom_filter_list
 
 sets a list of methods you define as a set of filters for tweets
 
@@ -363,7 +363,7 @@ collection.set_custom_filter_list([is_tweet_a_retweet, screen_name_is_yvan])
 
 note: passing an empty filter will return all tweets in a collection, empty filters `[]` are like no filter.
 
-##dump_to_bson
+## dump_to_bson
 
 dumps all tweets in a collection to bson.
 
@@ -381,7 +381,7 @@ collection.limit(5).dump_to_bson('/Users/kevin/work/smappwork/file.bson')
 
 *returns* a bson file that dumps to disk.
 
-##dump_to_json
+## dump_to_json
 
 dumps all tweets in a collection to json formatted bson (a json object on each line of the file).
 
@@ -399,7 +399,7 @@ collection.limit(5).dump_to_json('/Users/kevin/work/smappwork/file.json')
 
 *returns* a json file that dumps to disk.
 
-##dump_to_csv
+## dump_to_csv
 
 dumps all tweets in a collection to csv.
 
@@ -462,7 +462,7 @@ note: empty lists `[]` will return nothing. you must specify fields.
 
 note: fields that have no value will appear empty `,,`
 
-##dump_to_sqlite_db
+## dump_to_sqlite_db
 
 dumps all tweets (only the fields you specify) to an sqlite database file
 
@@ -520,11 +520,11 @@ sqlite> select * from data;
 686662539913084928|491074580|RT @PopSci: iOS 9.3 update will tint your screen at night, for your health https://t.co/zrDt4TsoXB https://t.co/yXCEGQPHWp|http://pops.ci/cJWqhM|NULL|http://twitter.com/PopSci/status/686661925267206144/photo/1|NULL
 ```
 
-##tools
+# tools
 
 these are tools that our collection classes use ut that can also be used on their own if you have some kind of custom tweet input data source
 
-##tweet_parser
+## tweet_parser
 
 a parser for tweets that can perform all sorts of tsansformations on tweets or extrct data from them easily.
 
@@ -538,7 +538,7 @@ tweet_parser = TweetParser()
 
 test: `python -m unittest test.test_tweet_parser`
 
-##contains_entity
+## contains_entity
 
 tells you wether or not a tweet object has a certain [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols)
 
@@ -559,7 +559,7 @@ tweet_parser.contains_entity('user_mentions', { ... tweet object here ... })
 
 note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
 
-##get_entity
+## get_entity
 
 gets a particular list of [twitter entities](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) for you
 
@@ -595,7 +595,7 @@ output:
 
 note: `entity_type` must be `'urls'` `'hashtags'` `'user_mentions'` `'media'` or `'symbols'`
 
-##get_entity_field
+## get_entity_field
 
 gets the field of a particular [twitter entity](https://dev.twitter.com/overview/api/entities-in-twitter-objects#symbols) object for you
 
@@ -627,7 +627,7 @@ output:
 
 note: those urls look weird, they are just escaped, it's where you put a `\` in front of every `/`
 
-##tweet_passes_filter
+## tweet_passes_filter
 
 checks to see if a tweet passes a filter
 
@@ -648,7 +648,7 @@ True
 
 *return* true if a tweet passes a filter or false if a tweet fails to pass a filter.
 
-##flatten_dict
+## flatten_dict
 
 flattens a tweet into a list of key paths and values. this is a one dimensional structure. you can flatten two objects and then compare them more easily.
 
@@ -675,7 +675,7 @@ output:
 see: http://stackoverflow.com/questions/11929904/traverse-a-nested-dictionary-and-get-the-path-in-python
 see: the tweet_passes_filter method in tweet_parser.py for an example of how to use it to comapare two objects.
 
-##tweet_passes_custom_filter
+## tweet_passes_custom_filter
 
 tells you wether or not a tweet passes a certain custom filter method that you define
 
@@ -696,7 +696,7 @@ tweet_parser.tweet_passes_custom_filter(is_tweet_retweet, {text: 'blah blah', re
 
 *returns* true or false depending on whether or not a tweet passes through the filter
 
-##tweet_passes_custom_filter_list
+## tweet_passes_custom_filter_list
 
 tells you wether or not a tweet passes a list of certain custom filter method that you define
 
@@ -721,7 +721,7 @@ tweet_parser.tweet_passes_custom_filter_list([screen_name_is_yvan, is_tweet_a_re
 
 *returns* true or false depending on whether or not a tweet passes through the list of filters
 
-##parse_columns_from_tweet
+## parse_columns_from_tweet
 
 takes a tweet and returns the values for the fields you give it
 
@@ -756,7 +756,7 @@ for tweet in self.get_iterator():
 ]
 ```
 
-##strip_tweet
+## strip_tweet
 
 strips a tweet of all its fields except the ones specified
 
@@ -772,7 +772,7 @@ tweet_parser.strip_tweet(['id', 'user.id', 'entities.user_mentions'], tweet)
 
 *returns* a tweet stripped down to the fields you want, retaining only specified fields
 
-##contributing
+# contributing
 
 install the developer environment: `conda env create -f environment.yml`
 
@@ -780,11 +780,11 @@ run `pylint smappdragon` and fix style issues
 
 submit your pull request on a feature branch `feature/added-language-support` to be merged with the `dev` branch
 
-#tweet_cleaner
+# tweet_cleaner
 
 functions for cleaning tweets
 
-#clean_tweets
+## clean_tweets
 
 a catch all tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a 
 separate file
@@ -809,7 +809,7 @@ note: this assumes that the correct underlying format/encoding will be utf8 unic
 
 note: only does json cleaning for now.
 
-#clean_tweets_multiple
+## clean_tweets_multiple
 
 a catch all tweet cleaner that excepts all errors and writes clean tweets to a file and unclean tweets to a separate file. same as (clean_tweets except it can clean multiple files).
 
@@ -833,12 +833,12 @@ note: this assumes that the correct underlying format/encoding will be utf8 unic
 
 note: only does json cleaning for now.
 
-#resources:
+# resources:
 
 [best tutorial on python encoding/decoding](http://pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/)
 [csv encoding explanation](http://stackoverflow.com/questions/15420467/the-python-csv-writer-is-adding-letters-to-the-beginning-of-each-element-and-iss)
 
-#bad style:
+# bad style:
 
 do not write excessively long 'one-liners' these ar difficult to understand and wlll be rejected. break them up into multiple lines. posterity will thank you.
 
