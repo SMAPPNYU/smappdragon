@@ -1,10 +1,10 @@
 ```
-									 _
- ___ _ __ ___   __ _ _ __  _ __   __| |_ __ __ _  __ _  ___  _ __ 
+                                     _                             
+ ___ _ __ ___   __ _ _ __  _ __   __| |_ __ __ _  __ _  ___  _ __  
 / __| '_ ` _ \ / _` | '_ \| '_ \ / _` | '__/ _` |/ _` |/ _ \| '_ \ 
 \__ \ | | | | | (_| | |_) | |_) | (_| | | | (_| | (_| | (_) | | | |
 |___/_| |_| |_|\__,_| .__/| .__/ \__,_|_|  \__,_|\__, |\___/|_| |_|
-					|_|   |_|                    |___/
+                    |_|   |_|                    |___/             
 ```
 
 [![PyPI](https://img.shields.io/pypi/v/smappdragon.svg)](https://pypi.python.org/pypi/smappdragon) [![PyPI](https://img.shields.io/pypi/l/smappdragon.svg)](https://github.com/SMAPPNYU/smappdragon/blob/master/LICENSE)
