@@ -815,7 +815,7 @@ a catch all tweet cleaner that excepts all errors and writes clean tweets to a f
 
 abstract:
 ```python
-clean_tweets(DIRTY_FILE_PATTERN, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
+clean_tweets_multiple(DIRTY_FILE_PATTERN, YOUR_CLEAN_OUTPUT_FILE, YOUR_DIRTY_OUTPUT_FILE)
 ```
 
 practical:
