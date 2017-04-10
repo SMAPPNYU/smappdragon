@@ -31,5 +31,5 @@ class CsvCollection(BaseCollection):
 				if self.should_strip:
 					yield tweet_parser.strip_tweet(self.keep_fields, tweet) 
 				else: 
-					yield tweet
+					yield dict(tweet)
 		csv_handle.close()

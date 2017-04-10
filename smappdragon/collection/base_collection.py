@@ -100,7 +100,7 @@ class BaseCollection(object):
         to csv format with columns specified
         by input_fields
     '''
-    def dump_to_csv(self, output_csv, input_fields, write_header=True):
+    def dump_to_csv(self, output_csv, input_fields, write_header=True, top_level=False):
         filehandle = open(output_csv, 'a', encoding='utf-8')
         writer = csv.writer(filehandle)
         if write_header:
@@ -108,7 +108,10 @@ class BaseCollection(object):
         tweet_parser = TweetParser()
 
         for tweet in self.get_iterator():
-            ret = tweet_parser.parse_columns_from_tweet(tweet,input_fields)
+            if top_level:
+                ret = list(zip(input_fields, [tweet.get(field) for field in input_fields]))
+            else:
+                ret = tweet_parser.parse_columns_from_tweet(tweet,input_fields)
             ret_values = [col_val[1] for col_val in ret]
             writer.writerow(ret_values)
         filehandle.close()
@@ -118,7 +121,7 @@ class BaseCollection(object):
         to an sqlite database with columns
         specified by input_fields
     '''
-    def dump_to_sqlite_db(self, output_db, input_fields):
+    def dump_to_sqlite_db(self, output_db, input_fields, top_level=False):
         def replace_none(s):
             if s is None:
                 return 'NULL'
@@ -133,8 +136,12 @@ class BaseCollection(object):
         cur.execute("CREATE TABLE IF NOT EXISTS data ({});".format(column_str))
 
         insert_list = []
+        # batch insert if more than 10k tweets
         for count,tweet in enumerate(self.get_iterator()):
-            ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
+            if top_level:
+                ret = list(zip(input_fields, [tweet.get(field) for field in input_fields]))
+            else:
+                ret = tweet_parser.parse_columns_from_tweet(tweet, input_fields)
             row = [replace_none(col_val[1]) for col_val in ret]
             insert_list.append(tuple(row))
             if (count % 10000) == 0:

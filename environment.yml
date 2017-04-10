@@ -2,4 +2,4 @@ name: smappdragon
 dependencies:
 - python=3.6
 - pip:
-  - pymongo>=3.2  
+  - pymongo==3.2  

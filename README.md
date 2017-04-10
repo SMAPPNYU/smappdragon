@@ -456,11 +456,15 @@ id_str,coordinates.coordinates.0,coordinates.coordinates.1,user.id_str,user.lang
 `write_header` - the 'write_header' optional variable tellls the csv dump to write or not write its header, the use purpose is to give the user this option, the technical purposes it to make it easier to
 not dump the header more than 1 time in the middle of a file when dumping a pysmap dataset to csv.
 
+`top_level` - tells this dump method to split input columns based on dots or not, this is complicated and has to do with the way we automatically assume a '.' character in a input_field indicates a nested field. `top_level` tells the method to treat dots as normal cahracters and will not try to look for nested values. it  will just grab the top level values from each tweet dict in the method. if your input is a csv collection or tabular format you should always set this to `False` as you will only ever need to get things the top level (as tabular data cannot be nested). if you do not set it to true and your column names have '.' in them the dump will fail as it will try to look for nested data. for examplenormally `extended_entites.media` would look for `{... 'extended_entites':{'media':'some_url'} ...}` if you set `top_level = True` then input field `extended_entites.media` looks for `{... 'extended_entites.media':'some_other_thing' ...}`
+
 note: to get things inside a list you need to refer to their list index. its better to overshoot (so if you want to get 5 entites urls where there are 5) you would use `['entities.urls.0.expanded_url','entities.urls.1.expanded_url','entities.urls.2.expanded_url','entities.urls.3.expanded_url','entities.urls.4.expanded_url']`, for tweet objects with less than 5 `urls` entities this will fill out urls up to 5 urls, if there are less than 5 the extra ones will be empty `,,` fields
 
 note: empty lists `[]` will return nothing. you must specify fields.
 
 note: fields that have no value will appear empty `,,`
+
+dev note: you will note that if called on a csv collection we do not use the parse_columns_from_tweet method as it splits the '.' character and treats it as a nesting operator which applies to non tabular bson, json, or mongo but not to csv data sources which might have '.' in column names and still need to dump back to csv or sqlite. you will see in dump_to_csv or dump_to_sqlite_db that in case the input datasource is a columnar/tabular format we just take the twet dict values (as this dict is guaruanteed to be a flat dict in cases of csv input)
 
 ## dump_to_sqlite_db
 
@@ -519,6 +523,10 @@ sqlite> select * from data;
 687208777561448448|18673945|@yvanscher hey! saw u upvoted Cubeit on ProductHunt. Any feedback on how we can make Cubeit better for you? :) Thanks!|NULL|NULL|NULL|NULL
 686662539913084928|491074580|RT @PopSci: iOS 9.3 update will tint your screen at night, for your health https://t.co/zrDt4TsoXB https://t.co/yXCEGQPHWp|http://pops.ci/cJWqhM|NULL|http://twitter.com/PopSci/status/686661925267206144/photo/1|NULL
 ```
+
+`top_level` - tells this dump method to split input columns based on dots or not, this is complicated and has to do with the way we automatically assume a '.' character in a input_field indicates a nested field. `top_level` tells the method to treat dots as normal cahracters and will not try to look for nested values. it  will just grab the top level values from each tweet dict in the method. if your input is a csv collection or tabular format you should always set this to `False` as you will only ever need to get things the top level (as tabular data cannot be nested). if you do not set it to true and your column names have '.' in them the dump will fail as it will try to look for nested data. for examplenormally `extended_entites.media` would look for `{... 'extended_entites':{'media':'some_url'} ...}` if you set `top_level = True` then input field `extended_entites.media` looks for `{... 'extended_entites.media':'some_other_thing' ...}`
+
+dev note: you will note that if called on a csv collection we do not use the parse_columns_from_tweet method as it splits the '.' character and treats it as a nesting operator which applies to non tabular bson, json, or mongo but not to csv data sources which might have '.' in column names and still need to dump back to csv or sqlite. you will see in dump_to_csv or dump_to_sqlite_db that in case the input datasource is a columnar/tabular format we just take the twet dict values (as this dict is guaruanteed to be a flat dict in cases of csv input)
 
 # tools
 
