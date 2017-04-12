@@ -152,5 +152,5 @@ class TweetParser(object):
 
 '''
 author @yvan
-tweet parser is a tool for making tweet filters
+tweet parser is a tool for making tweet filters to apply to streams of tweets
 '''
