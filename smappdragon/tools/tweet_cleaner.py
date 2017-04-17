@@ -41,7 +41,7 @@ can be used to clean tweets in a general catch all sense
 kept separate from the data sources bson_collection, etc
 to keep datasource implementation simple, its also not
 a core function, its really more of an extra, how you clean
-your data is up to you, we jsut offer this way. 
+your data is up to you, we just offer this way. 
 methods can get big and out of hand very quickly for cleaning
 data. so im putting this here in an attempt to keep other parts
 of the code from getting too crazy and unmaintainable.
