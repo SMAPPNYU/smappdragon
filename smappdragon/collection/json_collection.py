@@ -1,4 +1,6 @@
 import os
+import gzip
+from bz2 import BZ2File as bzopen
 
 from bson import json_util
 from smappdragon.tools.tweet_parser import TweetParser
@@ -23,7 +25,13 @@ class JsonCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-		json_handle = open(self.filepath, 'r', encoding='utf-8')
+		file_extension = self.filepath.split('.')[-1]
+		if file_extension == 'bz2':
+			json_handle = bzopen(self.filepath, 'r')
+		elif file_extension == 'gz':
+			json_handle = gzip.open(self.filepath,'r')
+		else:       
+			json_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(json_handle):
 			tweet = json_util.loads(tweet)
 			if self.limit != 0 and self.limit <= count:

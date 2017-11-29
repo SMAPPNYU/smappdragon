@@ -1,5 +1,7 @@
 import os
 import csv
+import gzip
+from bz2 import BZ2File as bzopen
 
 from smappdragon.tools.tweet_parser import TweetParser
 from smappdragon.collection.base_collection import BaseCollection
@@ -21,7 +23,13 @@ class CsvCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-		csv_handle = open(self.filepath, 'r', encoding='utf-8')
+		file_extension = self.filepath.split('.')[-1]
+		if file_extension == 'bz2':
+			csv_handle = bzopen(self.filepath, 'r')
+		elif file_extension == 'gz':
+			csv_handle = gzip.open(self.filepath,'r')
+		else:
+			csv_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(csv.DictReader(csv_handle)):
 			if self.limit < count+1 and self.limit != 0:
 				csv_handle.close()
