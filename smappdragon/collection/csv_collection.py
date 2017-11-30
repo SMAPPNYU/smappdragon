@@ -25,9 +25,9 @@ class CsvCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		file_extension = self.filepath.split('.')[-1]
 		if file_extension == 'bz2':
-			csv_handle = bzopen(self.filepath, 'r')
+			csv_handle = bzopen(self.filepath, 'r', encoding='utf-8')
 		elif file_extension == 'gz':
-			csv_handle = gzip.open(self.filepath,'r')
+			csv_handle = gzip.open(self.filepath,'r', encoding='utf-8')
 		else:
 			csv_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(csv.DictReader(csv_handle)):
