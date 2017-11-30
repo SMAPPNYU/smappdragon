@@ -27,9 +27,9 @@ class JsonCollection(BaseCollection):
 		tweet_parser = TweetParser()
 		file_extension = self.filepath.split('.')[-1]
 		if file_extension == 'bz2':
-			json_handle = bzopen(self.filepath, 'r')
+			json_handle = bzopen(self.filepath, 'r', encoding='utf-8')
 		elif file_extension == 'gz':
-			json_handle = gzip.open(self.filepath,'r')
+			json_handle = gzip.open(self.filepath,'r', encoding='utf-8')
 		else:       
 			json_handle = open(self.filepath, 'r', encoding='utf-8')
 		for count, tweet in enumerate(json_handle):
