@@ -1,6 +1,5 @@
 import csv
 import abc
-import json
 import sqlite3
 import operator
 import bz2
@@ -105,15 +104,15 @@ class BaseCollection(object):
     '''
     
     def dump_to_json(self, output_json, compression=None, mode='a'):
-        if compression=='bz2':
+        if compression == 'bz2':
             mode = binary_mode(mode)
             filehandle = bz2.open(output_json, mode)
-        elif compression=='gzip':
+        elif compression == 'gzip':
             mode = binary_mode(mode)
             filehandle = gzip.open(output_json, mode)
         else:
             filehandle = open(output_json, mode)
-
+            
         for tweet in self.get_iterator():
             filehandle.write(json_util.dumps(tweet)+'\n')
         filehandle.close()
@@ -123,14 +122,13 @@ class BaseCollection(object):
         to csv format with columns specified
         by input_fields
     '''
-    def dump_to_csv(self, output_csv, input_fields, write_header=True, top_level=False, mode='a',
-                   encoding='utf-8', compression=None):
-        if compression=='bz2':
-            filehandle = bzopen(self.filepath, mode)
-        elif compression=='gzip':
-            filehandle = gzip.open(self.filepath, mode)
+    def dump_to_csv(self, output_csv, input_fields, write_header=True, top_level=False, mode='a', encoding='utf-8', compression=None):
+        if compression == 'bz2':
+            filehandle = bzopen(output_csv, mode)
+        elif compression == 'gzip':
+            filehandle = gzip.open(output_csv, mode)
         else:
-            filehandle = open(output_json, mode)
+            filehandle = open(output_csv, mode)
             
         writer = csv.writer(filehandle)
         if write_header:
@@ -167,7 +165,7 @@ class BaseCollection(object):
 
         insert_list = []
         # batch insert if more than 10k tweets
-        for count,tweet in enumerate(self.get_iterator()):
+        for count, tweet in enumerate(self.get_iterator()):
             if top_level:
                 ret = list(zip(input_fields, [tweet.get(field) for field in input_fields]))
             else:

@@ -1,19 +1,18 @@
 import os
 import csv
 import gzip
-from bz2 import BZ2File as bzopen
+import bz2
 
 from smappdragon.tools.tweet_parser import TweetParser
-from smappdragon.collection.base_collection import BaseCollection
+from smappdragon.collection.base_collection import BaseCollection, binary_mode
 
 class CsvCollection(BaseCollection):
 	'''
 		method that tells us how to
 		create the CsvCollection object
 	'''
-	def __init__(self, filepath):
-		BaseCollection.__init__(self, compression=None, encoding='utf-8', on_error='throw', 
-                                mode='r', verbose=0)
+	def __init__(self, filepath, compression=None, encoding='utf-8', on_error='throw', mode='r', verbose=0):
+		BaseCollection.__init__(self)
 		self.filepath = filepath
 		self.compression = compression
 		self.encoding = encoding
