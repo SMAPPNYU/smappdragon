@@ -32,20 +32,17 @@ class JsonCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-<<<<<<< HEAD
 		if self.compression == 'bz2':
 			self.mode = binary_mode(self.mode)
 			json_handle = bz2.open(self.filepath, self.mode, encoding=self.encoding)
 		elif self.compression == 'gzip':
 			self.mode = binary_mode(self.mode)
 			json_handle = gzip.open(self.filepath, self.mode, encoding=self.encoding)
-=======
 		file_extension = self.filepath.split('.')[-1]
 		if file_extension == 'bz2':
 			json_handle = bzopen(self.filepath, 'r', encoding='utf-8')
 		elif file_extension == 'gz':
 			json_handle = gzip.open(self.filepath,'r', encoding='utf-8')
->>>>>>> f8e4d25f468a6a974d3d27f2ff40413918756b57
 		else:       
 			json_handle = open(self.filepath, self.mode, encoding=self.encoding)
 		bad_lines = 0
