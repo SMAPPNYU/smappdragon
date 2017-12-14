@@ -12,8 +12,14 @@ class CsvCollection(BaseCollection):
 		create the CsvCollection object
 	'''
 	def __init__(self, filepath):
-		BaseCollection.__init__(self)
+		BaseCollection.__init__(self, compression=None, encoding='utf-8', on_error='throw', 
+                                mode='r', verbose=0)
 		self.filepath = filepath
+		self.compression = compression
+		self.encoding = encoding
+		self.on_error = on_error
+		self.verbose = verbose
+		self.mode = mode
 		if not os.path.isfile(filepath):
 			raise IOError(filepath, 'CsvCollection could not find your file, it\'s mispelled or doesn\'t exist.')
 
@@ -23,13 +29,14 @@ class CsvCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
-		file_extension = self.filepath.split('.')[-1]
-		if file_extension == 'bz2':
-			csv_handle = bzopen(self.filepath, 'r')
-		elif file_extension == 'gz':
-			csv_handle = gzip.open(self.filepath,'r')
-		else:
-			csv_handle = open(self.filepath, 'r', encoding='utf-8')
+		if self.compression == 'bz2':
+			self.mode = binary_mode(self.mode)
+			csv_handle = bz2.open(self.filepath, self.mode, encoding=self.encoding)
+		elif self.compression == 'gzip':
+			self.mode = binary_mode(self.mode)
+			csv_handle = gzip.open(self.filepath, self.mode, encoding=self.encoding)
+		else:       
+			csv_handle = open(self.filepath, self.mode, encoding=self.encoding)
 		for count, tweet in enumerate(csv.DictReader(csv_handle)):
 			if self.limit < count+1 and self.limit != 0:
 				csv_handle.close()
