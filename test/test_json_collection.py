@@ -16,6 +16,7 @@ class TestJsonCollection(unittest.TestCase):
 		collectionone = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		full_collection_len = len(list(collectionone.get_iterator()))
 		def is_tweet_a_retweet(tweet):
+			print(tweet)
 			if 'retweeted' in tweet and tweet['retweeted']:
 				return True
 			else:
@@ -24,6 +25,7 @@ class TestJsonCollection(unittest.TestCase):
 
 		collectiontwo = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		def is_not_a_retweet(tweet):
+			print(tweet)
 			if 'retweeted' in tweet and tweet['retweeted']:
 				return False
 			else:
