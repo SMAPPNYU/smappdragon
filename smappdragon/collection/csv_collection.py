@@ -29,6 +29,7 @@ class CsvCollection(BaseCollection):
 	'''
 	def get_iterator(self):
 		tweet_parser = TweetParser()
+<<<<<<< HEAD
 		if self.compression == 'bz2':
 			self.mode = binary_mode(self.mode)
 			csv_handle = bz2.open(self.filepath, self.mode, encoding=self.encoding)
@@ -37,6 +38,15 @@ class CsvCollection(BaseCollection):
 			csv_handle = gzip.open(self.filepath, self.mode, encoding=self.encoding)
 		else:       
 			csv_handle = open(self.filepath, self.mode, encoding=self.encoding)
+=======
+		file_extension = self.filepath.split('.')[-1]
+		if file_extension == 'bz2':
+			csv_handle = bzopen(self.filepath, 'r', encoding='utf-8')
+		elif file_extension == 'gz':
+			csv_handle = gzip.open(self.filepath,'r', encoding='utf-8')
+		else:
+			csv_handle = open(self.filepath, 'r', encoding='utf-8')
+>>>>>>> f8e4d25f468a6a974d3d27f2ff40413918756b57
 		for count, tweet in enumerate(csv.DictReader(csv_handle)):
 			if self.limit < count+1 and self.limit != 0:
 				csv_handle.close()
