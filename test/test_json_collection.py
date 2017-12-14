@@ -8,12 +8,12 @@ from smappdragon.tools.tweet_parser import TweetParser
 class TestJsonCollection(unittest.TestCase):
 
 	def test_iterator_returns_tweets(self):
-		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'])
+		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		self.assertTrue(len(list(collection.get_iterator())) > 0)
 
 	# special test because custom logic is different on mongo
 	def test_json_collection_custom_filter_filters(self):
-		collectionone = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'])
+		collectionone = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		full_collection_len = len(list(collectionone.get_iterator()))
 		def is_tweet_a_retweet(tweet):
 			if 'retweeted' in tweet and tweet['retweeted']:
@@ -22,7 +22,7 @@ class TestJsonCollection(unittest.TestCase):
 				return False
 		num_retweets = len(list(collectionone.set_custom_filter(is_tweet_a_retweet).get_iterator()))
 
-		collectiontwo = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'])
+		collectiontwo = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		def is_not_a_retweet(tweet):
 			if 'retweeted' in tweet and tweet['retweeted']:
 				return False
@@ -35,7 +35,7 @@ class TestJsonCollection(unittest.TestCase):
 		
 	def test_strip_tweets_keeps_fields(self):
 		tweet_parser = TweetParser()
-		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'])
+		collection = JsonCollection(os.path.dirname(os.path.realpath(__file__)) +'/'+ config['json']['valid'], throw_error=0)
 		self.maxDiff = None
 		it = collection.strip_tweets(['id', 'entities.user_mentions', 'user.profile_image_url_https']).get_iterator()
 		def tweets_have_right_keys(iterator, fields):
