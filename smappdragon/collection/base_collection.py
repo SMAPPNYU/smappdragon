@@ -1,11 +1,25 @@
 import csv
 import abc
-import json
 import sqlite3
 import operator
+import bz2
+import gzip
 
 from bson import BSON, json_util
 from smappdragon.tools.tweet_parser import TweetParser
+
+def binary_mode(mode):
+    '''
+    Converts modes for compressed formats, like gzip and bz2.
+    '''
+    if mode == 'a':
+        mode = 'at'
+    elif mode == 'w':
+        mode = 'wt'
+    elif mode == 'r':
+        mode = 'rt'
+        
+    return mode
 
 class BaseCollection(object):
     __metaclass__ = abc.ABCMeta
@@ -88,9 +102,17 @@ class BaseCollection(object):
         to a json file, a json object on
         each line
     '''
-    def dump_to_json(self, output_json):
-        filehandle = open(output_json, 'a')
-
+    
+    def dump_to_json(self, output_json, compression=None, mode='a'):
+        if compression == 'bz2':
+            mode = binary_mode(mode)
+            filehandle = bz2.open(output_json, mode)
+        elif compression == 'gzip':
+            mode = binary_mode(mode)
+            filehandle = gzip.open(output_json, mode)
+        else:
+            filehandle = open(output_json, mode)
+            
         for tweet in self.get_iterator():
             filehandle.write(json_util.dumps(tweet)+'\n')
         filehandle.close()
@@ -100,8 +122,16 @@ class BaseCollection(object):
         to csv format with columns specified
         by input_fields
     '''
-    def dump_to_csv(self, output_csv, input_fields, write_header=True, top_level=False):
-        filehandle = open(output_csv, 'a', encoding='utf-8')
+    def dump_to_csv(self, output_csv, input_fields, write_header=True, top_level=False, mode='a', encoding='utf-8', compression=None):
+        if compression == 'bz2':
+            mode = binary_mode(mode)
+            filehandle = bz2.open(output_csv, mode)
+        elif compression == 'gzip':
+            mode = binary_mode(mode)
+            filehandle = gzip.open(output_csv, mode)
+        else:
+            filehandle = open(output_csv, mode)
+            
         writer = csv.writer(filehandle)
         if write_header:
             writer.writerow(input_fields)
@@ -137,7 +167,7 @@ class BaseCollection(object):
 
         insert_list = []
         # batch insert if more than 10k tweets
-        for count,tweet in enumerate(self.get_iterator()):
+        for count, tweet in enumerate(self.get_iterator()):
             if top_level:
                 ret = list(zip(input_fields, [tweet.get(field) for field in input_fields]))
             else:
